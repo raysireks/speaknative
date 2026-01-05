@@ -227,11 +227,14 @@ speaknative/
 
 ## Accessibility
 
-- Use semantic HTML elements
+- Target **WCAG 2.1 AA compliance** as the minimum standard
+- Use semantic HTML elements (e.g., `<nav>`, `<main>`, `<article>`, `<button>`)
 - Include proper ARIA labels where needed
-- Ensure keyboard navigation works
+- Provide alternative text for all images (`alt` attributes)
+- Ensure keyboard navigation works for all interactive elements
+- Implement proper focus management (visible focus indicators, logical tab order)
 - Test with screen readers when possible
-- Maintain sufficient color contrast
+- Maintain sufficient color contrast (minimum 4.5:1 for normal text, 3:1 for large text)
 
 ## Browser Compatibility
 
