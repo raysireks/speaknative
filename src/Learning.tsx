@@ -211,7 +211,7 @@ function Learning({ language, locale, onBack }: LearningProps) {
 
         {/* Footer */}
         <footer className="mt-8 text-center text-sm text-gray-600 sm:text-base dark:text-gray-400">
-          <p>Tap phrases to practice pronunciation</p>
+          <p>Practice and learn at your own pace</p>
         </footer>
       </div>
     </div>
