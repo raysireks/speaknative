@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to deploy (leave empty to use current branch)'
+        description: 'Branch to deploy (defaults to main if not specified)'
         required: false
         type: string
 
