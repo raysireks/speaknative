@@ -1,28 +1,28 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Landing from './Landing';
 
 describe('Landing', () => {
-  let mockOnStartLearning: (language: string, locale: string) => void;
-
-  beforeEach(() => {
-    mockOnStartLearning = vi.fn();
-  });
-
   it('renders the main heading', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
     expect(screen.getByText('SpeakNative')).toBeInTheDocument();
   });
 
+  it('renders app language selector', () => {
+    render(<Landing />);
+    expect(screen.getByLabelText('Switch to English')).toBeInTheDocument();
+    expect(screen.getByLabelText('Switch to Spanish')).toBeInTheDocument();
+  });
+
   it('renders language selection initially', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
     expect(screen.getByText('Select Your Language')).toBeInTheDocument();
-    expect(screen.getByText('English')).toBeInTheDocument();
-    expect(screen.getByText('Spanish')).toBeInTheDocument();
+    expect(screen.getByText('English', { selector: 'h3' })).toBeInTheDocument();
+    expect(screen.getByText('Spanish', { selector: 'h3' })).toBeInTheDocument();
   });
 
   it('shows locale selection after selecting English', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
     const englishButton = screen.getByLabelText('Select English');
     fireEvent.click(englishButton);
 
@@ -32,7 +32,7 @@ describe('Landing', () => {
   });
 
   it('shows locale selection after selecting Spanish', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
     const spanishButton = screen.getByLabelText('Select Spanish');
     fireEvent.click(spanishButton);
 
@@ -42,7 +42,7 @@ describe('Landing', () => {
   });
 
   it('shows selection complete screen after choosing language and locale', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
 
     // Select English
     const englishButton = screen.getByLabelText('Select English');
@@ -53,12 +53,12 @@ describe('Landing', () => {
     fireEvent.click(midwestButton);
 
     expect(screen.getByText('Selection Complete!')).toBeInTheDocument();
-    expect(screen.getByText(/english/i)).toBeInTheDocument();
+    expect(screen.getByText('Language:')).toBeInTheDocument();
     expect(screen.getByText('United States - Midwest')).toBeInTheDocument();
   });
 
   it('allows returning to language selection from locale selection', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
 
     // Select English
     const englishButton = screen.getByLabelText('Select English');
@@ -71,8 +71,23 @@ describe('Landing', () => {
     expect(screen.getByText('Select Your Language')).toBeInTheDocument();
   });
 
+  it('calls onStartFlashcards when Start Learning is clicked', () => {
+    const mockOnStartFlashcards = vi.fn();
+    render(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+
+    // Complete selection
+    fireEvent.click(screen.getByLabelText('Select Spanish'));
+    fireEvent.click(screen.getByLabelText('Select Colombia - Cartagena'));
+
+    // Click Start Learning
+    const startLearningButton = screen.getByLabelText('Start learning with flashcards');
+    fireEvent.click(startLearningButton);
+
+    expect(mockOnStartFlashcards).toHaveBeenCalledWith('co-cartagena');
+  });
+
   it('allows starting over from selection complete screen', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
+    render(<Landing />);
 
     // Complete selection
     fireEvent.click(screen.getByLabelText('Select Spanish'));
@@ -83,20 +98,5 @@ describe('Landing', () => {
     fireEvent.click(startOverButton);
 
     expect(screen.getByText('Select Your Language')).toBeInTheDocument();
-  });
-
-  it('calls onStartLearning when start learning button is clicked', () => {
-    render(<Landing onStartLearning={mockOnStartLearning} />);
-
-    // Select English and locale
-    fireEvent.click(screen.getByLabelText('Select English'));
-    fireEvent.click(screen.getByLabelText('Select United States - Midwest'));
-
-    // Click Start Learning
-    const startLearningButton = screen.getByLabelText('Start learning');
-    fireEvent.click(startLearningButton);
-
-    expect(mockOnStartLearning).toHaveBeenCalledTimes(1);
-    expect(mockOnStartLearning).toHaveBeenCalledWith('english', 'us-midwest');
   });
 });

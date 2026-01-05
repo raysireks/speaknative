@@ -1,33 +1,27 @@
 import { useState } from 'react';
 import Landing from './Landing';
-import Learning from './Learning';
-
-type Page = 'landing' | 'learning';
+import Flashcards from './Flashcards';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('landing');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('');
+  const [currentView, setCurrentView] = useState<'landing' | 'flashcards'>('landing');
   const [selectedLocale, setSelectedLocale] = useState<string>('');
 
-  const handleStartLearning = (language: string, locale: string) => {
-    setSelectedLanguage(language);
+  const handleStartFlashcards = (locale: string) => {
     setSelectedLocale(locale);
-    setCurrentPage('learning');
+    setCurrentView('flashcards');
   };
 
   const handleBackToLanding = () => {
-    setCurrentPage('landing');
+    setCurrentView('landing');
+    setSelectedLocale('');
   };
 
   return (
     <>
-      {currentPage === 'landing' && <Landing onStartLearning={handleStartLearning} />}
-      {currentPage === 'learning' && (
-        <Learning
-          language={selectedLanguage}
-          locale={selectedLocale}
-          onBack={handleBackToLanding}
-        />
+      {currentView === 'landing' ? (
+        <Landing onStartFlashcards={handleStartFlashcards} />
+      ) : (
+        <Flashcards locale={selectedLocale} onBack={handleBackToLanding} />
       )}
     </>
   );

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { appLanguages } from './data/appLanguages';
 
 type Language = 'english' | 'spanish' | null;
 type Locale = string | null;
@@ -6,10 +7,6 @@ type Locale = string | null;
 interface LocaleOption {
   value: string;
   label: string;
-}
-
-interface LandingProps {
-  onStartLearning: (language: string, locale: string) => void;
 }
 
 const localesByLanguage: Record<string, LocaleOption[]> = {
@@ -23,9 +20,14 @@ const localesByLanguage: Record<string, LocaleOption[]> = {
   ],
 };
 
-function Landing({ onStartLearning }: LandingProps) {
+interface LandingProps {
+  onStartFlashcards?: (locale: string) => void;
+}
+
+function Landing({ onStartFlashcards }: LandingProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(null);
   const [selectedLocale, setSelectedLocale] = useState<Locale>(null);
+  const [appLanguage, setAppLanguage] = useState('en');
 
   const handleLanguageSelect = (language: Language) => {
     setSelectedLanguage(language);
@@ -41,6 +43,12 @@ function Landing({ onStartLearning }: LandingProps) {
     setSelectedLocale(null);
   };
 
+  const handleStartLearning = () => {
+    if (selectedLocale && onStartFlashcards) {
+      onStartFlashcards(selectedLocale);
+    }
+  };
+
   const getLocales = () => {
     if (!selectedLanguage) return [];
     return localesByLanguage[selectedLanguage] || [];
@@ -49,8 +57,29 @@ function Landing({ onStartLearning }: LandingProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
       <div className="w-full max-w-7xl">
+        {/* App Language Selector */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+          <div className="flex gap-2 rounded-full bg-white p-2 shadow-lg dark:bg-gray-800">
+            {appLanguages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => setAppLanguage(lang.code)}
+                className={`rounded-full px-4 py-2 font-medium transition-all duration-300 ${
+                  appLanguage === lang.code
+                    ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white'
+                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                }`}
+                aria-label={`Switch to ${lang.name}`}
+              >
+                <span className="mr-2">{lang.flag}</span>
+                {lang.nativeName}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Header */}
-        <header className="mb-8 text-center sm:mb-12 lg:mb-16">
+        <header className="mt-16 mb-8 text-center sm:mt-0 sm:mb-12 lg:mb-16">
           <h1 className="mb-3 bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent sm:mb-4 sm:text-5xl md:text-6xl lg:text-7xl dark:from-violet-400 dark:to-purple-400">
             SpeakNative
           </h1>
@@ -162,19 +191,17 @@ function Landing({ onStartLearning }: LandingProps) {
                     </span>
                   </p>
                 </div>
-                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                <div className="flex flex-col gap-4 sm:flex-row">
                   <button
-                    onClick={() =>
-                      onStartLearning(selectedLanguage as string, selectedLocale as string)
-                    }
+                    onClick={handleStartLearning}
                     className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
-                    aria-label="Start learning"
+                    aria-label="Start learning with flashcards"
                   >
-                    Start Learning →
+                    Start Learning
                   </button>
                   <button
                     onClick={handleReset}
-                    className="transform rounded-full bg-white px-8 py-3 text-base font-semibold text-gray-700 shadow-lg transition duration-300 hover:scale-105 hover:bg-gray-50 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    className="rounded-full bg-gray-200 px-8 py-3 text-base font-semibold text-gray-800 shadow-lg transition duration-300 hover:bg-gray-300 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
                     aria-label="Start over"
                   >
                     Start Over
