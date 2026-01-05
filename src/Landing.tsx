@@ -8,6 +8,10 @@ interface LocaleOption {
   label: string;
 }
 
+interface LandingProps {
+  onStartLearning: (language: string, locale: string) => void;
+}
+
 const localesByLanguage: Record<string, LocaleOption[]> = {
   english: [
     { value: 'us-midwest', label: 'United States - Midwest' },
@@ -19,7 +23,7 @@ const localesByLanguage: Record<string, LocaleOption[]> = {
   ],
 };
 
-function Landing() {
+function Landing({ onStartLearning }: LandingProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(null);
   const [selectedLocale, setSelectedLocale] = useState<Locale>(null);
 
@@ -43,14 +47,14 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <header className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-400 dark:to-purple-400 bg-clip-text text-transparent mb-3 sm:mb-4">
+        <header className="mb-8 text-center sm:mb-12 lg:mb-16">
+          <h1 className="mb-3 bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent sm:mb-4 sm:text-5xl md:text-6xl lg:text-7xl dark:from-violet-400 dark:to-purple-400">
             SpeakNative
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+          <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
             Choose Your Language & Locale
           </p>
         </header>
@@ -60,24 +64,22 @@ function Landing() {
           {!selectedLanguage ? (
             /* Language Selection */
             <div className="animate-in fade-in duration-500">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-gray-800 dark:text-white mb-6 sm:mb-8 lg:mb-12">
+              <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800 sm:mb-8 sm:text-3xl md:text-4xl lg:mb-12 dark:text-white">
                 Select Your Language
               </h2>
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
+              <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
                 <button
                   onClick={() => handleLanguageSelect('english')}
-                  className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 p-8 sm:p-10 lg:p-12"
+                  className="group relative transform overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:rounded-3xl sm:p-10 lg:p-12 dark:bg-gray-800"
                   aria-label="Select English"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-blue-500/20 dark:to-indigo-500/20"></div>
                   <div className="relative z-10">
-                    <div className="text-5xl sm:text-6xl lg:text-7xl mb-4 sm:mb-6">
-                      🇺🇸
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+                    <div className="mb-4 text-5xl sm:mb-6 sm:text-6xl lg:text-7xl">🇺🇸</div>
+                    <h3 className="mb-2 text-2xl font-bold text-gray-800 sm:text-3xl lg:text-4xl dark:text-white">
                       English
                     </h3>
-                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
+                    <p className="text-base text-gray-600 sm:text-lg dark:text-gray-300">
                       Learn American English
                     </p>
                   </div>
@@ -85,18 +87,16 @@ function Landing() {
 
                 <button
                   onClick={() => handleLanguageSelect('spanish')}
-                  className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 p-8 sm:p-10 lg:p-12"
+                  className="group relative transform overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:rounded-3xl sm:p-10 lg:p-12 dark:bg-gray-800"
                   aria-label="Select Spanish"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-yellow-500/10 dark:from-red-500/20 dark:to-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-yellow-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-red-500/20 dark:to-yellow-500/20"></div>
                   <div className="relative z-10">
-                    <div className="text-5xl sm:text-6xl lg:text-7xl mb-4 sm:mb-6">
-                      🇨🇴
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+                    <div className="mb-4 text-5xl sm:mb-6 sm:text-6xl lg:text-7xl">🇨🇴</div>
+                    <h3 className="mb-2 text-2xl font-bold text-gray-800 sm:text-3xl lg:text-4xl dark:text-white">
                       Spanish
                     </h3>
-                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
+                    <p className="text-base text-gray-600 sm:text-lg dark:text-gray-300">
                       Learn Colombian Spanish
                     </p>
                   </div>
@@ -106,35 +106,33 @@ function Landing() {
           ) : !selectedLocale ? (
             /* Locale Selection */
             <div className="animate-in fade-in duration-500">
-              <div className="flex items-center justify-center gap-4 mb-6 sm:mb-8 lg:mb-12">
+              <div className="mb-6 flex items-center justify-center gap-4 sm:mb-8 lg:mb-12">
                 <button
                   onClick={handleReset}
-                  className="text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300 font-medium flex items-center gap-2 text-base sm:text-lg"
+                  className="flex items-center gap-2 text-base font-medium text-violet-600 hover:text-violet-700 sm:text-lg dark:text-violet-400 dark:hover:text-violet-300"
                   aria-label="Back to language selection"
                 >
                   <span className="text-xl sm:text-2xl">←</span> Back
                 </button>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-gray-800 dark:text-white mb-6 sm:mb-8 lg:mb-12">
+              <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800 sm:mb-8 sm:text-3xl md:text-4xl lg:mb-12 dark:text-white">
                 Select Your Locale
               </h2>
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
+              <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
                 {getLocales().map((locale) => (
                   <button
                     key={locale.value}
                     onClick={() => handleLocaleSelect(locale.value)}
-                    className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 p-8 sm:p-10 lg:p-12"
+                    className="group relative transform overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:rounded-3xl sm:p-10 lg:p-12 dark:bg-gray-800"
                     aria-label={`Select ${locale.label}`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-purple-500/20 dark:to-pink-500/20"></div>
                     <div className="relative z-10">
-                      <div className="text-4xl sm:text-5xl lg:text-6xl mb-4 sm:mb-6">
-                        📍
-                      </div>
-                      <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-2">
+                      <div className="mb-4 text-4xl sm:mb-6 sm:text-5xl lg:text-6xl">📍</div>
+                      <h3 className="mb-2 text-xl font-bold text-gray-800 sm:text-2xl lg:text-3xl dark:text-white">
                         {locale.label}
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+                      <p className="text-sm text-gray-600 sm:text-base dark:text-gray-300">
                         Regional dialect & culture
                       </p>
                     </div>
@@ -145,41 +143,50 @@ function Landing() {
           ) : (
             /* Selection Complete */
             <div className="animate-in fade-in duration-500">
-              <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl shadow-2xl p-8 sm:p-10 lg:p-16 text-center">
-                <div className="text-6xl sm:text-7xl lg:text-8xl mb-6 sm:mb-8">
-                  ✨
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6">
+              <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 text-center shadow-2xl sm:rounded-3xl sm:p-10 lg:p-16 dark:bg-gray-800">
+                <div className="mb-6 text-6xl sm:mb-8 sm:text-7xl lg:text-8xl">✨</div>
+                <h2 className="mb-4 text-3xl font-bold text-gray-800 sm:mb-6 sm:text-4xl md:text-5xl dark:text-white">
                   Selection Complete!
                 </h2>
-                <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+                <div className="mb-8 space-y-3 sm:mb-10 sm:space-y-4">
+                  <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
                     <span className="font-semibold">Language:</span>{' '}
-                    <span className="text-violet-600 dark:text-violet-400 capitalize">
+                    <span className="text-violet-600 capitalize dark:text-violet-400">
                       {selectedLanguage}
                     </span>
                   </p>
-                  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+                  <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
                     <span className="font-semibold">Locale:</span>{' '}
                     <span className="text-violet-600 dark:text-violet-400">
                       {getLocales().find((l) => l.value === selectedLocale)?.label}
                     </span>
                   </p>
                 </div>
-                <button
-                  onClick={handleReset}
-                  className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-3 sm:py-4 px-8 sm:px-12 rounded-full text-base sm:text-lg transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                  aria-label="Start over"
-                >
-                  Start Over
-                </button>
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                  <button
+                    onClick={() =>
+                      onStartLearning(selectedLanguage as string, selectedLocale as string)
+                    }
+                    className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
+                    aria-label="Start learning"
+                  >
+                    Start Learning →
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="transform rounded-full bg-white px-8 py-3 text-base font-semibold text-gray-700 shadow-lg transition duration-300 hover:scale-105 hover:bg-gray-50 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    aria-label="Start over"
+                  >
+                    Start Over
+                  </button>
+                </div>
               </div>
             </div>
           )}
         </main>
 
         {/* Footer */}
-        <footer className="text-center mt-8 sm:mt-12 lg:mt-16 text-sm sm:text-base text-gray-600 dark:text-gray-400">
+        <footer className="mt-8 text-center text-sm text-gray-600 sm:mt-12 sm:text-base lg:mt-16 dark:text-gray-400">
           <p>Master the language and culture of your chosen region</p>
         </footer>
       </div>
