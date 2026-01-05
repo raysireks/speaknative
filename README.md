@@ -91,13 +91,39 @@ The site will be available at: `https://<username>.github.io/speaknative/`
 
 You can also trigger a deployment manually from the Actions tab in your GitHub repository.
 
+### Testing Branches Before Merging
+
+To test a feature branch before merging to `main`:
+
+1. **Preview Build (Automated)**: Every pull request automatically runs a preview build workflow that:
+   - Runs linting and tests
+   - Creates a production build
+   - Saves the build artifact (available for 7 days)
+   - You can download the artifact and test locally
+
+2. **Manual Deployment to Pages**: You can manually deploy any branch to GitHub Pages:
+   - Go to the "Actions" tab in your repository
+   - Select the "Deploy to GitHub Pages" workflow
+   - Click "Run workflow"
+   - Choose the branch you want to deploy
+   - This temporarily deploys that branch to your GitHub Pages site
+   - **Note**: Only one branch can be live on Pages at a time, so this will replace the current deployment
+
+3. **Local Testing**: Test changes locally before deploying:
+   ```bash
+   npm run build
+   npm run preview
+   ```
+   This runs the production build on `http://localhost:4173/speaknative/`
+
 ## 📁 Project Structure
 
 ```
 speaknative/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml          # GitHub Actions deployment workflow
+│       ├── deploy.yml          # GitHub Actions deployment workflow
+│       └── preview.yml         # PR preview build workflow
 ├── public/                     # Static assets
 ├── src/
 │   ├── assets/                # Images, fonts, etc.
