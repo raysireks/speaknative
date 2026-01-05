@@ -1,9 +1,13 @@
 name: Deploy to GitHub Pages
 
+# This workflow deploys the application to GitHub Pages
+# Default deployment source: main branch (automatic on push)
+# Manual deployment: can specify any branch via workflow_dispatch
+
 on:
   push:
     branches:
-      - main
+      - main  # ← Primary deployment branch for GitHub Pages
   workflow_dispatch:
     inputs:
       branch:
