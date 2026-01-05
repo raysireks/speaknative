@@ -78,6 +78,10 @@ npm run format
 
 This application is configured for automatic deployment to GitHub Pages using GitHub Actions.
 
+### 📌 **Deployment Source Branch: `main`**
+
+**The live GitHub Pages site is automatically deployed from the `main` branch.** Every push to `main` triggers an automated deployment workflow.
+
 ### Setup
 
 1. Go to your repository settings on GitHub
@@ -89,7 +93,10 @@ The site will be available at: `https://<username>.github.io/speaknative/`
 
 ### Manual Deployment
 
-You can also trigger a deployment manually from the Actions tab in your GitHub repository.
+You can also trigger a deployment manually from the Actions tab in your GitHub repository:
+- By default, manual deployments also use the `main` branch
+- You can optionally specify a different branch to deploy temporarily for testing
+- **Note**: Only one branch can be live on GitHub Pages at a time
 
 ### Testing Branches Before Merging
 
