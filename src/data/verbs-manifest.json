@@ -373,7 +373,7 @@
                 "present": {
                     "1s": "go",
                     "2s": "go",
-                    "3s": "gos",
+                    "3s": "goes",
                     "1p": "go",
                     "3p": "go"
                 },
@@ -404,48 +404,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "podo",
-                    "2s": "podes",
-                    "3s": "pode",
+                    "1s": "puedo",
+                    "2s": "puedes",
+                    "3s": "puede",
                     "1p": "podemos",
-                    "3p": "poden"
+                    "3p": "pueden"
                 },
                 "past": {
-                    "1s": "podí",
-                    "2s": "podiste",
-                    "3s": "podió",
-                    "1p": "podimos",
-                    "3p": "podieron"
+                    "1s": "pude",
+                    "2s": "pudiste",
+                    "3s": "pudo",
+                    "1p": "pudimos",
+                    "3p": "pudieron"
                 },
                 "future": {
-                    "1s": "poderé",
-                    "2s": "poderás",
-                    "3s": "poderá",
-                    "1p": "poderemos",
-                    "3p": "poderán"
+                    "1s": "podré",
+                    "2s": "podrás",
+                    "3s": "podrá",
+                    "1p": "podremos",
+                    "3p": "podrán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "podo",
-                    "2s": "podes",
-                    "3s": "pode",
+                    "1s": "puedo",
+                    "2s": "puedes",
+                    "3s": "puede",
                     "1p": "podemos",
-                    "3p": "poden"
+                    "3p": "pueden"
                 },
                 "past": {
-                    "1s": "podí",
-                    "2s": "podiste",
-                    "3s": "podió",
-                    "1p": "podimos",
-                    "3p": "podieron"
+                    "1s": "pude",
+                    "2s": "pudiste",
+                    "3s": "pudo",
+                    "1p": "pudimos",
+                    "3p": "pudieron"
                 },
                 "future": {
-                    "1s": "poderé",
-                    "2s": "poderás",
-                    "3s": "poderá",
-                    "1p": "poderemos",
-                    "3p": "poderán"
+                    "1s": "podré",
+                    "2s": "podrás",
+                    "3s": "podrá",
+                    "1p": "podremos",
+                    "3p": "podrán"
                 }
             },
             "us-ca": {
@@ -483,48 +483,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "deco",
-                    "2s": "deces",
-                    "3s": "dece",
+                    "1s": "digo",
+                    "2s": "dices",
+                    "3s": "dice",
                     "1p": "decimos",
-                    "3p": "decen"
+                    "3p": "dicen"
                 },
                 "past": {
-                    "1s": "decí",
-                    "2s": "deciste",
-                    "3s": "deció",
-                    "1p": "decimos",
-                    "3p": "decieron"
+                    "1s": "dije",
+                    "2s": "dijiste",
+                    "3s": "dijo",
+                    "1p": "dijimos",
+                    "3p": "dijeron"
                 },
                 "future": {
-                    "1s": "deciré",
-                    "2s": "decirás",
-                    "3s": "decirá",
-                    "1p": "deciremos",
-                    "3p": "decirán"
+                    "1s": "diré",
+                    "2s": "dirás",
+                    "3s": "dirá",
+                    "1p": "diremos",
+                    "3p": "dirán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "deco",
-                    "2s": "deces",
-                    "3s": "dece",
+                    "1s": "digo",
+                    "2s": "dices",
+                    "3s": "dice",
                     "1p": "decimos",
-                    "3p": "decen"
+                    "3p": "dicen"
                 },
                 "past": {
-                    "1s": "decí",
-                    "2s": "deciste",
-                    "3s": "deció",
-                    "1p": "decimos",
-                    "3p": "decieron"
+                    "1s": "dije",
+                    "2s": "dijiste",
+                    "3s": "dijo",
+                    "1p": "dijimos",
+                    "3p": "dijeron"
                 },
                 "future": {
-                    "1s": "deciré",
-                    "2s": "decirás",
-                    "3s": "decirá",
-                    "1p": "deciremos",
-                    "3p": "decirán"
+                    "1s": "diré",
+                    "2s": "dirás",
+                    "3s": "dirá",
+                    "1p": "diremos",
+                    "3p": "dirán"
                 }
             },
             "us-ca": {
@@ -536,11 +536,11 @@
                     "3p": "say"
                 },
                 "past": {
-                    "1s": "sayed",
-                    "2s": "sayed",
-                    "3s": "sayed",
-                    "1p": "sayed",
-                    "3p": "sayed"
+                    "1s": "said",
+                    "2s": "said",
+                    "3s": "said",
+                    "1p": "said",
+                    "3p": "said"
                 },
                 "future": {
                     "1s": "will say",
@@ -562,48 +562,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "veno",
-                    "2s": "venes",
-                    "3s": "vene",
+                    "1s": "vengo",
+                    "2s": "vienes",
+                    "3s": "viene",
                     "1p": "venimos",
-                    "3p": "venen"
+                    "3p": "vienen"
                 },
                 "past": {
-                    "1s": "vení",
-                    "2s": "veniste",
-                    "3s": "venió",
-                    "1p": "venimos",
-                    "3p": "venieron"
+                    "1s": "vine",
+                    "2s": "viniste",
+                    "3s": "vino",
+                    "1p": "vinimos",
+                    "3p": "vinieron"
                 },
                 "future": {
-                    "1s": "veniré",
-                    "2s": "venirás",
-                    "3s": "venirá",
-                    "1p": "veniremos",
-                    "3p": "venirán"
+                    "1s": "vendré",
+                    "2s": "vendrás",
+                    "3s": "vendrá",
+                    "1p": "vendremos",
+                    "3p": "vendrán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "veno",
-                    "2s": "venes",
-                    "3s": "vene",
+                    "1s": "vengo",
+                    "2s": "vienes",
+                    "3s": "viene",
                     "1p": "venimos",
-                    "3p": "venen"
+                    "3p": "vienen"
                 },
                 "past": {
-                    "1s": "vení",
-                    "2s": "veniste",
-                    "3s": "venió",
-                    "1p": "venimos",
-                    "3p": "venieron"
+                    "1s": "vine",
+                    "2s": "viniste",
+                    "3s": "vino",
+                    "1p": "vinimos",
+                    "3p": "vinieron"
                 },
                 "future": {
-                    "1s": "veniré",
-                    "2s": "venirás",
-                    "3s": "venirá",
-                    "1p": "veniremos",
-                    "3p": "venirán"
+                    "1s": "vendré",
+                    "2s": "vendrás",
+                    "3s": "vendrá",
+                    "1p": "vendremos",
+                    "3p": "vendrán"
                 }
             },
             "us-ca": {
@@ -615,11 +615,11 @@
                     "3p": "come"
                 },
                 "past": {
-                    "1s": "comed",
-                    "2s": "comed",
-                    "3s": "comed",
-                    "1p": "comed",
-                    "3p": "comed"
+                    "1s": "came",
+                    "2s": "came",
+                    "3s": "came",
+                    "1p": "came",
+                    "3p": "came"
                 },
                 "future": {
                     "1s": "will come",
@@ -641,16 +641,16 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "vo",
+                    "1s": "veo",
                     "2s": "ves",
                     "3s": "ve",
                     "1p": "vemos",
                     "3p": "ven"
                 },
                 "past": {
-                    "1s": "ví",
+                    "1s": "vi",
                     "2s": "viste",
-                    "3s": "vió",
+                    "3s": "vio",
                     "1p": "vimos",
                     "3p": "vieron"
                 },
@@ -664,16 +664,16 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "vo",
+                    "1s": "veo",
                     "2s": "ves",
                     "3s": "ve",
                     "1p": "vemos",
                     "3p": "ven"
                 },
                 "past": {
-                    "1s": "ví",
+                    "1s": "vi",
                     "2s": "viste",
-                    "3s": "vió",
+                    "3s": "vio",
                     "1p": "vimos",
                     "3p": "vieron"
                 },
@@ -685,29 +685,29 @@
                     "3p": "verán"
                 }
             },
-                                "us-ca": {
-                                    "present": {
-                                        "1s": "see",
-                                        "2s": "see",
-                                        "3s": "sees",
-                                        "1p": "see",
-                                        "3p": "see"
-                                    },
-                                    "past": {
-                                        "1s": "saw",
-                                        "2s": "saw",
-                                        "3s": "saw",
-                                        "1p": "saw",
-                                        "3p": "saw"
-                                    },
-                                    "future": {
-                                        "1s": "will see",
-                                        "2s": "will see",
-                                        "3s": "will see",
-                                        "1p": "will see",
-                                        "3p": "will see"
-                                    }
-                                }
+            "us-ca": {
+                "present": {
+                    "1s": "see",
+                    "2s": "see",
+                    "3s": "sees",
+                    "1p": "see",
+                    "3p": "see"
+                },
+                "past": {
+                    "1s": "saw",
+                    "2s": "saw",
+                    "3s": "saw",
+                    "1p": "saw",
+                    "3p": "saw"
+                },
+                "future": {
+                    "1s": "will see",
+                    "2s": "will see",
+                    "3s": "will see",
+                    "1p": "will see",
+                    "3p": "will see"
+                }
+            }
         }
     },
     {
@@ -720,18 +720,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "do",
+                    "1s": "doy",
                     "2s": "das",
                     "3s": "da",
                     "1p": "damos",
                     "3p": "dan"
                 },
                 "past": {
-                    "1s": "dé",
-                    "2s": "daste",
-                    "3s": "dó",
-                    "1p": "damos",
-                    "3p": "daron"
+                    "1s": "di",
+                    "2s": "diste",
+                    "3s": "dio",
+                    "1p": "dimos",
+                    "3p": "dieron"
                 },
                 "future": {
                     "1s": "daré",
@@ -743,18 +743,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "do",
+                    "1s": "doy",
                     "2s": "das",
                     "3s": "da",
                     "1p": "damos",
                     "3p": "dan"
                 },
                 "past": {
-                    "1s": "dé",
-                    "2s": "daste",
-                    "3s": "dó",
-                    "1p": "damos",
-                    "3p": "daron"
+                    "1s": "di",
+                    "2s": "diste",
+                    "3s": "dio",
+                    "1p": "dimos",
+                    "3p": "dieron"
                 },
                 "future": {
                     "1s": "daré",
@@ -773,11 +773,11 @@
                     "3p": "give"
                 },
                 "past": {
-                    "1s": "gived",
-                    "2s": "gived",
-                    "3s": "gived",
-                    "1p": "gived",
-                    "3p": "gived"
+                    "1s": "gave",
+                    "2s": "gave",
+                    "3s": "gave",
+                    "1p": "gave",
+                    "3p": "gave"
                 },
                 "future": {
                     "1s": "will give",
@@ -799,48 +799,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "sabo",
+                    "1s": "sé",
                     "2s": "sabes",
                     "3s": "sabe",
                     "1p": "sabemos",
                     "3p": "saben"
                 },
                 "past": {
-                    "1s": "sabí",
-                    "2s": "sabiste",
-                    "3s": "sabió",
-                    "1p": "sabimos",
-                    "3p": "sabieron"
+                    "1s": "supe",
+                    "2s": "supiste",
+                    "3s": "supo",
+                    "1p": "supimos",
+                    "3p": "supieron"
                 },
                 "future": {
-                    "1s": "saberé",
-                    "2s": "saberás",
-                    "3s": "saberá",
-                    "1p": "saberemos",
-                    "3p": "saberán"
+                    "1s": "sabré",
+                    "2s": "sabrás",
+                    "3s": "sabrá",
+                    "1p": "sabremos",
+                    "3p": "sabrán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "sabo",
+                    "1s": "sé",
                     "2s": "sabes",
                     "3s": "sabe",
                     "1p": "sabemos",
                     "3p": "saben"
                 },
                 "past": {
-                    "1s": "sabí",
-                    "2s": "sabiste",
-                    "3s": "sabió",
-                    "1p": "sabimos",
-                    "3p": "sabieron"
+                    "1s": "supe",
+                    "2s": "supiste",
+                    "3s": "supo",
+                    "1p": "supimos",
+                    "3p": "supieron"
                 },
                 "future": {
-                    "1s": "saberé",
-                    "2s": "saberás",
-                    "3s": "saberá",
-                    "1p": "saberemos",
-                    "3p": "saberán"
+                    "1s": "sabré",
+                    "2s": "sabrás",
+                    "3s": "sabrá",
+                    "1p": "sabremos",
+                    "3p": "sabrán"
                 }
             },
             "us-ca": {
@@ -878,48 +878,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "quero",
-                    "2s": "queres",
-                    "3s": "quere",
+                    "1s": "quiero",
+                    "2s": "quieres",
+                    "3s": "quiere",
                     "1p": "queremos",
-                    "3p": "queren"
+                    "3p": "quieren"
                 },
                 "past": {
-                    "1s": "querí",
-                    "2s": "queriste",
-                    "3s": "querió",
-                    "1p": "querimos",
-                    "3p": "querieron"
+                    "1s": "quise",
+                    "2s": "quisiste",
+                    "3s": "quiso",
+                    "1p": "quisimos",
+                    "3p": "quisieron"
                 },
                 "future": {
-                    "1s": "quereré",
-                    "2s": "quererás",
-                    "3s": "quererá",
-                    "1p": "quereremos",
-                    "3p": "quererán"
+                    "1s": "querré",
+                    "2s": "querrás",
+                    "3s": "querrá",
+                    "1p": "querremos",
+                    "3p": "querrán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "quero",
-                    "2s": "queres",
-                    "3s": "quere",
+                    "1s": "quiero",
+                    "2s": "quieres",
+                    "3s": "quiere",
                     "1p": "queremos",
-                    "3p": "queren"
+                    "3p": "quieren"
                 },
                 "past": {
-                    "1s": "querí",
-                    "2s": "queriste",
-                    "3s": "querió",
-                    "1p": "querimos",
-                    "3p": "querieron"
+                    "1s": "quise",
+                    "2s": "quisiste",
+                    "3s": "quiso",
+                    "1p": "quisimos",
+                    "3p": "quisieron"
                 },
                 "future": {
-                    "1s": "quereré",
-                    "2s": "quererás",
-                    "3s": "quererá",
-                    "1p": "quereremos",
-                    "3p": "quererán"
+                    "1s": "querré",
+                    "2s": "querrás",
+                    "3s": "querrá",
+                    "1p": "querremos",
+                    "3p": "querrán"
                 }
             },
             "us-ca": {
@@ -964,7 +964,7 @@
                     "3p": "llegan"
                 },
                 "past": {
-                    "1s": "llegé",
+                    "1s": "llegué",
                     "2s": "llegaste",
                     "3s": "llegó",
                     "1p": "llegamos",
@@ -987,7 +987,7 @@
                     "3p": "llegan"
                 },
                 "past": {
-                    "1s": "llegé",
+                    "1s": "llegué",
                     "2s": "llegaste",
                     "3s": "llegó",
                     "1p": "llegamos",
@@ -1194,48 +1194,48 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "pono",
+                    "1s": "pongo",
                     "2s": "pones",
                     "3s": "pone",
                     "1p": "ponemos",
                     "3p": "ponen"
                 },
                 "past": {
-                    "1s": "poní",
-                    "2s": "poniste",
-                    "3s": "ponió",
-                    "1p": "ponimos",
-                    "3p": "ponieron"
+                    "1s": "puse",
+                    "2s": "pusiste",
+                    "3s": "puso",
+                    "1p": "pusimos",
+                    "3p": "pusieron"
                 },
                 "future": {
-                    "1s": "poneré",
-                    "2s": "ponerás",
-                    "3s": "ponerá",
-                    "1p": "poneremos",
-                    "3p": "ponerán"
+                    "1s": "pondré",
+                    "2s": "pondrás",
+                    "3s": "pondrá",
+                    "1p": "pondremos",
+                    "3p": "pondrán"
                 }
             },
             "co-medellin": {
                 "present": {
-                    "1s": "pono",
+                    "1s": "pongo",
                     "2s": "pones",
                     "3s": "pone",
                     "1p": "ponemos",
                     "3p": "ponen"
                 },
                 "past": {
-                    "1s": "poní",
-                    "2s": "poniste",
-                    "3s": "ponió",
-                    "1p": "ponimos",
-                    "3p": "ponieron"
+                    "1s": "puse",
+                    "2s": "pusiste",
+                    "3s": "puso",
+                    "1p": "pusimos",
+                    "3p": "pusieron"
                 },
                 "future": {
-                    "1s": "poneré",
-                    "2s": "ponerás",
-                    "3s": "ponerá",
-                    "1p": "poneremos",
-                    "3p": "ponerán"
+                    "1s": "pondré",
+                    "2s": "pondrás",
+                    "3s": "pondrá",
+                    "1p": "pondremos",
+                    "3p": "pondrán"
                 }
             },
             "us-ca": {
@@ -1247,11 +1247,11 @@
                     "3p": "put"
                 },
                 "past": {
-                    "1s": "puted",
-                    "2s": "puted",
-                    "3s": "puted",
-                    "1p": "puted",
-                    "3p": "puted"
+                    "1s": "put",
+                    "2s": "put",
+                    "3s": "put",
+                    "1p": "put",
+                    "3p": "put"
                 },
                 "future": {
                     "1s": "will put",
@@ -1273,7 +1273,7 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "pareco",
+                    "1s": "parezco",
                     "2s": "pareces",
                     "3s": "parece",
                     "1p": "parecemos",
@@ -1296,7 +1296,7 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "pareco",
+                    "1s": "parezco",
                     "2s": "pareces",
                     "3s": "parece",
                     "1p": "parecemos",
@@ -1440,9 +1440,9 @@
                 "past": {
                     "1s": "creí",
                     "2s": "creiste",
-                    "3s": "creió",
+                    "3s": "creyó",
                     "1p": "creimos",
-                    "3p": "creieron"
+                    "3p": "creyeron"
                 },
                 "future": {
                     "1s": "creeré",
@@ -1463,9 +1463,9 @@
                 "past": {
                     "1s": "creí",
                     "2s": "creiste",
-                    "3s": "creió",
+                    "3s": "creyó",
                     "1p": "creimos",
-                    "3p": "creieron"
+                    "3p": "creyeron"
                 },
                 "future": {
                     "1s": "creeré",
@@ -1721,11 +1721,11 @@
                     "3p": "leave"
                 },
                 "past": {
-                    "1s": "leaved",
-                    "2s": "leaved",
-                    "3s": "leaved",
-                    "1p": "leaved",
-                    "3p": "leaved"
+                    "1s": "left",
+                    "2s": "left",
+                    "3s": "left",
+                    "1p": "left",
+                    "3p": "left"
                 },
                 "future": {
                     "1s": "will leave",
@@ -1747,18 +1747,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "seguo",
-                    "2s": "segues",
-                    "3s": "segue",
+                    "1s": "sigo",
+                    "2s": "sigues",
+                    "3s": "sigue",
                     "1p": "seguimos",
-                    "3p": "seguen"
+                    "3p": "siguen"
                 },
                 "past": {
                     "1s": "seguí",
                     "2s": "seguiste",
-                    "3s": "seguió",
+                    "3s": "siguió",
                     "1p": "seguimos",
-                    "3p": "seguieron"
+                    "3p": "siguieron"
                 },
                 "future": {
                     "1s": "seguiré",
@@ -1770,18 +1770,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "seguo",
-                    "2s": "segues",
-                    "3s": "segue",
+                    "1s": "sigo",
+                    "2s": "sigues",
+                    "3s": "sigue",
                     "1p": "seguimos",
-                    "3p": "seguen"
+                    "3p": "siguen"
                 },
                 "past": {
                     "1s": "seguí",
                     "2s": "seguiste",
-                    "3s": "seguió",
+                    "3s": "siguió",
                     "1p": "seguimos",
-                    "3p": "seguieron"
+                    "3p": "siguieron"
                 },
                 "future": {
                     "1s": "seguiré",
@@ -1826,11 +1826,11 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "encontro",
-                    "2s": "encontras",
-                    "3s": "encontra",
+                    "1s": "encuentro",
+                    "2s": "encuentras",
+                    "3s": "encuentra",
                     "1p": "encontramos",
-                    "3p": "encontran"
+                    "3p": "encuentran"
                 },
                 "past": {
                     "1s": "encontré",
@@ -1849,11 +1849,11 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "encontro",
-                    "2s": "encontras",
-                    "3s": "encontra",
+                    "1s": "encuentro",
+                    "2s": "encuentras",
+                    "3s": "encuentra",
                     "1p": "encontramos",
-                    "3p": "encontran"
+                    "3p": "encuentran"
                 },
                 "past": {
                     "1s": "encontré",
@@ -1870,29 +1870,29 @@
                     "3p": "encontrarán"
                 }
             },
-                                "us-ca": {
-                                    "present": {
-                                        "1s": "find",
-                                        "2s": "find",
-                                        "3s": "finds",
-                                        "1p": "find",
-                                        "3p": "find"
-                                    },
-                                    "past": {
-                                        "1s": "found",
-                                        "2s": "found",
-                                        "3s": "found",
-                                        "1p": "found",
-                                        "3p": "found"
-                                    },
-                                    "future": {
-                                        "1s": "will find",
-                                        "2s": "will find",
+            "us-ca": {
+                "present": {
+                    "1s": "find",
+                    "2s": "find",
+                    "3s": "finds",
+                    "1p": "find",
+                    "3p": "find"
+                },
+                "past": {
+                    "1s": "found",
+                    "2s": "found",
+                    "3s": "found",
+                    "1p": "found",
+                    "3p": "found"
+                },
+                "future": {
+                    "1s": "will find",
+                    "2s": "will find",
                     "3s": "will find",
-                                        "1p": "will find",
-                                        "3p": "will find"
-                                    }
-                                }
+                    "1p": "will find",
+                    "3p": "will find"
+                }
+            }
         }
     },
     {
@@ -2111,7 +2111,7 @@
                 "present": {
                     "1s": "try",
                     "2s": "try",
-                    "3s": "trys",
+                    "3s": "tries",
                     "1p": "try",
                     "3p": "try"
                 },
@@ -2221,11 +2221,11 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "conto",
-                    "2s": "contas",
-                    "3s": "conta",
+                    "1s": "cuento",
+                    "2s": "cuentas",
+                    "3s": "cuenta",
                     "1p": "contamos",
-                    "3p": "contan"
+                    "3p": "cuentan"
                 },
                 "past": {
                     "1s": "conté",
@@ -2244,11 +2244,11 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "conto",
-                    "2s": "contas",
-                    "3s": "conta",
+                    "1s": "cuento",
+                    "2s": "cuentas",
+                    "3s": "cuenta",
                     "1p": "contamos",
-                    "3p": "contan"
+                    "3p": "cuentan"
                 },
                 "past": {
                     "1s": "conté",
@@ -2274,11 +2274,11 @@
                     "3p": "count/tell"
                 },
                 "past": {
-                    "1s": "count/telled",
-                    "2s": "count/telled",
-                    "3s": "count/telled",
-                    "1p": "count/telled",
-                    "3p": "count/telled"
+                    "1s": "told",
+                    "2s": "told",
+                    "3s": "told",
+                    "1p": "told",
+                    "3p": "told"
                 },
                 "future": {
                     "1s": "will count/tell",
@@ -2300,14 +2300,14 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "empezo",
-                    "2s": "empezas",
-                    "3s": "empeza",
+                    "1s": "empiezo",
+                    "2s": "empiezas",
+                    "3s": "empieza",
                     "1p": "empezamos",
-                    "3p": "empezan"
+                    "3p": "empiezan"
                 },
                 "past": {
-                    "1s": "empezé",
+                    "1s": "empecé",
                     "2s": "empezaste",
                     "3s": "empezó",
                     "1p": "empezamos",
@@ -2323,14 +2323,14 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "empezo",
-                    "2s": "empezas",
-                    "3s": "empeza",
+                    "1s": "empiezo",
+                    "2s": "empiezas",
+                    "3s": "empieza",
                     "1p": "empezamos",
-                    "3p": "empezan"
+                    "3p": "empiezan"
                 },
                 "past": {
-                    "1s": "empezé",
+                    "1s": "empecé",
                     "2s": "empezaste",
                     "3s": "empezó",
                     "1p": "empezamos",
@@ -2465,7 +2465,7 @@
                     "3p": "buscan"
                 },
                 "past": {
-                    "1s": "buscé",
+                    "1s": "busqué",
                     "2s": "buscaste",
                     "3s": "buscó",
                     "1p": "buscamos",
@@ -2488,7 +2488,7 @@
                     "3p": "buscan"
                 },
                 "past": {
-                    "1s": "buscé",
+                    "1s": "busqué",
                     "2s": "buscaste",
                     "3s": "buscó",
                     "1p": "buscamos",
@@ -2827,11 +2827,11 @@
                     "3p": "write"
                 },
                 "past": {
-                    "1s": "writed",
-                    "2s": "writed",
-                    "3s": "writed",
-                    "1p": "writed",
-                    "3p": "writed"
+                    "1s": "wrote",
+                    "2s": "wrote",
+                    "3s": "wrote",
+                    "1p": "wrote",
+                    "3p": "wrote"
                 },
                 "future": {
                     "1s": "will write",
@@ -2853,11 +2853,11 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "perdo",
-                    "2s": "perdes",
-                    "3s": "perde",
+                    "1s": "pierdo",
+                    "2s": "pierdes",
+                    "3s": "pierde",
                     "1p": "perdemos",
-                    "3p": "perden"
+                    "3p": "pierden"
                 },
                 "past": {
                     "1s": "perdí",
@@ -2876,11 +2876,11 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "perdo",
-                    "2s": "perdes",
-                    "3s": "perde",
+                    "1s": "pierdo",
+                    "2s": "pierdes",
+                    "3s": "pierde",
                     "1p": "perdemos",
-                    "3p": "perden"
+                    "3p": "pierden"
                 },
                 "past": {
                     "1s": "perdí",
@@ -2932,18 +2932,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "produco",
+                    "1s": "produzco",
                     "2s": "produces",
                     "3s": "produce",
                     "1p": "producimos",
                     "3p": "producen"
                 },
                 "past": {
-                    "1s": "producí",
-                    "2s": "produciste",
-                    "3s": "produció",
-                    "1p": "producimos",
-                    "3p": "producieron"
+                    "1s": "produje",
+                    "2s": "produjiste",
+                    "3s": "produjo",
+                    "1p": "produjimos",
+                    "3p": "produjeron"
                 },
                 "future": {
                     "1s": "produciré",
@@ -2955,18 +2955,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "produco",
+                    "1s": "produzco",
                     "2s": "produces",
                     "3s": "produce",
                     "1p": "producimos",
                     "3p": "producen"
                 },
                 "past": {
-                    "1s": "producí",
-                    "2s": "produciste",
-                    "3s": "produció",
-                    "1p": "producimos",
-                    "3p": "producieron"
+                    "1s": "produje",
+                    "2s": "produjiste",
+                    "3s": "produjo",
+                    "1p": "produjimos",
+                    "3p": "produjeron"
                 },
                 "future": {
                     "1s": "produciré",
@@ -3090,11 +3090,11 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "entendo",
-                    "2s": "entendes",
-                    "3s": "entende",
+                    "1s": "entiendo",
+                    "2s": "entiendes",
+                    "3s": "entiende",
                     "1p": "entendemos",
-                    "3p": "entenden"
+                    "3p": "entienden"
                 },
                 "past": {
                     "1s": "entendí",
@@ -3113,11 +3113,11 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "entendo",
-                    "2s": "entendes",
-                    "3s": "entende",
+                    "1s": "entiendo",
+                    "2s": "entiendes",
+                    "3s": "entiende",
                     "1p": "entendemos",
-                    "3p": "entenden"
+                    "3p": "entienden"
                 },
                 "past": {
                     "1s": "entendí",
@@ -3143,11 +3143,11 @@
                     "3p": "understand"
                 },
                 "past": {
-                    "1s": "understanded",
-                    "2s": "understanded",
-                    "3s": "understanded",
-                    "1p": "understanded",
-                    "3p": "understanded"
+                    "1s": "understood",
+                    "2s": "understood",
+                    "3s": "understood",
+                    "1p": "understood",
+                    "3p": "understood"
                 },
                 "future": {
                     "1s": "will understand",
@@ -3169,18 +3169,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "pedo",
-                    "2s": "pedes",
-                    "3s": "pede",
+                    "1s": "pido",
+                    "2s": "pides",
+                    "3s": "pide",
                     "1p": "pedimos",
-                    "3p": "peden"
+                    "3p": "piden"
                 },
                 "past": {
                     "1s": "pedí",
                     "2s": "pediste",
-                    "3s": "pedió",
+                    "3s": "pidió",
                     "1p": "pedimos",
-                    "3p": "pedieron"
+                    "3p": "pidieron"
                 },
                 "future": {
                     "1s": "pediré",
@@ -3192,18 +3192,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "pedo",
-                    "2s": "pedes",
-                    "3s": "pede",
+                    "1s": "pido",
+                    "2s": "pides",
+                    "3s": "pide",
                     "1p": "pedimos",
-                    "3p": "peden"
+                    "3p": "piden"
                 },
                 "past": {
                     "1s": "pedí",
                     "2s": "pediste",
-                    "3s": "pedió",
+                    "3s": "pidió",
                     "1p": "pedimos",
-                    "3p": "pedieron"
+                    "3p": "pidieron"
                 },
                 "future": {
                     "1s": "pediré",
@@ -3217,16 +3217,16 @@
                 "present": {
                     "1s": "ask for",
                     "2s": "ask for",
-                    "3s": "ask fors",
+                    "3s": "asks for",
                     "1p": "ask for",
                     "3p": "ask for"
                 },
                 "past": {
-                    "1s": "ask fored",
-                    "2s": "ask fored",
-                    "3s": "ask fored",
-                    "1p": "ask fored",
-                    "3p": "ask fored"
+                    "1s": "asked for",
+                    "2s": "asked for",
+                    "3s": "asked for",
+                    "1p": "asked for",
+                    "3p": "asked for"
                 },
                 "future": {
                     "1s": "will ask for",
@@ -3327,11 +3327,11 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "recordo",
-                    "2s": "recordas",
-                    "3s": "recorda",
+                    "1s": "recuerdo",
+                    "2s": "recuerdas",
+                    "3s": "recuerda",
                     "1p": "recordamos",
-                    "3p": "recordan"
+                    "3p": "recuerdan"
                 },
                 "past": {
                     "1s": "recordé",
@@ -3350,11 +3350,11 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "recordo",
-                    "2s": "recordas",
-                    "3s": "recorda",
+                    "1s": "recuerdo",
+                    "2s": "recuerdas",
+                    "3s": "recuerda",
                     "1p": "recordamos",
-                    "3p": "recordan"
+                    "3p": "recuerdan"
                 },
                 "past": {
                     "1s": "recordé",
@@ -3564,7 +3564,7 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "apareco",
+                    "1s": "aparezco",
                     "2s": "apareces",
                     "3s": "aparece",
                     "1p": "aparecemos",
@@ -3587,7 +3587,7 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "apareco",
+                    "1s": "aparezco",
                     "2s": "apareces",
                     "3s": "aparece",
                     "1p": "aparecemos",
@@ -3643,18 +3643,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "conseguo",
-                    "2s": "consegues",
-                    "3s": "consegue",
+                    "1s": "consigo",
+                    "2s": "consigues",
+                    "3s": "consigue",
                     "1p": "conseguimos",
-                    "3p": "conseguen"
+                    "3p": "consiguen"
                 },
                 "past": {
                     "1s": "conseguí",
                     "2s": "conseguiste",
-                    "3s": "conseguió",
+                    "3s": "consiguió",
                     "1p": "conseguimos",
-                    "3p": "conseguieron"
+                    "3p": "consiguieron"
                 },
                 "future": {
                     "1s": "conseguiré",
@@ -3666,18 +3666,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "conseguo",
-                    "2s": "consegues",
-                    "3s": "consegue",
+                    "1s": "consigo",
+                    "2s": "consigues",
+                    "3s": "consigue",
                     "1p": "conseguimos",
-                    "3p": "conseguen"
+                    "3p": "consiguen"
                 },
                 "past": {
                     "1s": "conseguí",
                     "2s": "conseguiste",
-                    "3s": "conseguió",
+                    "3s": "consiguió",
                     "1p": "conseguimos",
-                    "3p": "conseguieron"
+                    "3p": "consiguieron"
                 },
                 "future": {
                     "1s": "conseguiré",
@@ -3696,11 +3696,11 @@
                     "3p": "get"
                 },
                 "past": {
-                    "1s": "geted",
-                    "2s": "geted",
-                    "3s": "geted",
-                    "1p": "geted",
-                    "3p": "geted"
+                    "1s": "got",
+                    "2s": "got",
+                    "3s": "got",
+                    "1p": "got",
+                    "3p": "got"
                 },
                 "future": {
                     "1s": "will get",
@@ -3722,14 +3722,14 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "comenzo",
-                    "2s": "comenzas",
-                    "3s": "comenza",
+                    "1s": "comienzo",
+                    "2s": "comienzas",
+                    "3s": "comienza",
                     "1p": "comenzamos",
-                    "3p": "comenzan"
+                    "3p": "comienzan"
                 },
                 "past": {
-                    "1s": "comenzé",
+                    "1s": "comencé",
                     "2s": "comenzaste",
                     "3s": "comenzó",
                     "1p": "comenzamos",
@@ -3745,14 +3745,14 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "comenzo",
-                    "2s": "comenzas",
-                    "3s": "comenza",
+                    "1s": "comienzo",
+                    "2s": "comienzas",
+                    "3s": "comienza",
                     "1p": "comenzamos",
-                    "3p": "comenzan"
+                    "3p": "comienzan"
                 },
                 "past": {
-                    "1s": "comenzé",
+                    "1s": "comencé",
                     "2s": "comenzaste",
                     "3s": "comenzó",
                     "1p": "comenzamos",
@@ -3775,11 +3775,11 @@
                     "3p": "begin"
                 },
                 "past": {
-                    "1s": "began",
-                    "2s": "began",
-                    "3s": "began",
-                    "1p": "began",
-                    "3p": "began"
+                    "1s": "begined",
+                    "2s": "begined",
+                    "3s": "begined",
+                    "1p": "begined",
+                    "3p": "begined"
                 },
                 "future": {
                     "1s": "will begin",
@@ -3801,18 +3801,18 @@
         "data": {
             "co-cartagena": {
                 "present": {
-                    "1s": "servo",
-                    "2s": "serves",
-                    "3s": "serve",
+                    "1s": "sirvo",
+                    "2s": "sirves",
+                    "3s": "sirve",
                     "1p": "servimos",
-                    "3p": "serven"
+                    "3p": "sirven"
                 },
                 "past": {
                     "1s": "serví",
                     "2s": "serviste",
-                    "3s": "servió",
+                    "3s": "sirvió",
                     "1p": "servimos",
-                    "3p": "servieron"
+                    "3p": "sirvieron"
                 },
                 "future": {
                     "1s": "serviré",
@@ -3824,18 +3824,18 @@
             },
             "co-medellin": {
                 "present": {
-                    "1s": "servo",
-                    "2s": "serves",
-                    "3s": "serve",
+                    "1s": "sirvo",
+                    "2s": "sirves",
+                    "3s": "sirve",
                     "1p": "servimos",
-                    "3p": "serven"
+                    "3p": "sirven"
                 },
                 "past": {
                     "1s": "serví",
                     "2s": "serviste",
-                    "3s": "servió",
+                    "3s": "sirvió",
                     "1p": "servimos",
-                    "3p": "servieron"
+                    "3p": "sirvieron"
                 },
                 "future": {
                     "1s": "serviré",
@@ -3887,7 +3887,7 @@
                     "3p": "sacan"
                 },
                 "past": {
-                    "1s": "sacé",
+                    "1s": "saqué",
                     "2s": "sacaste",
                     "3s": "sacó",
                     "1p": "sacamos",
@@ -3910,7 +3910,7 @@
                     "3p": "sacan"
                 },
                 "past": {
-                    "1s": "sacé",
+                    "1s": "saqué",
                     "2s": "sacaste",
                     "3s": "sacó",
                     "1p": "sacamos",
@@ -3928,16 +3928,16 @@
                 "present": {
                     "1s": "take out",
                     "2s": "take out",
-                    "3s": "take outs",
+                    "3s": "takes out",
                     "1p": "take out",
                     "3p": "take out"
                 },
                 "past": {
-                    "1s": "take outed",
-                    "2s": "take outed",
-                    "3s": "take outed",
-                    "1p": "take outed",
-                    "3p": "take outed"
+                    "1s": "took out",
+                    "2s": "took out",
+                    "3s": "took out",
+                    "1p": "took out",
+                    "3p": "took out"
                 },
                 "future": {
                     "1s": "will take out",
