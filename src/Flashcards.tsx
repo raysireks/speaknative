@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useLocale } from './context/LocaleContext';
 import { getPhrasesForLocale, type Phrase } from './data/phrase-adapter';
 import type { SupportedLocale } from './data/locales';
+import { shuffleArray } from './utils/array';
 
 interface FlashcardsProps {
   targetLocale: string;  // The locale to learn (e.g., 'co-cartagena' or 'us-eastcoast')
@@ -51,7 +52,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
       }
     });
 
-    return items;
+    return shuffleArray(items);
   }, [targetLocale, userLangLocale]);
 
   const handleStart = () => {

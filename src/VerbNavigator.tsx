@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getVerbsForLocale } from './data/verb-adapter';
+import { shuffleArray } from './utils/array';
 
 import { getText } from './data/locales';
 import type { SupportedLocale } from './data/locales';
@@ -34,7 +35,7 @@ const TENSE_KEYS: Record<Tense, string> = {
 export const VerbNavigator: React.FC<VerbNavigatorProps> = ({ sourceLocale, targetLocale, userLocale, onBack }) => {
     // Derived state for verbs (avoids sync setState in useEffect)
     const verbs = React.useMemo(() => {
-        return getVerbsForLocale(sourceLocale, targetLocale);
+        return shuffleArray(getVerbsForLocale(sourceLocale, targetLocale));
     }, [sourceLocale, targetLocale]);
 
     const [currentIndex, setCurrentIndex] = useState(0);
