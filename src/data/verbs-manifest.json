@@ -2116,11 +2116,11 @@
                     "3p": "try"
                 },
                 "past": {
-                    "1s": "tryed",
-                    "2s": "tryed",
-                    "3s": "tryed",
-                    "1p": "tryed",
-                    "3p": "tryed"
+                    "1s": "tried",
+                    "2s": "tried",
+                    "3s": "tried",
+                    "1p": "tried",
+                    "3p": "tried"
                 },
                 "future": {
                     "1s": "will try",
