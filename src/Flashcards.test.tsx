@@ -15,7 +15,7 @@ describe('Flashcards', () => {
     mockOnBack.mockClear();
     // Mock shuffleArray to return items as-is for deterministic testing
     vi.mock('./utils/array', () => ({
-      shuffleArray: (arr: any[]) => arr,
+      shuffleArray: (arr: unknown[]) => arr,
     }));
   });
 
