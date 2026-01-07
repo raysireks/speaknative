@@ -19,28 +19,6 @@ export function ReviewCard({
     regionName,
     userLocale
 }: ReviewCardProps) {
-    // Common Reveal Button
-    const RevealButton = () => (
-        <button
-            onClick={onReveal}
-            className="w-full rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
-        >
-            Reveal {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
-        </button>
-    );
-
-    // Common Audio Button
-    const AudioButton = () => (
-        <button
-            onClick={onPlayAudio}
-            className="flex items-center gap-2 rounded-full bg-violet-100 px-6 py-3 font-semibold text-violet-600 transition duration-300 hover:bg-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
-            aria-label="Play audio"
-        >
-            <span className="text-2xl">🔊</span>
-            Listen
-        </button>
-    );
-
     if (mode === 'audio-only') {
         return (
             <div className="flex-1 flex flex-col items-center justify-center text-center">
@@ -56,7 +34,12 @@ export function ReviewCard({
                         <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
                             Listen and guess the phrase
                         </p>
-                        <RevealButton />
+                        <button
+                            onClick={onReveal}
+                            className="w-full rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
+                        >
+                            Reveal {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
+                        </button>
                     </div>
                 ) : (
                     <div className="animate-in fade-in zoom-in duration-300 space-y-8 w-full">
@@ -115,7 +98,12 @@ export function ReviewCard({
 
             {!revealed ? (
                 <div className="w-full">
-                    <RevealButton />
+                    <button
+                        onClick={onReveal}
+                        className="w-full rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
+                    >
+                        Reveal {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
+                    </button>
                 </div>
             ) : (
                 <div className="animate-in fade-in zoom-in duration-300 space-y-8 w-full">
@@ -145,7 +133,14 @@ export function ReviewCard({
 
                     {/* Audio Button (Revealed) */}
                     <div className="flex justify-center pt-4">
-                        <AudioButton />
+                        <button
+                            onClick={onPlayAudio}
+                            className="flex items-center gap-2 rounded-full bg-violet-100 px-6 py-3 font-semibold text-violet-600 transition duration-300 hover:bg-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
+                            aria-label="Play audio"
+                        >
+                            <span className="text-2xl">🔊</span>
+                            Listen
+                        </button>
                     </div>
                 </div>
             )}
