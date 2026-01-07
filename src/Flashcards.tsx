@@ -10,7 +10,7 @@ interface FlashcardsProps {
   onBack: () => void;
 }
 
-interface FlashcardItem {
+export interface FlashcardItem {
   id: number;
   phraseToLearn: string;      // The phrase in the language being learned
   phraseInUserLang: string;   // The phrase in user's native language

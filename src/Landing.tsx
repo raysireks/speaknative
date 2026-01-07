@@ -47,9 +47,10 @@ const LANGUAGE_INFO: Record<string, { name: string; flag: string; nativeName: st
 interface LandingProps {
   onStartFlashcards?: (targetLocale: string, userLocale: SupportedLocale) => void;
   onStartVerbs?: (targetLocale: string, userLocale: SupportedLocale) => void;
+  onStartReview?: (targetLocale: string, userLocale: SupportedLocale) => void;
 }
 
-function Landing({ onStartFlashcards, onStartVerbs }: LandingProps) {
+function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProps) {
   const { locale: userLocale, setLocale: setUserLocale, t } = useLocale();
   const [selectedTargetLocale, setSelectedTargetLocale] = useState<Locale>(null);
 
@@ -200,6 +201,15 @@ function Landing({ onStartFlashcards, onStartVerbs }: LandingProps) {
                     aria-label="Start over"
                   >
                     {t('Change Region')}
+                  </button>
+                </div>
+
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={() => onStartReview?.(selectedTargetLocale, userLocale)}
+                    className="transform rounded-full border-2 border-violet-500 bg-transparent px-8 py-3 text-base font-semibold text-violet-600 transition duration-300 hover:scale-105 hover:bg-violet-50 dark:border-violet-400 dark:text-violet-400 dark:hover:bg-violet-900/20 sm:px-12 sm:py-4 sm:text-lg"
+                  >
+                    📝 {t('Review Phrases')}
                   </button>
                 </div>
               </div>
