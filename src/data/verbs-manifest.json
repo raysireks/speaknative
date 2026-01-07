@@ -1161,25 +1161,25 @@
             },
             "us-ca": {
                 "present": {
-                    "1s": "owe/must",
-                    "2s": "owe/must",
-                    "3s": "owe/musts",
-                    "1p": "owe/must",
-                    "3p": "owe/must"
+                    "1s": "owe",
+                    "2s": "owe",
+                    "3s": "owes",
+                    "1p": "owe",
+                    "3p": "owe"
                 },
                 "past": {
-                    "1s": "owe/musted",
-                    "2s": "owe/musted",
-                    "3s": "owe/musted",
-                    "1p": "owe/musted",
-                    "3p": "owe/musted"
+                    "1s": "owed",
+                    "2s": "owed",
+                    "3s": "owed",
+                    "1p": "owed",
+                    "3p": "owed"
                 },
                 "future": {
-                    "1s": "will owe/must",
-                    "2s": "will owe/must",
-                    "3s": "will owe/must",
-                    "1p": "will owe/must",
-                    "3p": "will owe/must"
+                    "1s": "will owe",
+                    "2s": "will owe",
+                    "3s": "will owe",
+                    "1p": "will owe",
+                    "3p": "will owe"
                 }
             }
         }
@@ -1563,11 +1563,11 @@
                     "3p": "speak"
                 },
                 "past": {
-                    "1s": "speaked",
-                    "2s": "speaked",
-                    "3s": "speaked",
-                    "1p": "speaked",
-                    "3p": "speaked"
+                    "1s": "spoke",
+                    "2s": "spoke",
+                    "3s": "spoke",
+                    "1p": "spoke",
+                    "3p": "spoke"
                 },
                 "future": {
                     "1s": "will speak",
@@ -1637,16 +1637,16 @@
                 "present": {
                     "1s": "carry",
                     "2s": "carry",
-                    "3s": "carrys",
+                    "3s": "carries",
                     "1p": "carry",
                     "3p": "carry"
                 },
                 "past": {
-                    "1s": "carryed",
-                    "2s": "carryed",
-                    "3s": "carryed",
-                    "1p": "carryed",
-                    "3p": "carryed"
+                    "1s": "carried",
+                    "2s": "carried",
+                    "3s": "carried",
+                    "1p": "carried",
+                    "3p": "carried"
                 },
                 "future": {
                     "1s": "will carry",
@@ -2267,11 +2267,11 @@
             },
             "us-ca": {
                 "present": {
-                    "1s": "count/tell",
-                    "2s": "count/tell",
-                    "3s": "count/tells",
-                    "1p": "count/tell",
-                    "3p": "count/tell"
+                    "1s": "tell",
+                    "2s": "tell",
+                    "3s": "tells",
+                    "1p": "tell",
+                    "3p": "tell"
                 },
                 "past": {
                     "1s": "told",
@@ -2281,11 +2281,11 @@
                     "3p": "told"
                 },
                 "future": {
-                    "1s": "will count/tell",
-                    "2s": "will count/tell",
-                    "3s": "will count/tell",
-                    "1p": "will count/tell",
-                    "3p": "will count/tell"
+                    "1s": "will tell",
+                    "2s": "will tell",
+                    "3s": "will tell",
+                    "1p": "will tell",
+                    "3p": "will tell"
                 }
             }
         }
@@ -3064,11 +3064,11 @@
                     "3p": "occur"
                 },
                 "past": {
-                    "1s": "occured",
-                    "2s": "occured",
-                    "3s": "occured",
-                    "1p": "occured",
-                    "3p": "occured"
+                    "1s": "occurred",
+                    "2s": "occurred",
+                    "3s": "occurred",
+                    "1p": "occurred",
+                    "3p": "occurred"
                 },
                 "future": {
                     "1s": "will occur",
@@ -3454,7 +3454,7 @@
                 "present": {
                     "1s": "finish",
                     "2s": "finish",
-                    "3s": "finishs",
+                    "3s": "finishes",
                     "1p": "finish",
                     "3p": "finish"
                 },
@@ -3775,11 +3775,11 @@
                     "3p": "begin"
                 },
                 "past": {
-                    "1s": "begined",
-                    "2s": "begined",
-                    "3s": "begined",
-                    "1p": "begined",
-                    "3p": "begined"
+                    "1s": "began",
+                    "2s": "began",
+                    "3s": "began",
+                    "1p": "began",
+                    "3p": "began"
                 },
                 "future": {
                     "1s": "will begin",
