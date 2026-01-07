@@ -112,12 +112,6 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
           <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl transition-all duration-500 group-hover:bg-blue-500/30" />
           <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl transition-all duration-500 group-hover:bg-purple-500/30" />
 
-          {/* Verb Infinitive */}
-          <div className="mb-8 text-center">
-            <h2 className="mb-2 text-4xl font-bold text-white drop-shadow-sm">{verb.infinitive}</h2>
-            <p className="text-lg text-white/60">{verb.translation}</p>
-          </div>
-
           {/* Conjugation Display */}
           <div className="mb-6 rounded-2xl border border-white/5 bg-black/20 p-6 text-center backdrop-blur-sm">
             <div className="mb-2 text-xs font-bold tracking-widest text-white/40 uppercase">
@@ -125,6 +119,12 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
             </div>
             <div className="mb-1 text-3xl font-medium text-white">{targetConjugation}</div>
             <div className="text-base text-white/50">{nativeConjugation}</div>
+          </div>
+
+          {/* Verb Infinitive */}
+          <div className="mb-8 text-center">
+            <h2 className="mb-2 text-4xl font-bold text-white drop-shadow-sm">{verb.infinitive}</h2>
+            <p className="text-lg text-white/60">{verb.translation}</p>
           </div>
 
           {/* Controls */}
