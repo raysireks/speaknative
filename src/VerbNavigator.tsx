@@ -57,6 +57,30 @@ function getSubjectPronoun(person: Person, locale: string): string {
   return ENGLISH_SUBJECTS[person];
 }
 
+// Sample sentence patterns for common verbs
+const VERB_SENTENCE_PATTERNS: Record<string, { es: string; en: string }> = {
+  ser: { es: '{subject} {verb} feliz', en: '{subject} {verb} happy' },
+  estar: { es: '{subject} {verb} aquí', en: '{subject} {verb} here' },
+  tener: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
+  hacer: { es: '{subject} {verb} eso', en: '{subject} {verb} that' },
+  ir: { es: '{subject} {verb} allá', en: '{subject} {verb} there' },
+  dar: { es: '{subject} {verb} regalos', en: '{subject} {verb} gifts' },
+  decir: { es: '{subject} {verb} hola', en: '{subject} {verb} hello' },
+  poder: { es: '{subject} {verb} ayudar', en: '{subject} {verb} help' },
+  saber: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
+  querer: { es: '{subject} {verb} aprender', en: '{subject} {verb} to learn' },
+  ver: { es: '{subject} {verb} televisión', en: '{subject} {verb} TV' },
+  llegar: { es: '{subject} {verb} tarde', en: '{subject} {verb} late' },
+  pasar: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
+  deber: { es: '{subject} {verb} estudiar', en: '{subject} {verb} study' },
+  poner: { es: '{subject} {verb} la mesa', en: '{subject} {verb} the table' },
+  venir: { es: '{subject} {verb} pronto', en: '{subject} {verb} soon' },
+  sentir: { es: '{subject} {verb} alegría', en: '{subject} {verb} joy' },
+  salir: { es: '{subject} {verb} temprano', en: '{subject} {verb} early' },
+  hablar: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
+  encontrar: { es: '{subject} {verb} algo', en: '{subject} {verb} something' },
+};
+
 // Simple sample sentences for common verbs
 function getSampleSentence(
   verbId: string,
@@ -65,32 +89,10 @@ function getSampleSentence(
   locale: string
 ): string {
   const isSpanish = locale.startsWith('co-') || locale === 'es';
-
-  // Common sentence patterns by verb
-  const patterns: Record<string, { es: string; en: string }> = {
-    ser: { es: '{subject} {verb} feliz', en: '{subject} {verb} happy' },
-    estar: { es: '{subject} {verb} aquí', en: '{subject} {verb} here' },
-    tener: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
-    hacer: { es: '{subject} {verb} eso', en: '{subject} {verb} that' },
-    ir: { es: '{subject} {verb} allá', en: '{subject} {verb} there' },
-    dar: { es: '{subject} {verb} regalos', en: '{subject} {verb} gifts' },
-    decir: { es: '{subject} {verb} hola', en: '{subject} {verb} hello' },
-    poder: { es: '{subject} {verb} ayudar', en: '{subject} {verb} help' },
-    saber: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
-    querer: { es: '{subject} {verb} aprender', en: '{subject} {verb} to learn' },
-    ver: { es: '{subject} {verb} televisión', en: '{subject} {verb} TV' },
-    llegar: { es: '{subject} {verb} tarde', en: '{subject} {verb} late' },
-    pasar: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
-    deber: { es: '{subject} {verb} estudiar', en: '{subject} {verb} study' },
-    poner: { es: '{subject} {verb} la mesa', en: '{subject} {verb} the table' },
-    venir: { es: '{subject} {verb} pronto', en: '{subject} {verb} soon' },
-    sentir: { es: '{subject} {verb} alegría', en: '{subject} {verb} joy' },
-    salir: { es: '{subject} {verb} temprano', en: '{subject} {verb} early' },
-    hablar: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
-    encontrar: { es: '{subject} {verb} algo', en: '{subject} {verb} something' },
+  const pattern = VERB_SENTENCE_PATTERNS[verbId] || {
+    es: '{subject} {verb}',
+    en: '{subject} {verb}',
   };
-
-  const pattern = patterns[verbId] || { es: '{subject} {verb}', en: '{subject} {verb}' };
   const template = isSpanish ? pattern.es : pattern.en;
 
   return template.replace('{subject}', subject).replace('{verb}', conjugation);
