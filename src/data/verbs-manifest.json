@@ -2906,11 +2906,11 @@
                     "3p": "lose"
                 },
                 "past": {
-                    "1s": "losed",
-                    "2s": "losed",
-                    "3s": "losed",
-                    "1p": "losed",
-                    "3p": "losed"
+                    "1s": "lost",
+                    "2s": "lost",
+                    "3s": "lost",
+                    "1p": "lost",
+                    "3p": "lost"
                 },
                 "future": {
                     "1s": "will lose",
