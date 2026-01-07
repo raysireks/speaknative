@@ -274,7 +274,7 @@
         "slang": {
             "co-cartagena": "Fuimonos",
             "co-medellin": "Arranquemos",
-            "us-ca": "Lets dip"
+            "us-ca": "Let's dip"
         }
     },
     {
@@ -501,7 +501,7 @@
         "common": {
             "co-cartagena": "Quiero ir a casa",
             "co-medellin": "Quiero ir a casa",
-            "us-ca": "Want to go home"
+            "us-ca": "I want to go home"
         },
         "slang": {
             "co-medellin": "Quiero ir al rancho",
@@ -513,7 +513,7 @@
         "common": {
             "co-cartagena": "Necesito un médico",
             "co-medellin": "Necesito un médico",
-            "us-ca": "Need a doctor"
+            "us-ca": "I need a doctor"
         },
         "slang": {}
     },
@@ -612,7 +612,7 @@
         "common": {
             "co-cartagena": "Tomemos una foto",
             "co-medellin": "Tomemos una foto",
-            "us-ca": "Take a picture"
+            "us-ca": "Let's take a picture"
         },
         "slang": {
             "us-ca": "Take a flick"
@@ -621,7 +621,7 @@
     {
         "id": 55,
         "common": {
-            "co-cartagena": "Llama me pronto",
+            "co-cartagena": "Llámame pronto",
             "co-medellin": "Llámeme pronto",
             "us-ca": "Call me soon"
         },
@@ -668,7 +668,7 @@
         "common": {
             "co-cartagena": "Ten buen viaje",
             "co-medellin": "Tenga buen viaje",
-            "us-ca": "Have safe trip"
+            "us-ca": "Have a safe trip"
         },
         "slang": {}
     },
@@ -744,7 +744,7 @@
         "common": {
             "co-cartagena": "Quiero aprender a hablar",
             "co-medellin": "Quiero aprender a hablar",
-            "us-ca": "Want to learn to talk"
+            "us-ca": "I want to learn to talk"
         },
         "slang": {}
     },
@@ -762,7 +762,7 @@
         "common": {
             "co-cartagena": "Tengo que irme ya",
             "co-medellin": "Tengo que irme ya",
-            "us-ca": "Gotta get going now"
+            "us-ca": "I gotta get going now"
         },
         "slang": {
             "co-medellin": "Me abro",
@@ -792,7 +792,7 @@
         "common": {
             "co-cartagena": "Quiero tomar un taxi",
             "co-medellin": "Quiero coger un taxi",
-            "us-ca": "Wanna take a cab"
+            "us-ca": "I wanna take a cab"
         },
         "slang": {
             "us-ca": "Get an Uber"
@@ -850,7 +850,7 @@
         "common": {
             "co-cartagena": "¿Me prestas tu cargador?",
             "co-medellin": "¿Me presta su cargador?",
-            "us-ca": "Can borrow your charger?"
+            "us-ca": "Can I borrow your charger?"
         },
         "slang": {}
     },
@@ -859,7 +859,7 @@
         "common": {
             "co-cartagena": "Quiero comprar una sim",
             "co-medellin": "Quiero comprar una sim",
-            "us-ca": "Want to buy sim"
+            "us-ca": "I want to buy a SIM"
         },
         "slang": {}
     },
@@ -970,8 +970,8 @@
     {
         "id": 90,
         "common": {
-            "co-cartagena": "Hasta la proxima vez",
-            "co-medellin": "Hasta la proxima vez",
+            "co-cartagena": "Hasta la próxima vez",
+            "co-medellin": "Hasta la próxima vez",
             "us-ca": "Until the next time"
         },
         "slang": {
@@ -984,14 +984,14 @@
         "common": {
             "co-cartagena": "Espero verte muy pronto",
             "co-medellin": "Espero verte muy pronto",
-            "us-ca": "Hope see you soon"
+            "us-ca": "Hope to see you soon"
         },
         "slang": {}
     },
     {
         "id": 92,
         "common": {
-            "co-cartagena": "Cuidate mucho mi amigo",
+            "co-cartagena": "Cuídate mucho mi amigo",
             "co-medellin": "Cuídese mucho mi amigo",
             "us-ca": "Take care my friend"
         },
@@ -1005,7 +1005,7 @@
         "common": {
             "co-cartagena": "No olvides llamar hoy",
             "co-medellin": "No olvide llamar hoy",
-            "us-ca": "Don't forget call today"
+            "us-ca": "Don't forget to call today"
         },
         "slang": {}
     },
@@ -1052,8 +1052,8 @@
     {
         "id": 98,
         "common": {
-            "co-cartagena": "Que tengas buen dia",
-            "co-medellin": "Que tenga buen dia",
+            "co-cartagena": "Qué tengas buen día",
+            "co-medellin": "Qué tenga buen día",
             "us-ca": "Have a good day"
         },
         "slang": {
