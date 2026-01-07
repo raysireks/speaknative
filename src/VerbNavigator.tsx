@@ -31,6 +31,71 @@ const TENSE_KEYS: Record<Tense, string> = {
   future: 'Future',
 };
 
+// Subject pronouns for Spanish
+const SPANISH_SUBJECTS: Record<Person, string> = {
+  '1s': 'Yo',
+  '2s': 'Tú',
+  '3s': 'Él/Ella',
+  '1p': 'Nosotros',
+  '3p': 'Ellos',
+};
+
+// Subject pronouns for English
+const ENGLISH_SUBJECTS: Record<Person, string> = {
+  '1s': 'I',
+  '2s': 'You',
+  '3s': 'He/She',
+  '1p': 'We',
+  '3p': 'They',
+};
+
+// Helper to get subject pronoun based on locale
+function getSubjectPronoun(person: Person, locale: string): string {
+  if (locale.startsWith('co-') || locale === 'es') {
+    return SPANISH_SUBJECTS[person];
+  }
+  return ENGLISH_SUBJECTS[person];
+}
+
+// Simple sample sentences for common verbs
+function getSampleSentence(
+  verbId: string,
+  conjugation: string,
+  subject: string,
+  locale: string
+): string {
+  const isSpanish = locale.startsWith('co-') || locale === 'es';
+
+  // Common sentence patterns by verb
+  const patterns: Record<string, { es: string; en: string }> = {
+    ser: { es: '{subject} {verb} feliz', en: '{subject} {verb} happy' },
+    estar: { es: '{subject} {verb} aquí', en: '{subject} {verb} here' },
+    tener: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
+    hacer: { es: '{subject} {verb} eso', en: '{subject} {verb} that' },
+    ir: { es: '{subject} {verb} allá', en: '{subject} {verb} there' },
+    dar: { es: '{subject} {verb} regalos', en: '{subject} {verb} gifts' },
+    decir: { es: '{subject} {verb} hola', en: '{subject} {verb} hello' },
+    poder: { es: '{subject} {verb} ayudar', en: '{subject} {verb} help' },
+    saber: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
+    querer: { es: '{subject} {verb} aprender', en: '{subject} {verb} to learn' },
+    ver: { es: '{subject} {verb} televisión', en: '{subject} {verb} TV' },
+    llegar: { es: '{subject} {verb} tarde', en: '{subject} {verb} late' },
+    pasar: { es: '{subject} {verb} tiempo', en: '{subject} {verb} time' },
+    deber: { es: '{subject} {verb} estudiar', en: '{subject} {verb} study' },
+    poner: { es: '{subject} {verb} la mesa', en: '{subject} {verb} the table' },
+    venir: { es: '{subject} {verb} pronto', en: '{subject} {verb} soon' },
+    sentir: { es: '{subject} {verb} alegría', en: '{subject} {verb} joy' },
+    salir: { es: '{subject} {verb} temprano', en: '{subject} {verb} early' },
+    hablar: { es: '{subject} {verb} español', en: '{subject} {verb} Spanish' },
+    encontrar: { es: '{subject} {verb} algo', en: '{subject} {verb} something' },
+  };
+
+  const pattern = patterns[verbId] || { es: '{subject} {verb}', en: '{subject} {verb}' };
+  const template = isSpanish ? pattern.es : pattern.en;
+
+  return template.replace('{subject}', subject).replace('{verb}', conjugation);
+}
+
 export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
   sourceLocale,
   targetLocale,
@@ -89,6 +154,14 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
   const targetConjugation = verb.conjugation?.[currentTense]?.[currentPerson] || '...';
   const nativeConjugation = verb.translationConjugation?.[currentTense]?.[currentPerson] || '...';
 
+  // Get subject pronouns
+  const targetSubject = getSubjectPronoun(currentPerson, targetLocale);
+  const nativeSubject = getSubjectPronoun(currentPerson, sourceLocale);
+
+  // Get sample sentences
+  const targetSentence = getSampleSentence(verb.id, targetConjugation, targetSubject, targetLocale);
+  const nativeSentence = getSampleSentence(verb.id, nativeConjugation, nativeSubject, sourceLocale);
+
   return (
     <div className="animate-in fade-in mx-auto flex h-full w-full max-w-md flex-col p-6 duration-500">
       {/* Header */}
@@ -112,23 +185,14 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
           <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl transition-all duration-500 group-hover:bg-blue-500/30" />
           <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl transition-all duration-500 group-hover:bg-purple-500/30" />
 
-          {/* Conjugation Display */}
-          <div className="mb-6 rounded-2xl border border-white/5 bg-black/20 p-6 text-center backdrop-blur-sm">
-            <div className="mb-2 text-xs font-bold tracking-widest text-white/40 uppercase">
-              {t(TENSE_KEYS[currentTense])} • {PERSON_LABELS[currentPerson]}
-            </div>
-            <div className="mb-1 text-3xl font-medium text-white">{targetConjugation}</div>
-            <div className="text-base text-white/50">{nativeConjugation}</div>
-          </div>
-
           {/* Verb Infinitive */}
-          <div className="mb-8 text-center">
+          <div className="mb-6 text-center">
             <h2 className="mb-2 text-4xl font-bold text-white drop-shadow-sm">{verb.infinitive}</h2>
             <p className="text-lg text-white/60">{verb.translation}</p>
           </div>
 
           {/* Controls */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="mb-6 grid grid-cols-2 gap-3">
             <button
               onClick={nextTense}
               className="group/btn flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 active:bg-white/15"
@@ -162,6 +226,22 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
                 className="text-white/30 transition-colors group-hover/btn:text-white/70"
               />
             </button>
+          </div>
+
+          {/* Conjugation Display */}
+          <div className="rounded-2xl border border-white/5 bg-black/20 p-6 text-center backdrop-blur-sm">
+            <div className="mb-4">
+              <div className="mb-1 text-3xl font-medium text-white">
+                {targetSubject} {targetConjugation}
+              </div>
+              <div className="text-base text-white/50">
+                {nativeSubject} {nativeConjugation}
+              </div>
+            </div>
+            <div className="border-t border-white/10 pt-4">
+              <div className="mb-1 text-sm text-white/70 italic">{targetSentence}</div>
+              <div className="text-xs text-white/50 italic">{nativeSentence}</div>
+            </div>
           </div>
         </div>
       </div>
