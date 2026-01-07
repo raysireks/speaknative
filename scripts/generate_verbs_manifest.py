@@ -1,5 +1,4 @@
 import json
-import os
 
 PHRASES_MANIFEST_PATH = 'src/data/phrases-manifest.json'
 

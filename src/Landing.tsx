@@ -192,7 +192,7 @@ function Landing({ onStartFlashcards, onStartVerbs }: LandingProps) {
                     className="transform rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-blue-700 hover:to-cyan-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
                     aria-label="Start learning verbs"
                   >
-                    Start Verbs
+                    {t('Start Verbs')}
                   </button>
                   <button
                     onClick={handleReset}

@@ -22,6 +22,7 @@ export const UI_TEXT: Record<string, LocaleStrings> = {
     'You speak:': { es: 'Tú hablas:' },
     'Learning:': { es: 'Aprendiendo:' },
     'Start Flashcards': { es: 'Iniciar Tarjetas' },
+    'Start Verbs': { es: 'Iniciar Verbos' },
     'Change Region': { es: 'Cambiar Región' },
     'Master the language and culture of your chosen region': {
         es: 'Domina el idioma y la cultura de tu región elegida',
