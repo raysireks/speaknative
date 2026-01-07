@@ -46,9 +46,10 @@ const LANGUAGE_INFO: Record<string, { name: string; flag: string; nativeName: st
 
 interface LandingProps {
   onStartFlashcards?: (targetLocale: string, userLocale: SupportedLocale) => void;
+  onStartVerbs?: (targetLocale: string, userLocale: SupportedLocale) => void;
 }
 
-function Landing({ onStartFlashcards }: LandingProps) {
+function Landing({ onStartFlashcards, onStartVerbs }: LandingProps) {
   const { locale: userLocale, setLocale: setUserLocale, t } = useLocale();
   const [selectedTargetLocale, setSelectedTargetLocale] = useState<Locale>(null);
 
@@ -69,6 +70,12 @@ function Landing({ onStartFlashcards }: LandingProps) {
   const handleStartLearning = () => {
     if (selectedTargetLocale && onStartFlashcards) {
       onStartFlashcards(selectedTargetLocale, userLocale);
+    }
+  };
+
+  const handleStartVerbs = () => {
+    if (selectedTargetLocale && onStartVerbs) {
+      onStartVerbs(selectedTargetLocale, userLocale);
     }
   };
 
@@ -172,13 +179,20 @@ function Landing({ onStartFlashcards }: LandingProps) {
                     </span>
                   </p>
                 </div>
-                <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+                <div className="flex flex-col gap-4 sm:flex-row sm:justify-center flex-wrap">
                   <button
                     onClick={handleStartLearning}
                     className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
                     aria-label="Start learning with flashcards"
                   >
                     {t('Start Flashcards')}
+                  </button>
+                  <button
+                    onClick={handleStartVerbs}
+                    className="transform rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-blue-700 hover:to-cyan-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
+                    aria-label="Start learning verbs"
+                  >
+                    Start Verbs
                   </button>
                   <button
                     onClick={handleReset}

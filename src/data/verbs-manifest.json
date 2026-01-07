@@ -1,0 +1,3952 @@
+[
+    {
+        "id": "ser",
+        "infinitive": {
+            "co-cartagena": "ser",
+            "co-medellin": "ser",
+            "us-ca": "to be"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "soy",
+                    "2s": "eres",
+                    "3s": "es",
+                    "1p": "somos",
+                    "3p": "son"
+                },
+                "past": {
+                    "1s": "fui",
+                    "2s": "fuiste",
+                    "3s": "fue",
+                    "1p": "fuimos",
+                    "3p": "fueron"
+                },
+                "future": {
+                    "1s": "seré",
+                    "2s": "serás",
+                    "3s": "será",
+                    "1p": "seremos",
+                    "3p": "serán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "soy",
+                    "2s": "eres",
+                    "3s": "es",
+                    "1p": "somos",
+                    "3p": "son"
+                },
+                "past": {
+                    "1s": "fui",
+                    "2s": "fuiste",
+                    "3s": "fue",
+                    "1p": "fuimos",
+                    "3p": "fueron"
+                },
+                "future": {
+                    "1s": "seré",
+                    "2s": "serás",
+                    "3s": "será",
+                    "1p": "seremos",
+                    "3p": "serán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "am",
+                    "2s": "are",
+                    "3s": "is",
+                    "1p": "are",
+                    "3p": "are"
+                },
+                "past": {
+                    "1s": "was",
+                    "2s": "were",
+                    "3s": "was",
+                    "1p": "were",
+                    "3p": "were"
+                },
+                "future": {
+                    "1s": "will be",
+                    "2s": "will be",
+                    "3s": "will be",
+                    "1p": "will be",
+                    "3p": "will be"
+                }
+            }
+        }
+    },
+    {
+        "id": "estar",
+        "infinitive": {
+            "co-cartagena": "estar",
+            "co-medellin": "estar",
+            "us-ca": "to be"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "estoy",
+                    "2s": "estás",
+                    "3s": "está",
+                    "1p": "estamos",
+                    "3p": "están"
+                },
+                "past": {
+                    "1s": "estuve",
+                    "2s": "estuviste",
+                    "3s": "estuvo",
+                    "1p": "estuvimos",
+                    "3p": "estuvieron"
+                },
+                "future": {
+                    "1s": "estaré",
+                    "2s": "estarás",
+                    "3s": "estará",
+                    "1p": "estaremos",
+                    "3p": "estarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "estoy",
+                    "2s": "estás",
+                    "3s": "está",
+                    "1p": "estamos",
+                    "3p": "están"
+                },
+                "past": {
+                    "1s": "estuve",
+                    "2s": "estuviste",
+                    "3s": "estuvo",
+                    "1p": "estuvimos",
+                    "3p": "estuvieron"
+                },
+                "future": {
+                    "1s": "estaré",
+                    "2s": "estarás",
+                    "3s": "estará",
+                    "1p": "estaremos",
+                    "3p": "estarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "am",
+                    "2s": "are",
+                    "3s": "is",
+                    "1p": "are",
+                    "3p": "are"
+                },
+                "past": {
+                    "1s": "was",
+                    "2s": "were",
+                    "3s": "was",
+                    "1p": "were",
+                    "3p": "were"
+                },
+                "future": {
+                    "1s": "will be",
+                    "2s": "will be",
+                    "3s": "will be",
+                    "1p": "will be",
+                    "3p": "will be"
+                }
+            }
+        }
+    },
+    {
+        "id": "tener",
+        "infinitive": {
+            "co-cartagena": "tener",
+            "co-medellin": "tener",
+            "us-ca": "to have"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "tengo",
+                    "2s": "tienes",
+                    "3s": "tiene",
+                    "1p": "tenemos",
+                    "3p": "tienen"
+                },
+                "past": {
+                    "1s": "tuve",
+                    "2s": "tuviste",
+                    "3s": "tuvo",
+                    "1p": "tuvimos",
+                    "3p": "tuvieron"
+                },
+                "future": {
+                    "1s": "tendré",
+                    "2s": "tendrás",
+                    "3s": "tendrá",
+                    "1p": "tendremos",
+                    "3p": "tendrán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "tengo",
+                    "2s": "tienes",
+                    "3s": "tiene",
+                    "1p": "tenemos",
+                    "3p": "tienen"
+                },
+                "past": {
+                    "1s": "tuve",
+                    "2s": "tuviste",
+                    "3s": "tuvo",
+                    "1p": "tuvimos",
+                    "3p": "tuvieron"
+                },
+                "future": {
+                    "1s": "tendré",
+                    "2s": "tendrás",
+                    "3s": "tendrá",
+                    "1p": "tendremos",
+                    "3p": "tendrán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "have",
+                    "2s": "have",
+                    "3s": "has",
+                    "1p": "have",
+                    "3p": "have"
+                },
+                "past": {
+                    "1s": "had",
+                    "2s": "had",
+                    "3s": "had",
+                    "1p": "had",
+                    "3p": "had"
+                },
+                "future": {
+                    "1s": "will have",
+                    "2s": "will have",
+                    "3s": "will have",
+                    "1p": "will have",
+                    "3p": "will have"
+                }
+            }
+        }
+    },
+    {
+        "id": "hacer",
+        "infinitive": {
+            "co-cartagena": "hacer",
+            "co-medellin": "hacer",
+            "us-ca": "to do"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "hago",
+                    "2s": "haces",
+                    "3s": "hace",
+                    "1p": "hacemos",
+                    "3p": "hacen"
+                },
+                "past": {
+                    "1s": "hice",
+                    "2s": "hiciste",
+                    "3s": "hizo",
+                    "1p": "hicimos",
+                    "3p": "hicieron"
+                },
+                "future": {
+                    "1s": "haré",
+                    "2s": "harás",
+                    "3s": "hará",
+                    "1p": "haremos",
+                    "3p": "harán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "hago",
+                    "2s": "haces",
+                    "3s": "hace",
+                    "1p": "hacemos",
+                    "3p": "hacen"
+                },
+                "past": {
+                    "1s": "hice",
+                    "2s": "hiciste",
+                    "3s": "hizo",
+                    "1p": "hicimos",
+                    "3p": "hicieron"
+                },
+                "future": {
+                    "1s": "haré",
+                    "2s": "harás",
+                    "3s": "hará",
+                    "1p": "haremos",
+                    "3p": "harán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "do",
+                    "2s": "do",
+                    "3s": "does",
+                    "1p": "do",
+                    "3p": "do"
+                },
+                "past": {
+                    "1s": "did",
+                    "2s": "did",
+                    "3s": "did",
+                    "1p": "did",
+                    "3p": "did"
+                },
+                "future": {
+                    "1s": "will do",
+                    "2s": "will do",
+                    "3s": "will do",
+                    "1p": "will do",
+                    "3p": "will do"
+                }
+            }
+        }
+    },
+    {
+        "id": "ir",
+        "infinitive": {
+            "co-cartagena": "ir",
+            "co-medellin": "ir",
+            "us-ca": "to go"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "voy",
+                    "2s": "vas",
+                    "3s": "va",
+                    "1p": "vamos",
+                    "3p": "van"
+                },
+                "past": {
+                    "1s": "fui",
+                    "2s": "fuiste",
+                    "3s": "fue",
+                    "1p": "fuimos",
+                    "3p": "fueron"
+                },
+                "future": {
+                    "1s": "iré",
+                    "2s": "irás",
+                    "3s": "irá",
+                    "1p": "iremos",
+                    "3p": "irán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "voy",
+                    "2s": "vas",
+                    "3s": "va",
+                    "1p": "vamos",
+                    "3p": "van"
+                },
+                "past": {
+                    "1s": "fui",
+                    "2s": "fuiste",
+                    "3s": "fue",
+                    "1p": "fuimos",
+                    "3p": "fueron"
+                },
+                "future": {
+                    "1s": "iré",
+                    "2s": "irás",
+                    "3s": "irá",
+                    "1p": "iremos",
+                    "3p": "irán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "go",
+                    "2s": "go",
+                    "3s": "gos",
+                    "1p": "go",
+                    "3p": "go"
+                },
+                "past": {
+                    "1s": "went",
+                    "2s": "went",
+                    "3s": "went",
+                    "1p": "went",
+                    "3p": "went"
+                },
+                "future": {
+                    "1s": "will go",
+                    "2s": "will go",
+                    "3s": "will go",
+                    "1p": "will go",
+                    "3p": "will go"
+                }
+            }
+        }
+    },
+    {
+        "id": "poder",
+        "infinitive": {
+            "co-cartagena": "poder",
+            "co-medellin": "poder",
+            "us-ca": "to be able"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "podo",
+                    "2s": "podes",
+                    "3s": "pode",
+                    "1p": "podemos",
+                    "3p": "poden"
+                },
+                "past": {
+                    "1s": "podí",
+                    "2s": "podiste",
+                    "3s": "podió",
+                    "1p": "podimos",
+                    "3p": "podieron"
+                },
+                "future": {
+                    "1s": "poderé",
+                    "2s": "poderás",
+                    "3s": "poderá",
+                    "1p": "poderemos",
+                    "3p": "poderán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "podo",
+                    "2s": "podes",
+                    "3s": "pode",
+                    "1p": "podemos",
+                    "3p": "poden"
+                },
+                "past": {
+                    "1s": "podí",
+                    "2s": "podiste",
+                    "3s": "podió",
+                    "1p": "podimos",
+                    "3p": "podieron"
+                },
+                "future": {
+                    "1s": "poderé",
+                    "2s": "poderás",
+                    "3s": "poderá",
+                    "1p": "poderemos",
+                    "3p": "poderán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "be able",
+                    "2s": "be able",
+                    "3s": "be ables",
+                    "1p": "be able",
+                    "3p": "be able"
+                },
+                "past": {
+                    "1s": "be abled",
+                    "2s": "be abled",
+                    "3s": "be abled",
+                    "1p": "be abled",
+                    "3p": "be abled"
+                },
+                "future": {
+                    "1s": "will be able",
+                    "2s": "will be able",
+                    "3s": "will be able",
+                    "1p": "will be able",
+                    "3p": "will be able"
+                }
+            }
+        }
+    },
+    {
+        "id": "decir",
+        "infinitive": {
+            "co-cartagena": "decir",
+            "co-medellin": "decir",
+            "us-ca": "to say"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "deco",
+                    "2s": "deces",
+                    "3s": "dece",
+                    "1p": "decimos",
+                    "3p": "decen"
+                },
+                "past": {
+                    "1s": "decí",
+                    "2s": "deciste",
+                    "3s": "deció",
+                    "1p": "decimos",
+                    "3p": "decieron"
+                },
+                "future": {
+                    "1s": "deciré",
+                    "2s": "decirás",
+                    "3s": "decirá",
+                    "1p": "deciremos",
+                    "3p": "decirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "deco",
+                    "2s": "deces",
+                    "3s": "dece",
+                    "1p": "decimos",
+                    "3p": "decen"
+                },
+                "past": {
+                    "1s": "decí",
+                    "2s": "deciste",
+                    "3s": "deció",
+                    "1p": "decimos",
+                    "3p": "decieron"
+                },
+                "future": {
+                    "1s": "deciré",
+                    "2s": "decirás",
+                    "3s": "decirá",
+                    "1p": "deciremos",
+                    "3p": "decirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "say",
+                    "2s": "say",
+                    "3s": "says",
+                    "1p": "say",
+                    "3p": "say"
+                },
+                "past": {
+                    "1s": "sayed",
+                    "2s": "sayed",
+                    "3s": "sayed",
+                    "1p": "sayed",
+                    "3p": "sayed"
+                },
+                "future": {
+                    "1s": "will say",
+                    "2s": "will say",
+                    "3s": "will say",
+                    "1p": "will say",
+                    "3p": "will say"
+                }
+            }
+        }
+    },
+    {
+        "id": "venir",
+        "infinitive": {
+            "co-cartagena": "venir",
+            "co-medellin": "venir",
+            "us-ca": "to come"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "veno",
+                    "2s": "venes",
+                    "3s": "vene",
+                    "1p": "venimos",
+                    "3p": "venen"
+                },
+                "past": {
+                    "1s": "vení",
+                    "2s": "veniste",
+                    "3s": "venió",
+                    "1p": "venimos",
+                    "3p": "venieron"
+                },
+                "future": {
+                    "1s": "veniré",
+                    "2s": "venirás",
+                    "3s": "venirá",
+                    "1p": "veniremos",
+                    "3p": "venirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "veno",
+                    "2s": "venes",
+                    "3s": "vene",
+                    "1p": "venimos",
+                    "3p": "venen"
+                },
+                "past": {
+                    "1s": "vení",
+                    "2s": "veniste",
+                    "3s": "venió",
+                    "1p": "venimos",
+                    "3p": "venieron"
+                },
+                "future": {
+                    "1s": "veniré",
+                    "2s": "venirás",
+                    "3s": "venirá",
+                    "1p": "veniremos",
+                    "3p": "venirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "come",
+                    "2s": "come",
+                    "3s": "comes",
+                    "1p": "come",
+                    "3p": "come"
+                },
+                "past": {
+                    "1s": "comed",
+                    "2s": "comed",
+                    "3s": "comed",
+                    "1p": "comed",
+                    "3p": "comed"
+                },
+                "future": {
+                    "1s": "will come",
+                    "2s": "will come",
+                    "3s": "will come",
+                    "1p": "will come",
+                    "3p": "will come"
+                }
+            }
+        }
+    },
+    {
+        "id": "ver",
+        "infinitive": {
+            "co-cartagena": "ver",
+            "co-medellin": "ver",
+            "us-ca": "to see"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "vo",
+                    "2s": "ves",
+                    "3s": "ve",
+                    "1p": "vemos",
+                    "3p": "ven"
+                },
+                "past": {
+                    "1s": "ví",
+                    "2s": "viste",
+                    "3s": "vió",
+                    "1p": "vimos",
+                    "3p": "vieron"
+                },
+                "future": {
+                    "1s": "veré",
+                    "2s": "verás",
+                    "3s": "verá",
+                    "1p": "veremos",
+                    "3p": "verán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "vo",
+                    "2s": "ves",
+                    "3s": "ve",
+                    "1p": "vemos",
+                    "3p": "ven"
+                },
+                "past": {
+                    "1s": "ví",
+                    "2s": "viste",
+                    "3s": "vió",
+                    "1p": "vimos",
+                    "3p": "vieron"
+                },
+                "future": {
+                    "1s": "veré",
+                    "2s": "verás",
+                    "3s": "verá",
+                    "1p": "veremos",
+                    "3p": "verán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "see",
+                    "2s": "see",
+                    "3s": "sees",
+                    "1p": "see",
+                    "3p": "see"
+                },
+                "past": {
+                    "1s": "seed",
+                    "2s": "seed",
+                    "3s": "seed",
+                    "1p": "seed",
+                    "3p": "seed"
+                },
+                "future": {
+                    "1s": "will see",
+                    "2s": "will see",
+                    "3s": "will see",
+                    "1p": "will see",
+                    "3p": "will see"
+                }
+            }
+        }
+    },
+    {
+        "id": "dar",
+        "infinitive": {
+            "co-cartagena": "dar",
+            "co-medellin": "dar",
+            "us-ca": "to give"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "do",
+                    "2s": "das",
+                    "3s": "da",
+                    "1p": "damos",
+                    "3p": "dan"
+                },
+                "past": {
+                    "1s": "dé",
+                    "2s": "daste",
+                    "3s": "dó",
+                    "1p": "damos",
+                    "3p": "daron"
+                },
+                "future": {
+                    "1s": "daré",
+                    "2s": "darás",
+                    "3s": "dará",
+                    "1p": "daremos",
+                    "3p": "darán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "do",
+                    "2s": "das",
+                    "3s": "da",
+                    "1p": "damos",
+                    "3p": "dan"
+                },
+                "past": {
+                    "1s": "dé",
+                    "2s": "daste",
+                    "3s": "dó",
+                    "1p": "damos",
+                    "3p": "daron"
+                },
+                "future": {
+                    "1s": "daré",
+                    "2s": "darás",
+                    "3s": "dará",
+                    "1p": "daremos",
+                    "3p": "darán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "give",
+                    "2s": "give",
+                    "3s": "gives",
+                    "1p": "give",
+                    "3p": "give"
+                },
+                "past": {
+                    "1s": "gived",
+                    "2s": "gived",
+                    "3s": "gived",
+                    "1p": "gived",
+                    "3p": "gived"
+                },
+                "future": {
+                    "1s": "will give",
+                    "2s": "will give",
+                    "3s": "will give",
+                    "1p": "will give",
+                    "3p": "will give"
+                }
+            }
+        }
+    },
+    {
+        "id": "saber",
+        "infinitive": {
+            "co-cartagena": "saber",
+            "co-medellin": "saber",
+            "us-ca": "to know"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "sabo",
+                    "2s": "sabes",
+                    "3s": "sabe",
+                    "1p": "sabemos",
+                    "3p": "saben"
+                },
+                "past": {
+                    "1s": "sabí",
+                    "2s": "sabiste",
+                    "3s": "sabió",
+                    "1p": "sabimos",
+                    "3p": "sabieron"
+                },
+                "future": {
+                    "1s": "saberé",
+                    "2s": "saberás",
+                    "3s": "saberá",
+                    "1p": "saberemos",
+                    "3p": "saberán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "sabo",
+                    "2s": "sabes",
+                    "3s": "sabe",
+                    "1p": "sabemos",
+                    "3p": "saben"
+                },
+                "past": {
+                    "1s": "sabí",
+                    "2s": "sabiste",
+                    "3s": "sabió",
+                    "1p": "sabimos",
+                    "3p": "sabieron"
+                },
+                "future": {
+                    "1s": "saberé",
+                    "2s": "saberás",
+                    "3s": "saberá",
+                    "1p": "saberemos",
+                    "3p": "saberán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "know",
+                    "2s": "know",
+                    "3s": "knows",
+                    "1p": "know",
+                    "3p": "know"
+                },
+                "past": {
+                    "1s": "knowed",
+                    "2s": "knowed",
+                    "3s": "knowed",
+                    "1p": "knowed",
+                    "3p": "knowed"
+                },
+                "future": {
+                    "1s": "will know",
+                    "2s": "will know",
+                    "3s": "will know",
+                    "1p": "will know",
+                    "3p": "will know"
+                }
+            }
+        }
+    },
+    {
+        "id": "querer",
+        "infinitive": {
+            "co-cartagena": "querer",
+            "co-medellin": "querer",
+            "us-ca": "to want"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "quero",
+                    "2s": "queres",
+                    "3s": "quere",
+                    "1p": "queremos",
+                    "3p": "queren"
+                },
+                "past": {
+                    "1s": "querí",
+                    "2s": "queriste",
+                    "3s": "querió",
+                    "1p": "querimos",
+                    "3p": "querieron"
+                },
+                "future": {
+                    "1s": "quereré",
+                    "2s": "quererás",
+                    "3s": "quererá",
+                    "1p": "quereremos",
+                    "3p": "quererán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "quero",
+                    "2s": "queres",
+                    "3s": "quere",
+                    "1p": "queremos",
+                    "3p": "queren"
+                },
+                "past": {
+                    "1s": "querí",
+                    "2s": "queriste",
+                    "3s": "querió",
+                    "1p": "querimos",
+                    "3p": "querieron"
+                },
+                "future": {
+                    "1s": "quereré",
+                    "2s": "quererás",
+                    "3s": "quererá",
+                    "1p": "quereremos",
+                    "3p": "quererán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "want",
+                    "2s": "want",
+                    "3s": "wants",
+                    "1p": "want",
+                    "3p": "want"
+                },
+                "past": {
+                    "1s": "wanted",
+                    "2s": "wanted",
+                    "3s": "wanted",
+                    "1p": "wanted",
+                    "3p": "wanted"
+                },
+                "future": {
+                    "1s": "will want",
+                    "2s": "will want",
+                    "3s": "will want",
+                    "1p": "will want",
+                    "3p": "will want"
+                }
+            }
+        }
+    },
+    {
+        "id": "llegar",
+        "infinitive": {
+            "co-cartagena": "llegar",
+            "co-medellin": "llegar",
+            "us-ca": "to arrive"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "llego",
+                    "2s": "llegas",
+                    "3s": "llega",
+                    "1p": "llegamos",
+                    "3p": "llegan"
+                },
+                "past": {
+                    "1s": "llegé",
+                    "2s": "llegaste",
+                    "3s": "llegó",
+                    "1p": "llegamos",
+                    "3p": "llegaron"
+                },
+                "future": {
+                    "1s": "llegaré",
+                    "2s": "llegarás",
+                    "3s": "llegará",
+                    "1p": "llegaremos",
+                    "3p": "llegarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "llego",
+                    "2s": "llegas",
+                    "3s": "llega",
+                    "1p": "llegamos",
+                    "3p": "llegan"
+                },
+                "past": {
+                    "1s": "llegé",
+                    "2s": "llegaste",
+                    "3s": "llegó",
+                    "1p": "llegamos",
+                    "3p": "llegaron"
+                },
+                "future": {
+                    "1s": "llegaré",
+                    "2s": "llegarás",
+                    "3s": "llegará",
+                    "1p": "llegaremos",
+                    "3p": "llegarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "arrive",
+                    "2s": "arrive",
+                    "3s": "arrives",
+                    "1p": "arrive",
+                    "3p": "arrive"
+                },
+                "past": {
+                    "1s": "arrived",
+                    "2s": "arrived",
+                    "3s": "arrived",
+                    "1p": "arrived",
+                    "3p": "arrived"
+                },
+                "future": {
+                    "1s": "will arrive",
+                    "2s": "will arrive",
+                    "3s": "will arrive",
+                    "1p": "will arrive",
+                    "3p": "will arrive"
+                }
+            }
+        }
+    },
+    {
+        "id": "pasar",
+        "infinitive": {
+            "co-cartagena": "pasar",
+            "co-medellin": "pasar",
+            "us-ca": "to pass"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "paso",
+                    "2s": "pasas",
+                    "3s": "pasa",
+                    "1p": "pasamos",
+                    "3p": "pasan"
+                },
+                "past": {
+                    "1s": "pasé",
+                    "2s": "pasaste",
+                    "3s": "pasó",
+                    "1p": "pasamos",
+                    "3p": "pasaron"
+                },
+                "future": {
+                    "1s": "pasaré",
+                    "2s": "pasarás",
+                    "3s": "pasará",
+                    "1p": "pasaremos",
+                    "3p": "pasarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "paso",
+                    "2s": "pasas",
+                    "3s": "pasa",
+                    "1p": "pasamos",
+                    "3p": "pasan"
+                },
+                "past": {
+                    "1s": "pasé",
+                    "2s": "pasaste",
+                    "3s": "pasó",
+                    "1p": "pasamos",
+                    "3p": "pasaron"
+                },
+                "future": {
+                    "1s": "pasaré",
+                    "2s": "pasarás",
+                    "3s": "pasará",
+                    "1p": "pasaremos",
+                    "3p": "pasarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "pass",
+                    "2s": "pass",
+                    "3s": "passs",
+                    "1p": "pass",
+                    "3p": "pass"
+                },
+                "past": {
+                    "1s": "passed",
+                    "2s": "passed",
+                    "3s": "passed",
+                    "1p": "passed",
+                    "3p": "passed"
+                },
+                "future": {
+                    "1s": "will pass",
+                    "2s": "will pass",
+                    "3s": "will pass",
+                    "1p": "will pass",
+                    "3p": "will pass"
+                }
+            }
+        }
+    },
+    {
+        "id": "deber",
+        "infinitive": {
+            "co-cartagena": "deber",
+            "co-medellin": "deber",
+            "us-ca": "to owe/must"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "debo",
+                    "2s": "debes",
+                    "3s": "debe",
+                    "1p": "debemos",
+                    "3p": "deben"
+                },
+                "past": {
+                    "1s": "debí",
+                    "2s": "debiste",
+                    "3s": "debió",
+                    "1p": "debimos",
+                    "3p": "debieron"
+                },
+                "future": {
+                    "1s": "deberé",
+                    "2s": "deberás",
+                    "3s": "deberá",
+                    "1p": "deberemos",
+                    "3p": "deberán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "debo",
+                    "2s": "debes",
+                    "3s": "debe",
+                    "1p": "debemos",
+                    "3p": "deben"
+                },
+                "past": {
+                    "1s": "debí",
+                    "2s": "debiste",
+                    "3s": "debió",
+                    "1p": "debimos",
+                    "3p": "debieron"
+                },
+                "future": {
+                    "1s": "deberé",
+                    "2s": "deberás",
+                    "3s": "deberá",
+                    "1p": "deberemos",
+                    "3p": "deberán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "owe/must",
+                    "2s": "owe/must",
+                    "3s": "owe/musts",
+                    "1p": "owe/must",
+                    "3p": "owe/must"
+                },
+                "past": {
+                    "1s": "owe/musted",
+                    "2s": "owe/musted",
+                    "3s": "owe/musted",
+                    "1p": "owe/musted",
+                    "3p": "owe/musted"
+                },
+                "future": {
+                    "1s": "will owe/must",
+                    "2s": "will owe/must",
+                    "3s": "will owe/must",
+                    "1p": "will owe/must",
+                    "3p": "will owe/must"
+                }
+            }
+        }
+    },
+    {
+        "id": "poner",
+        "infinitive": {
+            "co-cartagena": "poner",
+            "co-medellin": "poner",
+            "us-ca": "to put"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "pono",
+                    "2s": "pones",
+                    "3s": "pone",
+                    "1p": "ponemos",
+                    "3p": "ponen"
+                },
+                "past": {
+                    "1s": "poní",
+                    "2s": "poniste",
+                    "3s": "ponió",
+                    "1p": "ponimos",
+                    "3p": "ponieron"
+                },
+                "future": {
+                    "1s": "poneré",
+                    "2s": "ponerás",
+                    "3s": "ponerá",
+                    "1p": "poneremos",
+                    "3p": "ponerán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "pono",
+                    "2s": "pones",
+                    "3s": "pone",
+                    "1p": "ponemos",
+                    "3p": "ponen"
+                },
+                "past": {
+                    "1s": "poní",
+                    "2s": "poniste",
+                    "3s": "ponió",
+                    "1p": "ponimos",
+                    "3p": "ponieron"
+                },
+                "future": {
+                    "1s": "poneré",
+                    "2s": "ponerás",
+                    "3s": "ponerá",
+                    "1p": "poneremos",
+                    "3p": "ponerán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "put",
+                    "2s": "put",
+                    "3s": "puts",
+                    "1p": "put",
+                    "3p": "put"
+                },
+                "past": {
+                    "1s": "puted",
+                    "2s": "puted",
+                    "3s": "puted",
+                    "1p": "puted",
+                    "3p": "puted"
+                },
+                "future": {
+                    "1s": "will put",
+                    "2s": "will put",
+                    "3s": "will put",
+                    "1p": "will put",
+                    "3p": "will put"
+                }
+            }
+        }
+    },
+    {
+        "id": "parecer",
+        "infinitive": {
+            "co-cartagena": "parecer",
+            "co-medellin": "parecer",
+            "us-ca": "to seem"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "pareco",
+                    "2s": "pareces",
+                    "3s": "parece",
+                    "1p": "parecemos",
+                    "3p": "parecen"
+                },
+                "past": {
+                    "1s": "parecí",
+                    "2s": "pareciste",
+                    "3s": "pareció",
+                    "1p": "parecimos",
+                    "3p": "parecieron"
+                },
+                "future": {
+                    "1s": "pareceré",
+                    "2s": "parecerás",
+                    "3s": "parecerá",
+                    "1p": "pareceremos",
+                    "3p": "parecerán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "pareco",
+                    "2s": "pareces",
+                    "3s": "parece",
+                    "1p": "parecemos",
+                    "3p": "parecen"
+                },
+                "past": {
+                    "1s": "parecí",
+                    "2s": "pareciste",
+                    "3s": "pareció",
+                    "1p": "parecimos",
+                    "3p": "parecieron"
+                },
+                "future": {
+                    "1s": "pareceré",
+                    "2s": "parecerás",
+                    "3s": "parecerá",
+                    "1p": "pareceremos",
+                    "3p": "parecerán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "seem",
+                    "2s": "seem",
+                    "3s": "seems",
+                    "1p": "seem",
+                    "3p": "seem"
+                },
+                "past": {
+                    "1s": "seemed",
+                    "2s": "seemed",
+                    "3s": "seemed",
+                    "1p": "seemed",
+                    "3p": "seemed"
+                },
+                "future": {
+                    "1s": "will seem",
+                    "2s": "will seem",
+                    "3s": "will seem",
+                    "1p": "will seem",
+                    "3p": "will seem"
+                }
+            }
+        }
+    },
+    {
+        "id": "quedar",
+        "infinitive": {
+            "co-cartagena": "quedar",
+            "co-medellin": "quedar",
+            "us-ca": "to stay"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "quedo",
+                    "2s": "quedas",
+                    "3s": "queda",
+                    "1p": "quedamos",
+                    "3p": "quedan"
+                },
+                "past": {
+                    "1s": "quedé",
+                    "2s": "quedaste",
+                    "3s": "quedó",
+                    "1p": "quedamos",
+                    "3p": "quedaron"
+                },
+                "future": {
+                    "1s": "quedaré",
+                    "2s": "quedarás",
+                    "3s": "quedará",
+                    "1p": "quedaremos",
+                    "3p": "quedarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "quedo",
+                    "2s": "quedas",
+                    "3s": "queda",
+                    "1p": "quedamos",
+                    "3p": "quedan"
+                },
+                "past": {
+                    "1s": "quedé",
+                    "2s": "quedaste",
+                    "3s": "quedó",
+                    "1p": "quedamos",
+                    "3p": "quedaron"
+                },
+                "future": {
+                    "1s": "quedaré",
+                    "2s": "quedarás",
+                    "3s": "quedará",
+                    "1p": "quedaremos",
+                    "3p": "quedarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "stay",
+                    "2s": "stay",
+                    "3s": "stays",
+                    "1p": "stay",
+                    "3p": "stay"
+                },
+                "past": {
+                    "1s": "stayed",
+                    "2s": "stayed",
+                    "3s": "stayed",
+                    "1p": "stayed",
+                    "3p": "stayed"
+                },
+                "future": {
+                    "1s": "will stay",
+                    "2s": "will stay",
+                    "3s": "will stay",
+                    "1p": "will stay",
+                    "3p": "will stay"
+                }
+            }
+        }
+    },
+    {
+        "id": "creer",
+        "infinitive": {
+            "co-cartagena": "creer",
+            "co-medellin": "creer",
+            "us-ca": "to believe"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "creo",
+                    "2s": "crees",
+                    "3s": "cree",
+                    "1p": "creemos",
+                    "3p": "creen"
+                },
+                "past": {
+                    "1s": "creí",
+                    "2s": "creiste",
+                    "3s": "creió",
+                    "1p": "creimos",
+                    "3p": "creieron"
+                },
+                "future": {
+                    "1s": "creeré",
+                    "2s": "creerás",
+                    "3s": "creerá",
+                    "1p": "creeremos",
+                    "3p": "creerán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "creo",
+                    "2s": "crees",
+                    "3s": "cree",
+                    "1p": "creemos",
+                    "3p": "creen"
+                },
+                "past": {
+                    "1s": "creí",
+                    "2s": "creiste",
+                    "3s": "creió",
+                    "1p": "creimos",
+                    "3p": "creieron"
+                },
+                "future": {
+                    "1s": "creeré",
+                    "2s": "creerás",
+                    "3s": "creerá",
+                    "1p": "creeremos",
+                    "3p": "creerán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "believe",
+                    "2s": "believe",
+                    "3s": "believes",
+                    "1p": "believe",
+                    "3p": "believe"
+                },
+                "past": {
+                    "1s": "believed",
+                    "2s": "believed",
+                    "3s": "believed",
+                    "1p": "believed",
+                    "3p": "believed"
+                },
+                "future": {
+                    "1s": "will believe",
+                    "2s": "will believe",
+                    "3s": "will believe",
+                    "1p": "will believe",
+                    "3p": "will believe"
+                }
+            }
+        }
+    },
+    {
+        "id": "hablar",
+        "infinitive": {
+            "co-cartagena": "hablar",
+            "co-medellin": "hablar",
+            "us-ca": "to speak"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "hablo",
+                    "2s": "hablas",
+                    "3s": "habla",
+                    "1p": "hablamos",
+                    "3p": "hablan"
+                },
+                "past": {
+                    "1s": "hablé",
+                    "2s": "hablaste",
+                    "3s": "habló",
+                    "1p": "hablamos",
+                    "3p": "hablaron"
+                },
+                "future": {
+                    "1s": "hablaré",
+                    "2s": "hablarás",
+                    "3s": "hablará",
+                    "1p": "hablaremos",
+                    "3p": "hablarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "hablo",
+                    "2s": "hablas",
+                    "3s": "habla",
+                    "1p": "hablamos",
+                    "3p": "hablan"
+                },
+                "past": {
+                    "1s": "hablé",
+                    "2s": "hablaste",
+                    "3s": "habló",
+                    "1p": "hablamos",
+                    "3p": "hablaron"
+                },
+                "future": {
+                    "1s": "hablaré",
+                    "2s": "hablarás",
+                    "3s": "hablará",
+                    "1p": "hablaremos",
+                    "3p": "hablarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "speak",
+                    "2s": "speak",
+                    "3s": "speaks",
+                    "1p": "speak",
+                    "3p": "speak"
+                },
+                "past": {
+                    "1s": "speaked",
+                    "2s": "speaked",
+                    "3s": "speaked",
+                    "1p": "speaked",
+                    "3p": "speaked"
+                },
+                "future": {
+                    "1s": "will speak",
+                    "2s": "will speak",
+                    "3s": "will speak",
+                    "1p": "will speak",
+                    "3p": "will speak"
+                }
+            }
+        }
+    },
+    {
+        "id": "llevar",
+        "infinitive": {
+            "co-cartagena": "llevar",
+            "co-medellin": "llevar",
+            "us-ca": "to carry"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "llevo",
+                    "2s": "llevas",
+                    "3s": "lleva",
+                    "1p": "llevamos",
+                    "3p": "llevan"
+                },
+                "past": {
+                    "1s": "llevé",
+                    "2s": "llevaste",
+                    "3s": "llevó",
+                    "1p": "llevamos",
+                    "3p": "llevaron"
+                },
+                "future": {
+                    "1s": "llevaré",
+                    "2s": "llevarás",
+                    "3s": "llevará",
+                    "1p": "llevaremos",
+                    "3p": "llevarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "llevo",
+                    "2s": "llevas",
+                    "3s": "lleva",
+                    "1p": "llevamos",
+                    "3p": "llevan"
+                },
+                "past": {
+                    "1s": "llevé",
+                    "2s": "llevaste",
+                    "3s": "llevó",
+                    "1p": "llevamos",
+                    "3p": "llevaron"
+                },
+                "future": {
+                    "1s": "llevaré",
+                    "2s": "llevarás",
+                    "3s": "llevará",
+                    "1p": "llevaremos",
+                    "3p": "llevarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "carry",
+                    "2s": "carry",
+                    "3s": "carrys",
+                    "1p": "carry",
+                    "3p": "carry"
+                },
+                "past": {
+                    "1s": "carryed",
+                    "2s": "carryed",
+                    "3s": "carryed",
+                    "1p": "carryed",
+                    "3p": "carryed"
+                },
+                "future": {
+                    "1s": "will carry",
+                    "2s": "will carry",
+                    "3s": "will carry",
+                    "1p": "will carry",
+                    "3p": "will carry"
+                }
+            }
+        }
+    },
+    {
+        "id": "dejar",
+        "infinitive": {
+            "co-cartagena": "dejar",
+            "co-medellin": "dejar",
+            "us-ca": "to leave"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "dejo",
+                    "2s": "dejas",
+                    "3s": "deja",
+                    "1p": "dejamos",
+                    "3p": "dejan"
+                },
+                "past": {
+                    "1s": "dejé",
+                    "2s": "dejaste",
+                    "3s": "dejó",
+                    "1p": "dejamos",
+                    "3p": "dejaron"
+                },
+                "future": {
+                    "1s": "dejaré",
+                    "2s": "dejarás",
+                    "3s": "dejará",
+                    "1p": "dejaremos",
+                    "3p": "dejarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "dejo",
+                    "2s": "dejas",
+                    "3s": "deja",
+                    "1p": "dejamos",
+                    "3p": "dejan"
+                },
+                "past": {
+                    "1s": "dejé",
+                    "2s": "dejaste",
+                    "3s": "dejó",
+                    "1p": "dejamos",
+                    "3p": "dejaron"
+                },
+                "future": {
+                    "1s": "dejaré",
+                    "2s": "dejarás",
+                    "3s": "dejará",
+                    "1p": "dejaremos",
+                    "3p": "dejarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "leave",
+                    "2s": "leave",
+                    "3s": "leaves",
+                    "1p": "leave",
+                    "3p": "leave"
+                },
+                "past": {
+                    "1s": "leaved",
+                    "2s": "leaved",
+                    "3s": "leaved",
+                    "1p": "leaved",
+                    "3p": "leaved"
+                },
+                "future": {
+                    "1s": "will leave",
+                    "2s": "will leave",
+                    "3s": "will leave",
+                    "1p": "will leave",
+                    "3p": "will leave"
+                }
+            }
+        }
+    },
+    {
+        "id": "seguir",
+        "infinitive": {
+            "co-cartagena": "seguir",
+            "co-medellin": "seguir",
+            "us-ca": "to follow"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "seguo",
+                    "2s": "segues",
+                    "3s": "segue",
+                    "1p": "seguimos",
+                    "3p": "seguen"
+                },
+                "past": {
+                    "1s": "seguí",
+                    "2s": "seguiste",
+                    "3s": "seguió",
+                    "1p": "seguimos",
+                    "3p": "seguieron"
+                },
+                "future": {
+                    "1s": "seguiré",
+                    "2s": "seguirás",
+                    "3s": "seguirá",
+                    "1p": "seguiremos",
+                    "3p": "seguirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "seguo",
+                    "2s": "segues",
+                    "3s": "segue",
+                    "1p": "seguimos",
+                    "3p": "seguen"
+                },
+                "past": {
+                    "1s": "seguí",
+                    "2s": "seguiste",
+                    "3s": "seguió",
+                    "1p": "seguimos",
+                    "3p": "seguieron"
+                },
+                "future": {
+                    "1s": "seguiré",
+                    "2s": "seguirás",
+                    "3s": "seguirá",
+                    "1p": "seguiremos",
+                    "3p": "seguirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "follow",
+                    "2s": "follow",
+                    "3s": "follows",
+                    "1p": "follow",
+                    "3p": "follow"
+                },
+                "past": {
+                    "1s": "followed",
+                    "2s": "followed",
+                    "3s": "followed",
+                    "1p": "followed",
+                    "3p": "followed"
+                },
+                "future": {
+                    "1s": "will follow",
+                    "2s": "will follow",
+                    "3s": "will follow",
+                    "1p": "will follow",
+                    "3p": "will follow"
+                }
+            }
+        }
+    },
+    {
+        "id": "encontrar",
+        "infinitive": {
+            "co-cartagena": "encontrar",
+            "co-medellin": "encontrar",
+            "us-ca": "to find"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "encontro",
+                    "2s": "encontras",
+                    "3s": "encontra",
+                    "1p": "encontramos",
+                    "3p": "encontran"
+                },
+                "past": {
+                    "1s": "encontré",
+                    "2s": "encontraste",
+                    "3s": "encontró",
+                    "1p": "encontramos",
+                    "3p": "encontraron"
+                },
+                "future": {
+                    "1s": "encontraré",
+                    "2s": "encontrarás",
+                    "3s": "encontrará",
+                    "1p": "encontraremos",
+                    "3p": "encontrarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "encontro",
+                    "2s": "encontras",
+                    "3s": "encontra",
+                    "1p": "encontramos",
+                    "3p": "encontran"
+                },
+                "past": {
+                    "1s": "encontré",
+                    "2s": "encontraste",
+                    "3s": "encontró",
+                    "1p": "encontramos",
+                    "3p": "encontraron"
+                },
+                "future": {
+                    "1s": "encontraré",
+                    "2s": "encontrarás",
+                    "3s": "encontrará",
+                    "1p": "encontraremos",
+                    "3p": "encontrarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "find",
+                    "2s": "find",
+                    "3s": "finds",
+                    "1p": "find",
+                    "3p": "find"
+                },
+                "past": {
+                    "1s": "finded",
+                    "2s": "finded",
+                    "3s": "finded",
+                    "1p": "finded",
+                    "3p": "finded"
+                },
+                "future": {
+                    "1s": "will find",
+                    "2s": "will find",
+                    "3s": "will find",
+                    "1p": "will find",
+                    "3p": "will find"
+                }
+            }
+        }
+    },
+    {
+        "id": "llamar",
+        "infinitive": {
+            "co-cartagena": "llamar",
+            "co-medellin": "llamar",
+            "us-ca": "to call"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "llamo",
+                    "2s": "llamas",
+                    "3s": "llama",
+                    "1p": "llamamos",
+                    "3p": "llaman"
+                },
+                "past": {
+                    "1s": "llamé",
+                    "2s": "llamaste",
+                    "3s": "llamó",
+                    "1p": "llamamos",
+                    "3p": "llamaron"
+                },
+                "future": {
+                    "1s": "llamaré",
+                    "2s": "llamarás",
+                    "3s": "llamará",
+                    "1p": "llamaremos",
+                    "3p": "llamarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "llamo",
+                    "2s": "llamas",
+                    "3s": "llama",
+                    "1p": "llamamos",
+                    "3p": "llaman"
+                },
+                "past": {
+                    "1s": "llamé",
+                    "2s": "llamaste",
+                    "3s": "llamó",
+                    "1p": "llamamos",
+                    "3p": "llamaron"
+                },
+                "future": {
+                    "1s": "llamaré",
+                    "2s": "llamarás",
+                    "3s": "llamará",
+                    "1p": "llamaremos",
+                    "3p": "llamarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "call",
+                    "2s": "call",
+                    "3s": "calls",
+                    "1p": "call",
+                    "3p": "call"
+                },
+                "past": {
+                    "1s": "called",
+                    "2s": "called",
+                    "3s": "called",
+                    "1p": "called",
+                    "3p": "called"
+                },
+                "future": {
+                    "1s": "will call",
+                    "2s": "will call",
+                    "3s": "will call",
+                    "1p": "will call",
+                    "3p": "will call"
+                }
+            }
+        }
+    },
+    {
+        "id": "vivir",
+        "infinitive": {
+            "co-cartagena": "vivir",
+            "co-medellin": "vivir",
+            "us-ca": "to live"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "vivo",
+                    "2s": "vives",
+                    "3s": "vive",
+                    "1p": "vivimos",
+                    "3p": "viven"
+                },
+                "past": {
+                    "1s": "viví",
+                    "2s": "viviste",
+                    "3s": "vivió",
+                    "1p": "vivimos",
+                    "3p": "vivieron"
+                },
+                "future": {
+                    "1s": "viviré",
+                    "2s": "vivirás",
+                    "3s": "vivirá",
+                    "1p": "viviremos",
+                    "3p": "vivirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "vivo",
+                    "2s": "vives",
+                    "3s": "vive",
+                    "1p": "vivimos",
+                    "3p": "viven"
+                },
+                "past": {
+                    "1s": "viví",
+                    "2s": "viviste",
+                    "3s": "vivió",
+                    "1p": "vivimos",
+                    "3p": "vivieron"
+                },
+                "future": {
+                    "1s": "viviré",
+                    "2s": "vivirás",
+                    "3s": "vivirá",
+                    "1p": "viviremos",
+                    "3p": "vivirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "live",
+                    "2s": "live",
+                    "3s": "lives",
+                    "1p": "live",
+                    "3p": "live"
+                },
+                "past": {
+                    "1s": "lived",
+                    "2s": "lived",
+                    "3s": "lived",
+                    "1p": "lived",
+                    "3p": "lived"
+                },
+                "future": {
+                    "1s": "will live",
+                    "2s": "will live",
+                    "3s": "will live",
+                    "1p": "will live",
+                    "3p": "will live"
+                }
+            }
+        }
+    },
+    {
+        "id": "tratar",
+        "infinitive": {
+            "co-cartagena": "tratar",
+            "co-medellin": "tratar",
+            "us-ca": "to try"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "trato",
+                    "2s": "tratas",
+                    "3s": "trata",
+                    "1p": "tratamos",
+                    "3p": "tratan"
+                },
+                "past": {
+                    "1s": "traté",
+                    "2s": "trataste",
+                    "3s": "trató",
+                    "1p": "tratamos",
+                    "3p": "trataron"
+                },
+                "future": {
+                    "1s": "trataré",
+                    "2s": "tratarás",
+                    "3s": "tratará",
+                    "1p": "trataremos",
+                    "3p": "tratarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "trato",
+                    "2s": "tratas",
+                    "3s": "trata",
+                    "1p": "tratamos",
+                    "3p": "tratan"
+                },
+                "past": {
+                    "1s": "traté",
+                    "2s": "trataste",
+                    "3s": "trató",
+                    "1p": "tratamos",
+                    "3p": "trataron"
+                },
+                "future": {
+                    "1s": "trataré",
+                    "2s": "tratarás",
+                    "3s": "tratará",
+                    "1p": "trataremos",
+                    "3p": "tratarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "try",
+                    "2s": "try",
+                    "3s": "trys",
+                    "1p": "try",
+                    "3p": "try"
+                },
+                "past": {
+                    "1s": "tryed",
+                    "2s": "tryed",
+                    "3s": "tryed",
+                    "1p": "tryed",
+                    "3p": "tryed"
+                },
+                "future": {
+                    "1s": "will try",
+                    "2s": "will try",
+                    "3s": "will try",
+                    "1p": "will try",
+                    "3p": "will try"
+                }
+            }
+        }
+    },
+    {
+        "id": "mirar",
+        "infinitive": {
+            "co-cartagena": "mirar",
+            "co-medellin": "mirar",
+            "us-ca": "to look"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "miro",
+                    "2s": "miras",
+                    "3s": "mira",
+                    "1p": "miramos",
+                    "3p": "miran"
+                },
+                "past": {
+                    "1s": "miré",
+                    "2s": "miraste",
+                    "3s": "miró",
+                    "1p": "miramos",
+                    "3p": "miraron"
+                },
+                "future": {
+                    "1s": "miraré",
+                    "2s": "mirarás",
+                    "3s": "mirará",
+                    "1p": "miraremos",
+                    "3p": "mirarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "miro",
+                    "2s": "miras",
+                    "3s": "mira",
+                    "1p": "miramos",
+                    "3p": "miran"
+                },
+                "past": {
+                    "1s": "miré",
+                    "2s": "miraste",
+                    "3s": "miró",
+                    "1p": "miramos",
+                    "3p": "miraron"
+                },
+                "future": {
+                    "1s": "miraré",
+                    "2s": "mirarás",
+                    "3s": "mirará",
+                    "1p": "miraremos",
+                    "3p": "mirarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "look",
+                    "2s": "look",
+                    "3s": "looks",
+                    "1p": "look",
+                    "3p": "look"
+                },
+                "past": {
+                    "1s": "looked",
+                    "2s": "looked",
+                    "3s": "looked",
+                    "1p": "looked",
+                    "3p": "looked"
+                },
+                "future": {
+                    "1s": "will look",
+                    "2s": "will look",
+                    "3s": "will look",
+                    "1p": "will look",
+                    "3p": "will look"
+                }
+            }
+        }
+    },
+    {
+        "id": "contar",
+        "infinitive": {
+            "co-cartagena": "contar",
+            "co-medellin": "contar",
+            "us-ca": "to count/tell"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "conto",
+                    "2s": "contas",
+                    "3s": "conta",
+                    "1p": "contamos",
+                    "3p": "contan"
+                },
+                "past": {
+                    "1s": "conté",
+                    "2s": "contaste",
+                    "3s": "contó",
+                    "1p": "contamos",
+                    "3p": "contaron"
+                },
+                "future": {
+                    "1s": "contaré",
+                    "2s": "contarás",
+                    "3s": "contará",
+                    "1p": "contaremos",
+                    "3p": "contarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "conto",
+                    "2s": "contas",
+                    "3s": "conta",
+                    "1p": "contamos",
+                    "3p": "contan"
+                },
+                "past": {
+                    "1s": "conté",
+                    "2s": "contaste",
+                    "3s": "contó",
+                    "1p": "contamos",
+                    "3p": "contaron"
+                },
+                "future": {
+                    "1s": "contaré",
+                    "2s": "contarás",
+                    "3s": "contará",
+                    "1p": "contaremos",
+                    "3p": "contarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "count/tell",
+                    "2s": "count/tell",
+                    "3s": "count/tells",
+                    "1p": "count/tell",
+                    "3p": "count/tell"
+                },
+                "past": {
+                    "1s": "count/telled",
+                    "2s": "count/telled",
+                    "3s": "count/telled",
+                    "1p": "count/telled",
+                    "3p": "count/telled"
+                },
+                "future": {
+                    "1s": "will count/tell",
+                    "2s": "will count/tell",
+                    "3s": "will count/tell",
+                    "1p": "will count/tell",
+                    "3p": "will count/tell"
+                }
+            }
+        }
+    },
+    {
+        "id": "empezar",
+        "infinitive": {
+            "co-cartagena": "empezar",
+            "co-medellin": "empezar",
+            "us-ca": "to start"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "empezo",
+                    "2s": "empezas",
+                    "3s": "empeza",
+                    "1p": "empezamos",
+                    "3p": "empezan"
+                },
+                "past": {
+                    "1s": "empezé",
+                    "2s": "empezaste",
+                    "3s": "empezó",
+                    "1p": "empezamos",
+                    "3p": "empezaron"
+                },
+                "future": {
+                    "1s": "empezaré",
+                    "2s": "empezarás",
+                    "3s": "empezará",
+                    "1p": "empezaremos",
+                    "3p": "empezarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "empezo",
+                    "2s": "empezas",
+                    "3s": "empeza",
+                    "1p": "empezamos",
+                    "3p": "empezan"
+                },
+                "past": {
+                    "1s": "empezé",
+                    "2s": "empezaste",
+                    "3s": "empezó",
+                    "1p": "empezamos",
+                    "3p": "empezaron"
+                },
+                "future": {
+                    "1s": "empezaré",
+                    "2s": "empezarás",
+                    "3s": "empezará",
+                    "1p": "empezaremos",
+                    "3p": "empezarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "start",
+                    "2s": "start",
+                    "3s": "starts",
+                    "1p": "start",
+                    "3p": "start"
+                },
+                "past": {
+                    "1s": "started",
+                    "2s": "started",
+                    "3s": "started",
+                    "1p": "started",
+                    "3p": "started"
+                },
+                "future": {
+                    "1s": "will start",
+                    "2s": "will start",
+                    "3s": "will start",
+                    "1p": "will start",
+                    "3p": "will start"
+                }
+            }
+        }
+    },
+    {
+        "id": "esperar",
+        "infinitive": {
+            "co-cartagena": "esperar",
+            "co-medellin": "esperar",
+            "us-ca": "to wait"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "espero",
+                    "2s": "esperas",
+                    "3s": "espera",
+                    "1p": "esperamos",
+                    "3p": "esperan"
+                },
+                "past": {
+                    "1s": "esperé",
+                    "2s": "esperaste",
+                    "3s": "esperó",
+                    "1p": "esperamos",
+                    "3p": "esperaron"
+                },
+                "future": {
+                    "1s": "esperaré",
+                    "2s": "esperarás",
+                    "3s": "esperará",
+                    "1p": "esperaremos",
+                    "3p": "esperarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "espero",
+                    "2s": "esperas",
+                    "3s": "espera",
+                    "1p": "esperamos",
+                    "3p": "esperan"
+                },
+                "past": {
+                    "1s": "esperé",
+                    "2s": "esperaste",
+                    "3s": "esperó",
+                    "1p": "esperamos",
+                    "3p": "esperaron"
+                },
+                "future": {
+                    "1s": "esperaré",
+                    "2s": "esperarás",
+                    "3s": "esperará",
+                    "1p": "esperaremos",
+                    "3p": "esperarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "wait",
+                    "2s": "wait",
+                    "3s": "waits",
+                    "1p": "wait",
+                    "3p": "wait"
+                },
+                "past": {
+                    "1s": "waited",
+                    "2s": "waited",
+                    "3s": "waited",
+                    "1p": "waited",
+                    "3p": "waited"
+                },
+                "future": {
+                    "1s": "will wait",
+                    "2s": "will wait",
+                    "3s": "will wait",
+                    "1p": "will wait",
+                    "3p": "will wait"
+                }
+            }
+        }
+    },
+    {
+        "id": "buscar",
+        "infinitive": {
+            "co-cartagena": "buscar",
+            "co-medellin": "buscar",
+            "us-ca": "to search"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "busco",
+                    "2s": "buscas",
+                    "3s": "busca",
+                    "1p": "buscamos",
+                    "3p": "buscan"
+                },
+                "past": {
+                    "1s": "buscé",
+                    "2s": "buscaste",
+                    "3s": "buscó",
+                    "1p": "buscamos",
+                    "3p": "buscaron"
+                },
+                "future": {
+                    "1s": "buscaré",
+                    "2s": "buscarás",
+                    "3s": "buscará",
+                    "1p": "buscaremos",
+                    "3p": "buscarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "busco",
+                    "2s": "buscas",
+                    "3s": "busca",
+                    "1p": "buscamos",
+                    "3p": "buscan"
+                },
+                "past": {
+                    "1s": "buscé",
+                    "2s": "buscaste",
+                    "3s": "buscó",
+                    "1p": "buscamos",
+                    "3p": "buscaron"
+                },
+                "future": {
+                    "1s": "buscaré",
+                    "2s": "buscarás",
+                    "3s": "buscará",
+                    "1p": "buscaremos",
+                    "3p": "buscarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "search",
+                    "2s": "search",
+                    "3s": "searchs",
+                    "1p": "search",
+                    "3p": "search"
+                },
+                "past": {
+                    "1s": "searched",
+                    "2s": "searched",
+                    "3s": "searched",
+                    "1p": "searched",
+                    "3p": "searched"
+                },
+                "future": {
+                    "1s": "will search",
+                    "2s": "will search",
+                    "3s": "will search",
+                    "1p": "will search",
+                    "3p": "will search"
+                }
+            }
+        }
+    },
+    {
+        "id": "existir",
+        "infinitive": {
+            "co-cartagena": "existir",
+            "co-medellin": "existir",
+            "us-ca": "to exist"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "existo",
+                    "2s": "existes",
+                    "3s": "existe",
+                    "1p": "existimos",
+                    "3p": "existen"
+                },
+                "past": {
+                    "1s": "existí",
+                    "2s": "exististe",
+                    "3s": "existió",
+                    "1p": "existimos",
+                    "3p": "existieron"
+                },
+                "future": {
+                    "1s": "existiré",
+                    "2s": "existirás",
+                    "3s": "existirá",
+                    "1p": "existiremos",
+                    "3p": "existirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "existo",
+                    "2s": "existes",
+                    "3s": "existe",
+                    "1p": "existimos",
+                    "3p": "existen"
+                },
+                "past": {
+                    "1s": "existí",
+                    "2s": "exististe",
+                    "3s": "existió",
+                    "1p": "existimos",
+                    "3p": "existieron"
+                },
+                "future": {
+                    "1s": "existiré",
+                    "2s": "existirás",
+                    "3s": "existirá",
+                    "1p": "existiremos",
+                    "3p": "existirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "exist",
+                    "2s": "exist",
+                    "3s": "exists",
+                    "1p": "exist",
+                    "3p": "exist"
+                },
+                "past": {
+                    "1s": "existed",
+                    "2s": "existed",
+                    "3s": "existed",
+                    "1p": "existed",
+                    "3p": "existed"
+                },
+                "future": {
+                    "1s": "will exist",
+                    "2s": "will exist",
+                    "3s": "will exist",
+                    "1p": "will exist",
+                    "3p": "will exist"
+                }
+            }
+        }
+    },
+    {
+        "id": "entrar",
+        "infinitive": {
+            "co-cartagena": "entrar",
+            "co-medellin": "entrar",
+            "us-ca": "to enter"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "entro",
+                    "2s": "entras",
+                    "3s": "entra",
+                    "1p": "entramos",
+                    "3p": "entran"
+                },
+                "past": {
+                    "1s": "entré",
+                    "2s": "entraste",
+                    "3s": "entró",
+                    "1p": "entramos",
+                    "3p": "entraron"
+                },
+                "future": {
+                    "1s": "entraré",
+                    "2s": "entrarás",
+                    "3s": "entrará",
+                    "1p": "entraremos",
+                    "3p": "entrarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "entro",
+                    "2s": "entras",
+                    "3s": "entra",
+                    "1p": "entramos",
+                    "3p": "entran"
+                },
+                "past": {
+                    "1s": "entré",
+                    "2s": "entraste",
+                    "3s": "entró",
+                    "1p": "entramos",
+                    "3p": "entraron"
+                },
+                "future": {
+                    "1s": "entraré",
+                    "2s": "entrarás",
+                    "3s": "entrará",
+                    "1p": "entraremos",
+                    "3p": "entrarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "enter",
+                    "2s": "enter",
+                    "3s": "enters",
+                    "1p": "enter",
+                    "3p": "enter"
+                },
+                "past": {
+                    "1s": "entered",
+                    "2s": "entered",
+                    "3s": "entered",
+                    "1p": "entered",
+                    "3p": "entered"
+                },
+                "future": {
+                    "1s": "will enter",
+                    "2s": "will enter",
+                    "3s": "will enter",
+                    "1p": "will enter",
+                    "3p": "will enter"
+                }
+            }
+        }
+    },
+    {
+        "id": "trabajar",
+        "infinitive": {
+            "co-cartagena": "trabajar",
+            "co-medellin": "trabajar",
+            "us-ca": "to work"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "trabajo",
+                    "2s": "trabajas",
+                    "3s": "trabaja",
+                    "1p": "trabajamos",
+                    "3p": "trabajan"
+                },
+                "past": {
+                    "1s": "trabajé",
+                    "2s": "trabajaste",
+                    "3s": "trabajó",
+                    "1p": "trabajamos",
+                    "3p": "trabajaron"
+                },
+                "future": {
+                    "1s": "trabajaré",
+                    "2s": "trabajarás",
+                    "3s": "trabajará",
+                    "1p": "trabajaremos",
+                    "3p": "trabajarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "trabajo",
+                    "2s": "trabajas",
+                    "3s": "trabaja",
+                    "1p": "trabajamos",
+                    "3p": "trabajan"
+                },
+                "past": {
+                    "1s": "trabajé",
+                    "2s": "trabajaste",
+                    "3s": "trabajó",
+                    "1p": "trabajamos",
+                    "3p": "trabajaron"
+                },
+                "future": {
+                    "1s": "trabajaré",
+                    "2s": "trabajarás",
+                    "3s": "trabajará",
+                    "1p": "trabajaremos",
+                    "3p": "trabajarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "work",
+                    "2s": "work",
+                    "3s": "works",
+                    "1p": "work",
+                    "3p": "work"
+                },
+                "past": {
+                    "1s": "worked",
+                    "2s": "worked",
+                    "3s": "worked",
+                    "1p": "worked",
+                    "3p": "worked"
+                },
+                "future": {
+                    "1s": "will work",
+                    "2s": "will work",
+                    "3s": "will work",
+                    "1p": "will work",
+                    "3p": "will work"
+                }
+            }
+        }
+    },
+    {
+        "id": "escribir",
+        "infinitive": {
+            "co-cartagena": "escribir",
+            "co-medellin": "escribir",
+            "us-ca": "to write"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "escribo",
+                    "2s": "escribes",
+                    "3s": "escribe",
+                    "1p": "escribimos",
+                    "3p": "escriben"
+                },
+                "past": {
+                    "1s": "escribí",
+                    "2s": "escribiste",
+                    "3s": "escribió",
+                    "1p": "escribimos",
+                    "3p": "escribieron"
+                },
+                "future": {
+                    "1s": "escribiré",
+                    "2s": "escribirás",
+                    "3s": "escribirá",
+                    "1p": "escribiremos",
+                    "3p": "escribirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "escribo",
+                    "2s": "escribes",
+                    "3s": "escribe",
+                    "1p": "escribimos",
+                    "3p": "escriben"
+                },
+                "past": {
+                    "1s": "escribí",
+                    "2s": "escribiste",
+                    "3s": "escribió",
+                    "1p": "escribimos",
+                    "3p": "escribieron"
+                },
+                "future": {
+                    "1s": "escribiré",
+                    "2s": "escribirás",
+                    "3s": "escribirá",
+                    "1p": "escribiremos",
+                    "3p": "escribirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "write",
+                    "2s": "write",
+                    "3s": "writes",
+                    "1p": "write",
+                    "3p": "write"
+                },
+                "past": {
+                    "1s": "writed",
+                    "2s": "writed",
+                    "3s": "writed",
+                    "1p": "writed",
+                    "3p": "writed"
+                },
+                "future": {
+                    "1s": "will write",
+                    "2s": "will write",
+                    "3s": "will write",
+                    "1p": "will write",
+                    "3p": "will write"
+                }
+            }
+        }
+    },
+    {
+        "id": "perder",
+        "infinitive": {
+            "co-cartagena": "perder",
+            "co-medellin": "perder",
+            "us-ca": "to lose"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "perdo",
+                    "2s": "perdes",
+                    "3s": "perde",
+                    "1p": "perdemos",
+                    "3p": "perden"
+                },
+                "past": {
+                    "1s": "perdí",
+                    "2s": "perdiste",
+                    "3s": "perdió",
+                    "1p": "perdimos",
+                    "3p": "perdieron"
+                },
+                "future": {
+                    "1s": "perderé",
+                    "2s": "perderás",
+                    "3s": "perderá",
+                    "1p": "perderemos",
+                    "3p": "perderán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "perdo",
+                    "2s": "perdes",
+                    "3s": "perde",
+                    "1p": "perdemos",
+                    "3p": "perden"
+                },
+                "past": {
+                    "1s": "perdí",
+                    "2s": "perdiste",
+                    "3s": "perdió",
+                    "1p": "perdimos",
+                    "3p": "perdieron"
+                },
+                "future": {
+                    "1s": "perderé",
+                    "2s": "perderás",
+                    "3s": "perderá",
+                    "1p": "perderemos",
+                    "3p": "perderán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "lose",
+                    "2s": "lose",
+                    "3s": "loses",
+                    "1p": "lose",
+                    "3p": "lose"
+                },
+                "past": {
+                    "1s": "losed",
+                    "2s": "losed",
+                    "3s": "losed",
+                    "1p": "losed",
+                    "3p": "losed"
+                },
+                "future": {
+                    "1s": "will lose",
+                    "2s": "will lose",
+                    "3s": "will lose",
+                    "1p": "will lose",
+                    "3p": "will lose"
+                }
+            }
+        }
+    },
+    {
+        "id": "producir",
+        "infinitive": {
+            "co-cartagena": "producir",
+            "co-medellin": "producir",
+            "us-ca": "to produce"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "produco",
+                    "2s": "produces",
+                    "3s": "produce",
+                    "1p": "producimos",
+                    "3p": "producen"
+                },
+                "past": {
+                    "1s": "producí",
+                    "2s": "produciste",
+                    "3s": "produció",
+                    "1p": "producimos",
+                    "3p": "producieron"
+                },
+                "future": {
+                    "1s": "produciré",
+                    "2s": "producirás",
+                    "3s": "producirá",
+                    "1p": "produciremos",
+                    "3p": "producirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "produco",
+                    "2s": "produces",
+                    "3s": "produce",
+                    "1p": "producimos",
+                    "3p": "producen"
+                },
+                "past": {
+                    "1s": "producí",
+                    "2s": "produciste",
+                    "3s": "produció",
+                    "1p": "producimos",
+                    "3p": "producieron"
+                },
+                "future": {
+                    "1s": "produciré",
+                    "2s": "producirás",
+                    "3s": "producirá",
+                    "1p": "produciremos",
+                    "3p": "producirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "produce",
+                    "2s": "produce",
+                    "3s": "produces",
+                    "1p": "produce",
+                    "3p": "produce"
+                },
+                "past": {
+                    "1s": "produced",
+                    "2s": "produced",
+                    "3s": "produced",
+                    "1p": "produced",
+                    "3p": "produced"
+                },
+                "future": {
+                    "1s": "will produce",
+                    "2s": "will produce",
+                    "3s": "will produce",
+                    "1p": "will produce",
+                    "3p": "will produce"
+                }
+            }
+        }
+    },
+    {
+        "id": "ocurrir",
+        "infinitive": {
+            "co-cartagena": "ocurrir",
+            "co-medellin": "ocurrir",
+            "us-ca": "to occur"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "ocurro",
+                    "2s": "ocurres",
+                    "3s": "ocurre",
+                    "1p": "ocurrimos",
+                    "3p": "ocurren"
+                },
+                "past": {
+                    "1s": "ocurrí",
+                    "2s": "ocurriste",
+                    "3s": "ocurrió",
+                    "1p": "ocurrimos",
+                    "3p": "ocurrieron"
+                },
+                "future": {
+                    "1s": "ocurriré",
+                    "2s": "ocurrirás",
+                    "3s": "ocurrirá",
+                    "1p": "ocurriremos",
+                    "3p": "ocurrirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "ocurro",
+                    "2s": "ocurres",
+                    "3s": "ocurre",
+                    "1p": "ocurrimos",
+                    "3p": "ocurren"
+                },
+                "past": {
+                    "1s": "ocurrí",
+                    "2s": "ocurriste",
+                    "3s": "ocurrió",
+                    "1p": "ocurrimos",
+                    "3p": "ocurrieron"
+                },
+                "future": {
+                    "1s": "ocurriré",
+                    "2s": "ocurrirás",
+                    "3s": "ocurrirá",
+                    "1p": "ocurriremos",
+                    "3p": "ocurrirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "occur",
+                    "2s": "occur",
+                    "3s": "occurs",
+                    "1p": "occur",
+                    "3p": "occur"
+                },
+                "past": {
+                    "1s": "occured",
+                    "2s": "occured",
+                    "3s": "occured",
+                    "1p": "occured",
+                    "3p": "occured"
+                },
+                "future": {
+                    "1s": "will occur",
+                    "2s": "will occur",
+                    "3s": "will occur",
+                    "1p": "will occur",
+                    "3p": "will occur"
+                }
+            }
+        }
+    },
+    {
+        "id": "entender",
+        "infinitive": {
+            "co-cartagena": "entender",
+            "co-medellin": "entender",
+            "us-ca": "to understand"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "entendo",
+                    "2s": "entendes",
+                    "3s": "entende",
+                    "1p": "entendemos",
+                    "3p": "entenden"
+                },
+                "past": {
+                    "1s": "entendí",
+                    "2s": "entendiste",
+                    "3s": "entendió",
+                    "1p": "entendimos",
+                    "3p": "entendieron"
+                },
+                "future": {
+                    "1s": "entenderé",
+                    "2s": "entenderás",
+                    "3s": "entenderá",
+                    "1p": "entenderemos",
+                    "3p": "entenderán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "entendo",
+                    "2s": "entendes",
+                    "3s": "entende",
+                    "1p": "entendemos",
+                    "3p": "entenden"
+                },
+                "past": {
+                    "1s": "entendí",
+                    "2s": "entendiste",
+                    "3s": "entendió",
+                    "1p": "entendimos",
+                    "3p": "entendieron"
+                },
+                "future": {
+                    "1s": "entenderé",
+                    "2s": "entenderás",
+                    "3s": "entenderá",
+                    "1p": "entenderemos",
+                    "3p": "entenderán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "understand",
+                    "2s": "understand",
+                    "3s": "understands",
+                    "1p": "understand",
+                    "3p": "understand"
+                },
+                "past": {
+                    "1s": "understanded",
+                    "2s": "understanded",
+                    "3s": "understanded",
+                    "1p": "understanded",
+                    "3p": "understanded"
+                },
+                "future": {
+                    "1s": "will understand",
+                    "2s": "will understand",
+                    "3s": "will understand",
+                    "1p": "will understand",
+                    "3p": "will understand"
+                }
+            }
+        }
+    },
+    {
+        "id": "pedir",
+        "infinitive": {
+            "co-cartagena": "pedir",
+            "co-medellin": "pedir",
+            "us-ca": "to ask for"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "pedo",
+                    "2s": "pedes",
+                    "3s": "pede",
+                    "1p": "pedimos",
+                    "3p": "peden"
+                },
+                "past": {
+                    "1s": "pedí",
+                    "2s": "pediste",
+                    "3s": "pedió",
+                    "1p": "pedimos",
+                    "3p": "pedieron"
+                },
+                "future": {
+                    "1s": "pediré",
+                    "2s": "pedirás",
+                    "3s": "pedirá",
+                    "1p": "pediremos",
+                    "3p": "pedirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "pedo",
+                    "2s": "pedes",
+                    "3s": "pede",
+                    "1p": "pedimos",
+                    "3p": "peden"
+                },
+                "past": {
+                    "1s": "pedí",
+                    "2s": "pediste",
+                    "3s": "pedió",
+                    "1p": "pedimos",
+                    "3p": "pedieron"
+                },
+                "future": {
+                    "1s": "pediré",
+                    "2s": "pedirás",
+                    "3s": "pedirá",
+                    "1p": "pediremos",
+                    "3p": "pedirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "ask for",
+                    "2s": "ask for",
+                    "3s": "ask fors",
+                    "1p": "ask for",
+                    "3p": "ask for"
+                },
+                "past": {
+                    "1s": "ask fored",
+                    "2s": "ask fored",
+                    "3s": "ask fored",
+                    "1p": "ask fored",
+                    "3p": "ask fored"
+                },
+                "future": {
+                    "1s": "will ask for",
+                    "2s": "will ask for",
+                    "3s": "will ask for",
+                    "1p": "will ask for",
+                    "3p": "will ask for"
+                }
+            }
+        }
+    },
+    {
+        "id": "recibir",
+        "infinitive": {
+            "co-cartagena": "recibir",
+            "co-medellin": "recibir",
+            "us-ca": "to receive"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "recibo",
+                    "2s": "recibes",
+                    "3s": "recibe",
+                    "1p": "recibimos",
+                    "3p": "reciben"
+                },
+                "past": {
+                    "1s": "recibí",
+                    "2s": "recibiste",
+                    "3s": "recibió",
+                    "1p": "recibimos",
+                    "3p": "recibieron"
+                },
+                "future": {
+                    "1s": "recibiré",
+                    "2s": "recibirás",
+                    "3s": "recibirá",
+                    "1p": "recibiremos",
+                    "3p": "recibirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "recibo",
+                    "2s": "recibes",
+                    "3s": "recibe",
+                    "1p": "recibimos",
+                    "3p": "reciben"
+                },
+                "past": {
+                    "1s": "recibí",
+                    "2s": "recibiste",
+                    "3s": "recibió",
+                    "1p": "recibimos",
+                    "3p": "recibieron"
+                },
+                "future": {
+                    "1s": "recibiré",
+                    "2s": "recibirás",
+                    "3s": "recibirá",
+                    "1p": "recibiremos",
+                    "3p": "recibirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "receive",
+                    "2s": "receive",
+                    "3s": "receives",
+                    "1p": "receive",
+                    "3p": "receive"
+                },
+                "past": {
+                    "1s": "received",
+                    "2s": "received",
+                    "3s": "received",
+                    "1p": "received",
+                    "3p": "received"
+                },
+                "future": {
+                    "1s": "will receive",
+                    "2s": "will receive",
+                    "3s": "will receive",
+                    "1p": "will receive",
+                    "3p": "will receive"
+                }
+            }
+        }
+    },
+    {
+        "id": "recordar",
+        "infinitive": {
+            "co-cartagena": "recordar",
+            "co-medellin": "recordar",
+            "us-ca": "to remember"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "recordo",
+                    "2s": "recordas",
+                    "3s": "recorda",
+                    "1p": "recordamos",
+                    "3p": "recordan"
+                },
+                "past": {
+                    "1s": "recordé",
+                    "2s": "recordaste",
+                    "3s": "recordó",
+                    "1p": "recordamos",
+                    "3p": "recordaron"
+                },
+                "future": {
+                    "1s": "recordaré",
+                    "2s": "recordarás",
+                    "3s": "recordará",
+                    "1p": "recordaremos",
+                    "3p": "recordarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "recordo",
+                    "2s": "recordas",
+                    "3s": "recorda",
+                    "1p": "recordamos",
+                    "3p": "recordan"
+                },
+                "past": {
+                    "1s": "recordé",
+                    "2s": "recordaste",
+                    "3s": "recordó",
+                    "1p": "recordamos",
+                    "3p": "recordaron"
+                },
+                "future": {
+                    "1s": "recordaré",
+                    "2s": "recordarás",
+                    "3s": "recordará",
+                    "1p": "recordaremos",
+                    "3p": "recordarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "remember",
+                    "2s": "remember",
+                    "3s": "remembers",
+                    "1p": "remember",
+                    "3p": "remember"
+                },
+                "past": {
+                    "1s": "remembered",
+                    "2s": "remembered",
+                    "3s": "remembered",
+                    "1p": "remembered",
+                    "3p": "remembered"
+                },
+                "future": {
+                    "1s": "will remember",
+                    "2s": "will remember",
+                    "3s": "will remember",
+                    "1p": "will remember",
+                    "3p": "will remember"
+                }
+            }
+        }
+    },
+    {
+        "id": "terminar",
+        "infinitive": {
+            "co-cartagena": "terminar",
+            "co-medellin": "terminar",
+            "us-ca": "to finish"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "termino",
+                    "2s": "terminas",
+                    "3s": "termina",
+                    "1p": "terminamos",
+                    "3p": "terminan"
+                },
+                "past": {
+                    "1s": "terminé",
+                    "2s": "terminaste",
+                    "3s": "terminó",
+                    "1p": "terminamos",
+                    "3p": "terminaron"
+                },
+                "future": {
+                    "1s": "terminaré",
+                    "2s": "terminarás",
+                    "3s": "terminará",
+                    "1p": "terminaremos",
+                    "3p": "terminarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "termino",
+                    "2s": "terminas",
+                    "3s": "termina",
+                    "1p": "terminamos",
+                    "3p": "terminan"
+                },
+                "past": {
+                    "1s": "terminé",
+                    "2s": "terminaste",
+                    "3s": "terminó",
+                    "1p": "terminamos",
+                    "3p": "terminaron"
+                },
+                "future": {
+                    "1s": "terminaré",
+                    "2s": "terminarás",
+                    "3s": "terminará",
+                    "1p": "terminaremos",
+                    "3p": "terminarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "finish",
+                    "2s": "finish",
+                    "3s": "finishs",
+                    "1p": "finish",
+                    "3p": "finish"
+                },
+                "past": {
+                    "1s": "finished",
+                    "2s": "finished",
+                    "3s": "finished",
+                    "1p": "finished",
+                    "3p": "finished"
+                },
+                "future": {
+                    "1s": "will finish",
+                    "2s": "will finish",
+                    "3s": "will finish",
+                    "1p": "will finish",
+                    "3p": "will finish"
+                }
+            }
+        }
+    },
+    {
+        "id": "permitir",
+        "infinitive": {
+            "co-cartagena": "permitir",
+            "co-medellin": "permitir",
+            "us-ca": "to allow"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "permito",
+                    "2s": "permites",
+                    "3s": "permite",
+                    "1p": "permitimos",
+                    "3p": "permiten"
+                },
+                "past": {
+                    "1s": "permití",
+                    "2s": "permitiste",
+                    "3s": "permitió",
+                    "1p": "permitimos",
+                    "3p": "permitieron"
+                },
+                "future": {
+                    "1s": "permitiré",
+                    "2s": "permitirás",
+                    "3s": "permitirá",
+                    "1p": "permitiremos",
+                    "3p": "permitirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "permito",
+                    "2s": "permites",
+                    "3s": "permite",
+                    "1p": "permitimos",
+                    "3p": "permiten"
+                },
+                "past": {
+                    "1s": "permití",
+                    "2s": "permitiste",
+                    "3s": "permitió",
+                    "1p": "permitimos",
+                    "3p": "permitieron"
+                },
+                "future": {
+                    "1s": "permitiré",
+                    "2s": "permitirás",
+                    "3s": "permitirá",
+                    "1p": "permitiremos",
+                    "3p": "permitirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "allow",
+                    "2s": "allow",
+                    "3s": "allows",
+                    "1p": "allow",
+                    "3p": "allow"
+                },
+                "past": {
+                    "1s": "allowed",
+                    "2s": "allowed",
+                    "3s": "allowed",
+                    "1p": "allowed",
+                    "3p": "allowed"
+                },
+                "future": {
+                    "1s": "will allow",
+                    "2s": "will allow",
+                    "3s": "will allow",
+                    "1p": "will allow",
+                    "3p": "will allow"
+                }
+            }
+        }
+    },
+    {
+        "id": "aparecer",
+        "infinitive": {
+            "co-cartagena": "aparecer",
+            "co-medellin": "aparecer",
+            "us-ca": "to appear"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "apareco",
+                    "2s": "apareces",
+                    "3s": "aparece",
+                    "1p": "aparecemos",
+                    "3p": "aparecen"
+                },
+                "past": {
+                    "1s": "aparecí",
+                    "2s": "apareciste",
+                    "3s": "apareció",
+                    "1p": "aparecimos",
+                    "3p": "aparecieron"
+                },
+                "future": {
+                    "1s": "apareceré",
+                    "2s": "aparecerás",
+                    "3s": "aparecerá",
+                    "1p": "apareceremos",
+                    "3p": "aparecerán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "apareco",
+                    "2s": "apareces",
+                    "3s": "aparece",
+                    "1p": "aparecemos",
+                    "3p": "aparecen"
+                },
+                "past": {
+                    "1s": "aparecí",
+                    "2s": "apareciste",
+                    "3s": "apareció",
+                    "1p": "aparecimos",
+                    "3p": "aparecieron"
+                },
+                "future": {
+                    "1s": "apareceré",
+                    "2s": "aparecerás",
+                    "3s": "aparecerá",
+                    "1p": "apareceremos",
+                    "3p": "aparecerán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "appear",
+                    "2s": "appear",
+                    "3s": "appears",
+                    "1p": "appear",
+                    "3p": "appear"
+                },
+                "past": {
+                    "1s": "appeared",
+                    "2s": "appeared",
+                    "3s": "appeared",
+                    "1p": "appeared",
+                    "3p": "appeared"
+                },
+                "future": {
+                    "1s": "will appear",
+                    "2s": "will appear",
+                    "3s": "will appear",
+                    "1p": "will appear",
+                    "3p": "will appear"
+                }
+            }
+        }
+    },
+    {
+        "id": "conseguir",
+        "infinitive": {
+            "co-cartagena": "conseguir",
+            "co-medellin": "conseguir",
+            "us-ca": "to get"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "conseguo",
+                    "2s": "consegues",
+                    "3s": "consegue",
+                    "1p": "conseguimos",
+                    "3p": "conseguen"
+                },
+                "past": {
+                    "1s": "conseguí",
+                    "2s": "conseguiste",
+                    "3s": "conseguió",
+                    "1p": "conseguimos",
+                    "3p": "conseguieron"
+                },
+                "future": {
+                    "1s": "conseguiré",
+                    "2s": "conseguirás",
+                    "3s": "conseguirá",
+                    "1p": "conseguiremos",
+                    "3p": "conseguirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "conseguo",
+                    "2s": "consegues",
+                    "3s": "consegue",
+                    "1p": "conseguimos",
+                    "3p": "conseguen"
+                },
+                "past": {
+                    "1s": "conseguí",
+                    "2s": "conseguiste",
+                    "3s": "conseguió",
+                    "1p": "conseguimos",
+                    "3p": "conseguieron"
+                },
+                "future": {
+                    "1s": "conseguiré",
+                    "2s": "conseguirás",
+                    "3s": "conseguirá",
+                    "1p": "conseguiremos",
+                    "3p": "conseguirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "get",
+                    "2s": "get",
+                    "3s": "gets",
+                    "1p": "get",
+                    "3p": "get"
+                },
+                "past": {
+                    "1s": "geted",
+                    "2s": "geted",
+                    "3s": "geted",
+                    "1p": "geted",
+                    "3p": "geted"
+                },
+                "future": {
+                    "1s": "will get",
+                    "2s": "will get",
+                    "3s": "will get",
+                    "1p": "will get",
+                    "3p": "will get"
+                }
+            }
+        }
+    },
+    {
+        "id": "comenzar",
+        "infinitive": {
+            "co-cartagena": "comenzar",
+            "co-medellin": "comenzar",
+            "us-ca": "to begin"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "comenzo",
+                    "2s": "comenzas",
+                    "3s": "comenza",
+                    "1p": "comenzamos",
+                    "3p": "comenzan"
+                },
+                "past": {
+                    "1s": "comenzé",
+                    "2s": "comenzaste",
+                    "3s": "comenzó",
+                    "1p": "comenzamos",
+                    "3p": "comenzaron"
+                },
+                "future": {
+                    "1s": "comenzaré",
+                    "2s": "comenzarás",
+                    "3s": "comenzará",
+                    "1p": "comenzaremos",
+                    "3p": "comenzarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "comenzo",
+                    "2s": "comenzas",
+                    "3s": "comenza",
+                    "1p": "comenzamos",
+                    "3p": "comenzan"
+                },
+                "past": {
+                    "1s": "comenzé",
+                    "2s": "comenzaste",
+                    "3s": "comenzó",
+                    "1p": "comenzamos",
+                    "3p": "comenzaron"
+                },
+                "future": {
+                    "1s": "comenzaré",
+                    "2s": "comenzarás",
+                    "3s": "comenzará",
+                    "1p": "comenzaremos",
+                    "3p": "comenzarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "begin",
+                    "2s": "begin",
+                    "3s": "begins",
+                    "1p": "begin",
+                    "3p": "begin"
+                },
+                "past": {
+                    "1s": "begined",
+                    "2s": "begined",
+                    "3s": "begined",
+                    "1p": "begined",
+                    "3p": "begined"
+                },
+                "future": {
+                    "1s": "will begin",
+                    "2s": "will begin",
+                    "3s": "will begin",
+                    "1p": "will begin",
+                    "3p": "will begin"
+                }
+            }
+        }
+    },
+    {
+        "id": "servir",
+        "infinitive": {
+            "co-cartagena": "servir",
+            "co-medellin": "servir",
+            "us-ca": "to serve"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "servo",
+                    "2s": "serves",
+                    "3s": "serve",
+                    "1p": "servimos",
+                    "3p": "serven"
+                },
+                "past": {
+                    "1s": "serví",
+                    "2s": "serviste",
+                    "3s": "servió",
+                    "1p": "servimos",
+                    "3p": "servieron"
+                },
+                "future": {
+                    "1s": "serviré",
+                    "2s": "servirás",
+                    "3s": "servirá",
+                    "1p": "serviremos",
+                    "3p": "servirán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "servo",
+                    "2s": "serves",
+                    "3s": "serve",
+                    "1p": "servimos",
+                    "3p": "serven"
+                },
+                "past": {
+                    "1s": "serví",
+                    "2s": "serviste",
+                    "3s": "servió",
+                    "1p": "servimos",
+                    "3p": "servieron"
+                },
+                "future": {
+                    "1s": "serviré",
+                    "2s": "servirás",
+                    "3s": "servirá",
+                    "1p": "serviremos",
+                    "3p": "servirán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "serve",
+                    "2s": "serve",
+                    "3s": "serves",
+                    "1p": "serve",
+                    "3p": "serve"
+                },
+                "past": {
+                    "1s": "served",
+                    "2s": "served",
+                    "3s": "served",
+                    "1p": "served",
+                    "3p": "served"
+                },
+                "future": {
+                    "1s": "will serve",
+                    "2s": "will serve",
+                    "3s": "will serve",
+                    "1p": "will serve",
+                    "3p": "will serve"
+                }
+            }
+        }
+    },
+    {
+        "id": "sacar",
+        "infinitive": {
+            "co-cartagena": "sacar",
+            "co-medellin": "sacar",
+            "us-ca": "to take out"
+        },
+        "data": {
+            "co-cartagena": {
+                "present": {
+                    "1s": "saco",
+                    "2s": "sacas",
+                    "3s": "saca",
+                    "1p": "sacamos",
+                    "3p": "sacan"
+                },
+                "past": {
+                    "1s": "sacé",
+                    "2s": "sacaste",
+                    "3s": "sacó",
+                    "1p": "sacamos",
+                    "3p": "sacaron"
+                },
+                "future": {
+                    "1s": "sacaré",
+                    "2s": "sacarás",
+                    "3s": "sacará",
+                    "1p": "sacaremos",
+                    "3p": "sacarán"
+                }
+            },
+            "co-medellin": {
+                "present": {
+                    "1s": "saco",
+                    "2s": "sacas",
+                    "3s": "saca",
+                    "1p": "sacamos",
+                    "3p": "sacan"
+                },
+                "past": {
+                    "1s": "sacé",
+                    "2s": "sacaste",
+                    "3s": "sacó",
+                    "1p": "sacamos",
+                    "3p": "sacaron"
+                },
+                "future": {
+                    "1s": "sacaré",
+                    "2s": "sacarás",
+                    "3s": "sacará",
+                    "1p": "sacaremos",
+                    "3p": "sacarán"
+                }
+            },
+            "us-ca": {
+                "present": {
+                    "1s": "take out",
+                    "2s": "take out",
+                    "3s": "take outs",
+                    "1p": "take out",
+                    "3p": "take out"
+                },
+                "past": {
+                    "1s": "take outed",
+                    "2s": "take outed",
+                    "3s": "take outed",
+                    "1p": "take outed",
+                    "3p": "take outed"
+                },
+                "future": {
+                    "1s": "will take out",
+                    "2s": "will take out",
+                    "3s": "will take out",
+                    "1p": "will take out",
+                    "3p": "will take out"
+                }
+            }
+        }
+    }
+]

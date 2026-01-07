@@ -56,6 +56,16 @@ export const UI_TEXT: Record<string, LocaleStrings> = {
 
     // Audio
     '🔊 Audio playback coming soon!': { es: '🔊 ¡Reproducción de audio próximamente!' },
+
+    // Verbs
+    'Top 50 Verbs': { es: 'Top 50 Verbos' },
+    'Tense': { es: 'Tiempo' },
+    'Person': { es: 'Persona' },
+    'Present': { es: 'Presente' },
+    'Past': { es: 'Pasado' },
+    'Future': { es: 'Futuro' },
+    'Next Verb': { es: 'Siguiente Verbo' },
+    'Prev Verb': { es: 'Verbo Anterior' },
 };
 
 /**
