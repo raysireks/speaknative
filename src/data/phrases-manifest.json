@@ -33,8 +33,8 @@
             "us-ca": "Thanks"
         },
         "slang": {
-            "co-cartagena": "Bien",
-            "co-medellin": "La buena",
+            "co-cartagena": "Vale",
+            "co-medellin": "Gracias parce",
             "us-ca": "Thanks fam"
         }
     },
@@ -187,7 +187,7 @@
         "common": {
             "co-cartagena": "Buen provecho",
             "co-medellin": "Buen provecho",
-            "us-ca": "Enjoy meal"
+            "us-ca": "Enjoy your meal"
         },
         "slang": {
             "us-ca": "Dig in"
@@ -210,7 +210,7 @@
         "common": {
             "co-cartagena": "Por favor",
             "co-medellin": "Por favor",
-            "us-ca": "Please do"
+            "us-ca": "Please"
         },
         "slang": {
             "co-medellin": "Hágame el cruce"
@@ -364,7 +364,7 @@
         "common": {
             "co-cartagena": "No hay problema",
             "co-medellin": "No hay problema",
-            "us-ca": "No problem here"
+            "us-ca": "No problem"
         },
         "slang": {
             "co-cartagena": "Fresco",
@@ -377,7 +377,7 @@
         "common": {
             "co-cartagena": "¿Qué hora es?",
             "co-medellin": "¿Qué hora es?",
-            "us-ca": "What time is?"
+            "us-ca": "What time is it?"
         },
         "slang": {
             "co-medellin": "¿Qué horas son?"
@@ -429,7 +429,7 @@
         "common": {
             "co-cartagena": "Que te vaya bien",
             "co-medellin": "Que le vaya bien",
-            "us-ca": "Have good one"
+            "us-ca": "Have a good one"
         },
         "slang": {
             "co-medellin": "Vaya bien",
@@ -454,7 +454,7 @@
         "common": {
             "co-cartagena": "Estoy muy cansado",
             "co-medellin": "Estoy muy cansado",
-            "us-ca": "I am so tired"
+            "us-ca": "I'm so tired"
         },
         "slang": {
             "co-medellin": "Estoy mamado",
@@ -490,7 +490,7 @@
         "common": {
             "co-cartagena": "Me duele todo",
             "co-medellin": "Me duele todo",
-            "us-ca": "Everything hurts now"
+            "us-ca": "Everything hurts"
         },
         "slang": {
             "co-medellin": "Estoy molido"
@@ -499,9 +499,9 @@
     {
         "id": 44,
         "common": {
-            "co-cartagena": "Quiero ir casa",
-            "co-medellin": "Quiero ir casa",
-            "us-ca": "Want go home"
+            "co-cartagena": "Quiero ir a casa",
+            "co-medellin": "Quiero ir a casa",
+            "us-ca": "Want to go home"
         },
         "slang": {
             "co-medellin": "Quiero ir al rancho",
@@ -520,18 +520,18 @@
     {
         "id": 46,
         "common": {
-            "co-cartagena": "¿Dónde está baño?",
-            "co-medellin": "¿Dónde queda baño?",
-            "us-ca": "Where is bathroom?"
+            "co-cartagena": "¿Dónde está el baño?",
+            "co-medellin": "¿Dónde queda el baño?",
+            "us-ca": "Where's the bathroom?"
         },
         "slang": {}
     },
     {
         "id": 47,
         "common": {
-            "co-cartagena": "La cuenta, favor",
-            "co-medellin": "La cuenta, favor",
-            "us-ca": "Check please, waiter"
+            "co-cartagena": "La cuenta, por favor",
+            "co-medellin": "La cuenta, por favor",
+            "us-ca": "Check, please"
         },
         "slang": {}
     },
@@ -726,7 +726,7 @@
         "common": {
             "co-cartagena": "¿Cómo se dice esto?",
             "co-medellin": "¿Cómo se dice esto?",
-            "us-ca": "How say this here?"
+            "us-ca": "How do you say this?"
         },
         "slang": {}
     },
@@ -744,7 +744,7 @@
         "common": {
             "co-cartagena": "Quiero aprender a hablar",
             "co-medellin": "Quiero aprender a hablar",
-            "us-ca": "Want to learn talk"
+            "us-ca": "Want to learn to talk"
         },
         "slang": {}
     },
@@ -801,18 +801,18 @@
     {
         "id": 73,
         "common": {
-            "co-cartagena": "Llevame al hotel centro",
-            "co-medellin": "Lléveme al hotel centro",
-            "us-ca": "Take me hotel center"
+            "co-cartagena": "Llévame al hotel del centro",
+            "co-medellin": "Lléveme al hotel del centro",
+            "us-ca": "Take me to downtown hotel"
         },
         "slang": {}
     },
     {
         "id": 74,
         "common": {
-            "co-cartagena": "Estoy perdido en ciudad",
-            "co-medellin": "Estoy perdido en ciudad",
-            "us-ca": "I am lost here"
+            "co-cartagena": "Estoy perdido en la ciudad",
+            "co-medellin": "Estoy perdido en la ciudad",
+            "us-ca": "I'm lost"
         },
         "slang": {
             "co-medellin": "Estoy embolatado"
@@ -877,9 +877,9 @@
     {
         "id": 81,
         "common": {
-            "co-cartagena": "Solo tengo dinero efectivo",
-            "co-medellin": "Solo tengo plata efectivo",
-            "us-ca": "Only have cash on"
+            "co-cartagena": "Solo tengo dinero en efectivo",
+            "co-medellin": "Solo tengo plata en efectivo",
+            "us-ca": "Only have cash"
         },
         "slang": {
             "co-medellin": "Solo efectivo",
@@ -900,7 +900,7 @@
         "common": {
             "co-cartagena": "Vamos a comer algo",
             "co-medellin": "Vamos a comer algo",
-            "us-ca": "Let's eat something now"
+            "us-ca": "Let's eat something"
         },
         "slang": {
             "us-ca": "Grab food"
@@ -931,9 +931,9 @@
     {
         "id": 86,
         "common": {
-            "co-cartagena": "Soy alergico a nueces",
-            "co-medellin": "Soy alergico a nueces",
-            "us-ca": "Allergic to nuts here"
+            "co-cartagena": "Soy alérgico a las nueces",
+            "co-medellin": "Soy alérgico a las nueces",
+            "us-ca": "I'm allergic to nuts"
         },
         "slang": {}
     },
@@ -949,9 +949,9 @@
     {
         "id": 88,
         "common": {
-            "co-cartagena": "¿Me trae el menu?",
+            "co-cartagena": "¿Me trae el menú?",
             "co-medellin": "¿Me trae la carta?",
-            "us-ca": "Bring me the menu"
+            "us-ca": "Can you bring me the menu?"
         },
         "slang": {}
     },
@@ -1014,18 +1014,18 @@
         "common": {
             "co-cartagena": "Te voy a extrañar",
             "co-medellin": "Lo voy a extrañar",
-            "us-ca": "I'm going miss you"
+            "us-ca": "I'm going to miss you"
         },
         "slang": {
-            "co-medellin": "Me hacer falta"
+            "co-medellin": "Me vas a hacer falta"
         }
     },
     {
         "id": 95,
         "common": {
-            "co-cartagena": "Regresa cuando tu quieras",
+            "co-cartagena": "Regresa cuando tú quieras",
             "co-medellin": "Vuelva cuando usted quiera",
-            "us-ca": "Come back when want"
+            "us-ca": "Come back whenever you want"
         },
         "slang": {}
     },
