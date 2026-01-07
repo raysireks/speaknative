@@ -1,0 +1,1083 @@
+[
+    {
+        "id": 1,
+        "common": {
+            "co-cartagena": "Hola",
+            "co-medellin": "Hola",
+            "us-ca": "Hi"
+        },
+        "slang": {
+            "co-cartagena": "Buenas",
+            "co-medellin": "Quiubo",
+            "us-ca": "Sup"
+        }
+    },
+    {
+        "id": 2,
+        "common": {
+            "co-cartagena": "Adiós",
+            "co-medellin": "Chao",
+            "us-ca": "Bye"
+        },
+        "slang": {
+            "co-cartagena": "Nos pillamos",
+            "co-medellin": "Suerte",
+            "us-ca": "Later"
+        }
+    },
+    {
+        "id": 3,
+        "common": {
+            "co-cartagena": "Gracias",
+            "co-medellin": "Gracias",
+            "us-ca": "Thanks"
+        },
+        "slang": {
+            "co-cartagena": "Bien",
+            "co-medellin": "La buena",
+            "us-ca": "Thanks fam"
+        }
+    },
+    {
+        "id": 4,
+        "common": {
+            "co-cartagena": "Sí",
+            "co-medellin": "Sí",
+            "us-ca": "Yes"
+        },
+        "slang": {
+            "co-cartagena": "Claro",
+            "co-medellin": "Sisas",
+            "us-ca": "Facts"
+        }
+    },
+    {
+        "id": 5,
+        "common": {
+            "co-cartagena": "No",
+            "co-medellin": "No",
+            "us-ca": "No"
+        },
+        "slang": {
+            "co-cartagena": "Nombe",
+            "co-medellin": "Nocas",
+            "us-ca": "Nah"
+        }
+    },
+    {
+        "id": 6,
+        "common": {
+            "co-cartagena": "Bueno",
+            "co-medellin": "Bueno",
+            "us-ca": "Okay"
+        },
+        "slang": {
+            "co-cartagena": "Va pa esa",
+            "co-medellin": "Hágale",
+            "us-ca": "Bet"
+        }
+    },
+    {
+        "id": 7,
+        "common": {
+            "co-cartagena": "Ayuda",
+            "co-medellin": "Ayuda",
+            "us-ca": "Help"
+        },
+        "slang": {
+            "co-medellin": "Una mano"
+        }
+    },
+    {
+        "id": 8,
+        "common": {
+            "co-cartagena": "Hoy",
+            "co-medellin": "Hoy",
+            "us-ca": "Today"
+        },
+        "slang": {}
+    },
+    {
+        "id": 9,
+        "common": {
+            "co-cartagena": "Mañana",
+            "co-medellin": "Mañana",
+            "us-ca": "Tomorrow"
+        },
+        "slang": {}
+    },
+    {
+        "id": 10,
+        "common": {
+            "co-cartagena": "Ayer",
+            "co-medellin": "Ayer",
+            "us-ca": "Yesterday"
+        },
+        "slang": {}
+    },
+    {
+        "id": 11,
+        "common": {
+            "co-cartagena": "Buenos días",
+            "co-medellin": "Buenos días",
+            "us-ca": "Good morning"
+        },
+        "slang": {
+            "us-ca": "Morning"
+        }
+    },
+    {
+        "id": 12,
+        "common": {
+            "co-cartagena": "Buenas tardes",
+            "co-medellin": "Buenas tardes",
+            "us-ca": "Good afternoon"
+        },
+        "slang": {}
+    },
+    {
+        "id": 13,
+        "common": {
+            "co-cartagena": "Buenas noches",
+            "co-medellin": "Buenas noches",
+            "us-ca": "Good evening"
+        },
+        "slang": {}
+    },
+    {
+        "id": 14,
+        "common": {
+            "co-cartagena": "Muchas gracias",
+            "co-medellin": "Muchas gracias",
+            "us-ca": "Thank you"
+        },
+        "slang": {
+            "co-medellin": "Dios le pague",
+            "us-ca": "Much love"
+        }
+    },
+    {
+        "id": 15,
+        "common": {
+            "co-cartagena": "¿Cómo estás?",
+            "co-medellin": "¿Cómo vas?",
+            "us-ca": "How are you?"
+        },
+        "slang": {
+            "co-cartagena": "¿Qué hay?",
+            "co-medellin": "¿Qué más?",
+            "us-ca": "What's the vibe?"
+        }
+    },
+    {
+        "id": 16,
+        "common": {
+            "co-cartagena": "Hasta luego",
+            "co-medellin": "Hasta luego",
+            "us-ca": "See you"
+        },
+        "slang": {
+            "co-cartagena": "Hablamos",
+            "co-medellin": "Nos vemos",
+            "us-ca": "Peace out"
+        }
+    },
+    {
+        "id": 17,
+        "common": {
+            "co-cartagena": "Buen provecho",
+            "co-medellin": "Buen provecho",
+            "us-ca": "Enjoy meal"
+        },
+        "slang": {
+            "us-ca": "Dig in"
+        }
+    },
+    {
+        "id": 18,
+        "common": {
+            "co-cartagena": "Lo siento",
+            "co-medellin": "Lo siento",
+            "us-ca": "I'm sorry"
+        },
+        "slang": {
+            "co-medellin": "Qué pena",
+            "us-ca": "My bad"
+        }
+    },
+    {
+        "id": 19,
+        "common": {
+            "co-cartagena": "Por favor",
+            "co-medellin": "Por favor",
+            "us-ca": "Please do"
+        },
+        "slang": {
+            "co-medellin": "Hágame el cruce"
+        }
+    },
+    {
+        "id": 20,
+        "common": {
+            "co-cartagena": "Con permiso",
+            "co-medellin": "Con permiso",
+            "us-ca": "Excuse me"
+        },
+        "slang": {
+            "co-cartagena": "Permisito"
+        }
+    },
+    {
+        "id": 21,
+        "common": {
+            "co-cartagena": "¿Qué pasa?",
+            "co-medellin": "¿Qué pasa?",
+            "us-ca": "What's happening?"
+        },
+        "slang": {
+            "co-cartagena": "¿Ajá y qué?",
+            "co-medellin": "¿Qué hubo?",
+            "us-ca": "What's good?"
+        }
+    },
+    {
+        "id": 22,
+        "common": {
+            "co-cartagena": "No sé",
+            "co-medellin": "No sé",
+            "us-ca": "Don't know"
+        },
+        "slang": {
+            "co-medellin": "Ni idea",
+            "us-ca": "No clue"
+        }
+    },
+    {
+        "id": 23,
+        "common": {
+            "co-cartagena": "Está bien",
+            "co-medellin": "Está bien",
+            "us-ca": "That's fine"
+        },
+        "slang": {
+            "co-medellin": "Todo bien",
+            "us-ca": "Cool"
+        }
+    },
+    {
+        "id": 24,
+        "common": {
+            "co-cartagena": "Vamos pues",
+            "co-medellin": "Vamos pues",
+            "us-ca": "Let's go"
+        },
+        "slang": {
+            "co-cartagena": "Fuimonos",
+            "co-medellin": "Arranquemos",
+            "us-ca": "Lets dip"
+        }
+    },
+    {
+        "id": 25,
+        "common": {
+            "co-cartagena": "Tengo hambre",
+            "co-medellin": "Tengo hambre",
+            "us-ca": "I'm hungry"
+        },
+        "slang": {
+            "co-cartagena": "Tengo filo",
+            "co-medellin": "Tengo filo",
+            "us-ca": "Starving"
+        }
+    },
+    {
+        "id": 26,
+        "common": {
+            "co-cartagena": "Tengo sed",
+            "co-medellin": "Tengo sed",
+            "us-ca": "I'm thirsty"
+        },
+        "slang": {
+            "co-medellin": "Estoy seco"
+        }
+    },
+    {
+        "id": 27,
+        "common": {
+            "co-cartagena": "Soy feliz",
+            "co-medellin": "Soy feliz",
+            "us-ca": "I'm happy"
+        },
+        "slang": {
+            "co-medellin": "Estoy contento",
+            "us-ca": "Vibing"
+        }
+    },
+    {
+        "id": 28,
+        "common": {
+            "co-cartagena": "Muy bien",
+            "co-medellin": "Muy bien",
+            "us-ca": "Very good"
+        },
+        "slang": {
+            "co-cartagena": "Bacano",
+            "co-medellin": "Una chimba",
+            "us-ca": "Fire"
+        }
+    },
+    {
+        "id": 29,
+        "common": {
+            "co-cartagena": "Más o menos",
+            "co-medellin": "Más o menos",
+            "us-ca": "So so"
+        },
+        "slang": {
+            "co-medellin": "Regular",
+            "us-ca": "Mid"
+        }
+    },
+    {
+        "id": 30,
+        "common": {
+            "co-cartagena": "¿Cuánto cuesta?",
+            "co-medellin": "¿Cuánto vale?",
+            "us-ca": "How much?"
+        },
+        "slang": {
+            "co-cartagena": "¿Cuánto es?",
+            "co-medellin": "¿A cómo?"
+        }
+    },
+    {
+        "id": 31,
+        "common": {
+            "co-cartagena": "Gusto en conocerte",
+            "co-medellin": "Gusto en conocerte",
+            "us-ca": "Nice meeting you"
+        },
+        "slang": {}
+    },
+    {
+        "id": 32,
+        "common": {
+            "co-cartagena": "No hay problema",
+            "co-medellin": "No hay problema",
+            "us-ca": "No problem here"
+        },
+        "slang": {
+            "co-cartagena": "Fresco",
+            "co-medellin": "Todo bien",
+            "us-ca": "No worries"
+        }
+    },
+    {
+        "id": 33,
+        "common": {
+            "co-cartagena": "¿Qué hora es?",
+            "co-medellin": "¿Qué hora es?",
+            "us-ca": "What time is?"
+        },
+        "slang": {
+            "co-medellin": "¿Qué horas son?"
+        }
+    },
+    {
+        "id": 34,
+        "common": {
+            "co-cartagena": "Me llamo Juan",
+            "co-medellin": "Me llamo Juan",
+            "us-ca": "My name's John"
+        },
+        "slang": {}
+    },
+    {
+        "id": 35,
+        "common": {
+            "co-cartagena": "¿De dónde eres?",
+            "co-medellin": "¿De dónde eres?",
+            "us-ca": "Where you from?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 36,
+        "common": {
+            "co-cartagena": "Soy de aquí",
+            "co-medellin": "Soy de aquí",
+            "us-ca": "I'm from here"
+        },
+        "slang": {
+            "us-ca": "Local"
+        }
+    },
+    {
+        "id": 37,
+        "common": {
+            "co-cartagena": "Nos vemos luego",
+            "co-medellin": "Nos vemos luego",
+            "us-ca": "See you later"
+        },
+        "slang": {
+            "co-medellin": "Nos pillamos",
+            "us-ca": "Catch ya later"
+        }
+    },
+    {
+        "id": 38,
+        "common": {
+            "co-cartagena": "Que te vaya bien",
+            "co-medellin": "Que le vaya bien",
+            "us-ca": "Have good one"
+        },
+        "slang": {
+            "co-medellin": "Vaya bien",
+            "us-ca": "Take it easy"
+        }
+    },
+    {
+        "id": 39,
+        "common": {
+            "co-cartagena": "No te preocupes",
+            "co-medellin": "No se preocupe",
+            "us-ca": "Don't worry now"
+        },
+        "slang": {
+            "co-cartagena": "Tranquilo",
+            "co-medellin": "Fresco",
+            "us-ca": "Chill"
+        }
+    },
+    {
+        "id": 40,
+        "common": {
+            "co-cartagena": "Estoy muy cansado",
+            "co-medellin": "Estoy muy cansado",
+            "us-ca": "I am so tired"
+        },
+        "slang": {
+            "co-medellin": "Estoy mamado",
+            "us-ca": "I'm dead"
+        }
+    },
+    {
+        "id": 41,
+        "common": {
+            "co-cartagena": "Tengo mucho calor",
+            "co-medellin": "Qué calor hace",
+            "us-ca": "It's hot out"
+        },
+        "slang": {
+            "co-cartagena": "Qué cule calor",
+            "us-ca": "Melting"
+        }
+    },
+    {
+        "id": 42,
+        "common": {
+            "co-cartagena": "Hace mucho frío",
+            "co-medellin": "Qué frío hace",
+            "us-ca": "It's cold out"
+        },
+        "slang": {
+            "co-medellin": "Qué chiflón",
+            "us-ca": "Freezing"
+        }
+    },
+    {
+        "id": 43,
+        "common": {
+            "co-cartagena": "Me duele todo",
+            "co-medellin": "Me duele todo",
+            "us-ca": "Everything hurts now"
+        },
+        "slang": {
+            "co-medellin": "Estoy molido"
+        }
+    },
+    {
+        "id": 44,
+        "common": {
+            "co-cartagena": "Quiero ir casa",
+            "co-medellin": "Quiero ir casa",
+            "us-ca": "Want go home"
+        },
+        "slang": {
+            "co-medellin": "Quiero ir al rancho",
+            "us-ca": "Wanna head out"
+        }
+    },
+    {
+        "id": 45,
+        "common": {
+            "co-cartagena": "Necesito un médico",
+            "co-medellin": "Necesito un médico",
+            "us-ca": "Need a doctor"
+        },
+        "slang": {}
+    },
+    {
+        "id": 46,
+        "common": {
+            "co-cartagena": "¿Dónde está baño?",
+            "co-medellin": "¿Dónde queda baño?",
+            "us-ca": "Where is bathroom?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 47,
+        "common": {
+            "co-cartagena": "La cuenta, favor",
+            "co-medellin": "La cuenta, favor",
+            "us-ca": "Check please, waiter"
+        },
+        "slang": {}
+    },
+    {
+        "id": 48,
+        "common": {
+            "co-cartagena": "Es muy caro",
+            "co-medellin": "Es muy caro",
+            "us-ca": "It's too expensive"
+        },
+        "slang": {
+            "co-medellin": "Está caribe",
+            "us-ca": "Rip off"
+        }
+    },
+    {
+        "id": 49,
+        "common": {
+            "co-cartagena": "Es muy barato",
+            "co-medellin": "Es muy barato",
+            "us-ca": "It's very cheap"
+        },
+        "slang": {
+            "co-medellin": "Regalado",
+            "us-ca": "Steal"
+        }
+    },
+    {
+        "id": 50,
+        "common": {
+            "co-cartagena": "Me gusta esto",
+            "co-medellin": "Me gusta esto",
+            "us-ca": "I like this"
+        },
+        "slang": {
+            "co-cartagena": "Está firme",
+            "co-medellin": "Está melo",
+            "us-ca": "This slaps"
+        }
+    },
+    {
+        "id": 51,
+        "common": {
+            "co-cartagena": "No me gusta",
+            "co-medellin": "No me gusta",
+            "us-ca": "Don't like it"
+        },
+        "slang": {
+            "co-medellin": "Gas",
+            "us-ca": "Not the vibe"
+        }
+    },
+    {
+        "id": 52,
+        "common": {
+            "co-cartagena": "¿Te gusta eso?",
+            "co-medellin": "¿Le gusta eso?",
+            "us-ca": "You like that?"
+        },
+        "slang": {
+            "co-medellin": "¿Le trama?"
+        }
+    },
+    {
+        "id": 53,
+        "common": {
+            "co-cartagena": "Vamos a bailar",
+            "co-medellin": "Vamos a bailar",
+            "us-ca": "Let's go dance"
+        },
+        "slang": {
+            "co-cartagena": "Vamos a rumbear",
+            "co-medellin": "A azotar baldosa"
+        }
+    },
+    {
+        "id": 54,
+        "common": {
+            "co-cartagena": "Tomemos una foto",
+            "co-medellin": "Tomemos una foto",
+            "us-ca": "Take a picture"
+        },
+        "slang": {
+            "us-ca": "Take a flick"
+        }
+    },
+    {
+        "id": 55,
+        "common": {
+            "co-cartagena": "Llama me pronto",
+            "co-medellin": "Llámeme pronto",
+            "us-ca": "Call me soon"
+        },
+        "slang": {
+            "co-medellin": "Me timbra",
+            "us-ca": "Hit me up"
+        }
+    },
+    {
+        "id": 56,
+        "common": {
+            "co-cartagena": "Te quiero mucho",
+            "co-medellin": "Te quiero mucho",
+            "us-ca": "Love you lots"
+        },
+        "slang": {}
+    },
+    {
+        "id": 57,
+        "common": {
+            "co-cartagena": "Feliz cumpleaños amigo",
+            "co-medellin": "Feliz cumpleaños amigo",
+            "us-ca": "Happy birthday friend"
+        },
+        "slang": {
+            "co-medellin": "Feliz cumple",
+            "us-ca": "HBD bestie"
+        }
+    },
+    {
+        "id": 58,
+        "common": {
+            "co-cartagena": "Buena suerte hoy",
+            "co-medellin": "Buena suerte hoy",
+            "us-ca": "Good luck today"
+        },
+        "slang": {
+            "co-medellin": "Con toda",
+            "us-ca": "You got this"
+        }
+    },
+    {
+        "id": 59,
+        "common": {
+            "co-cartagena": "Ten buen viaje",
+            "co-medellin": "Tenga buen viaje",
+            "us-ca": "Have safe trip"
+        },
+        "slang": {}
+    },
+    {
+        "id": 60,
+        "common": {
+            "co-cartagena": "Nos vemos mañana",
+            "co-medellin": "Nos vemos mañana",
+            "us-ca": "See you tomorrow"
+        },
+        "slang": {}
+    },
+    {
+        "id": 61,
+        "common": {
+            "co-cartagena": "¿Me puedes ayudar ahora?",
+            "co-medellin": "¿Me puede ayudar ahora?",
+            "us-ca": "Can you help now?"
+        },
+        "slang": {
+            "co-medellin": "¿Me da una mano?"
+        }
+    },
+    {
+        "id": 62,
+        "common": {
+            "co-cartagena": "No entiendo qué dices",
+            "co-medellin": "No entiendo qué dice",
+            "us-ca": "Don't get it"
+        },
+        "slang": {
+            "co-medellin": "Está hablando en chino"
+        }
+    },
+    {
+        "id": 63,
+        "common": {
+            "co-cartagena": "Habla un poco despacio",
+            "co-medellin": "Hable un poco despacio",
+            "us-ca": "Speak a bit slower"
+        },
+        "slang": {}
+    },
+    {
+        "id": 64,
+        "common": {
+            "co-cartagena": "Repite eso por favor",
+            "co-medellin": "Repita eso por favor",
+            "us-ca": "Say that again please"
+        },
+        "slang": {}
+    },
+    {
+        "id": 65,
+        "common": {
+            "co-cartagena": "¿Cómo se dice esto?",
+            "co-medellin": "¿Cómo se dice esto?",
+            "us-ca": "How say this here?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 66,
+        "common": {
+            "co-cartagena": "¿Qué significa esa palabra?",
+            "co-medellin": "¿Qué significa esa palabra?",
+            "us-ca": "What does that mean?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 67,
+        "common": {
+            "co-cartagena": "Quiero aprender a hablar",
+            "co-medellin": "Quiero aprender a hablar",
+            "us-ca": "Want to learn talk"
+        },
+        "slang": {}
+    },
+    {
+        "id": 68,
+        "common": {
+            "co-cartagena": "Tu español es bueno",
+            "co-medellin": "Su español es bueno",
+            "us-ca": "Your Spanish is good"
+        },
+        "slang": {}
+    },
+    {
+        "id": 69,
+        "common": {
+            "co-cartagena": "Tengo que irme ya",
+            "co-medellin": "Tengo que irme ya",
+            "us-ca": "Gotta get going now"
+        },
+        "slang": {
+            "co-medellin": "Me abro",
+            "us-ca": "I gotta dip"
+        }
+    },
+    {
+        "id": 70,
+        "common": {
+            "co-cartagena": "¿Dónde está la parada?",
+            "co-medellin": "¿Dónde queda la parada?",
+            "us-ca": "Where is the stop?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 71,
+        "common": {
+            "co-cartagena": "El bus viene rápido",
+            "co-medellin": "El bus viene rápido",
+            "us-ca": "Bus is coming fast"
+        },
+        "slang": {}
+    },
+    {
+        "id": 72,
+        "common": {
+            "co-cartagena": "Quiero tomar un taxi",
+            "co-medellin": "Quiero coger un taxi",
+            "us-ca": "Wanna take a cab"
+        },
+        "slang": {
+            "us-ca": "Get an Uber"
+        }
+    },
+    {
+        "id": 73,
+        "common": {
+            "co-cartagena": "Llevame al hotel centro",
+            "co-medellin": "Lléveme al hotel centro",
+            "us-ca": "Take me hotel center"
+        },
+        "slang": {}
+    },
+    {
+        "id": 74,
+        "common": {
+            "co-cartagena": "Estoy perdido en ciudad",
+            "co-medellin": "Estoy perdido en ciudad",
+            "us-ca": "I am lost here"
+        },
+        "slang": {
+            "co-medellin": "Estoy embolatado"
+        }
+    },
+    {
+        "id": 75,
+        "common": {
+            "co-cartagena": "¿Tienes servicio de internet?",
+            "co-medellin": "¿Tiene servicio de internet?",
+            "us-ca": "Do you have wifi?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 76,
+        "common": {
+            "co-cartagena": "¿Cuál es la clave?",
+            "co-medellin": "¿Cuál es la clave?",
+            "us-ca": "What is the password?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 77,
+        "common": {
+            "co-cartagena": "Mi celular no carga",
+            "co-medellin": "Mi celular no carga",
+            "us-ca": "Phone is not charging"
+        },
+        "slang": {}
+    },
+    {
+        "id": 78,
+        "common": {
+            "co-cartagena": "¿Me prestas tu cargador?",
+            "co-medellin": "¿Me presta su cargador?",
+            "us-ca": "Can borrow your charger?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 79,
+        "common": {
+            "co-cartagena": "Quiero comprar una sim",
+            "co-medellin": "Quiero comprar una sim",
+            "us-ca": "Want to buy sim"
+        },
+        "slang": {}
+    },
+    {
+        "id": 80,
+        "common": {
+            "co-cartagena": "¿Aceptan tarjeta de crédito?",
+            "co-medellin": "¿Reciben tarjeta de crédito?",
+            "us-ca": "You take credit card?"
+        },
+        "slang": {
+            "us-ca": "Take Apple Pay?"
+        }
+    },
+    {
+        "id": 81,
+        "common": {
+            "co-cartagena": "Solo tengo dinero efectivo",
+            "co-medellin": "Solo tengo plata efectivo",
+            "us-ca": "Only have cash on"
+        },
+        "slang": {
+            "co-medellin": "Solo efectivo",
+            "us-ca": "Cash only"
+        }
+    },
+    {
+        "id": 82,
+        "common": {
+            "co-cartagena": "¿Dónde hay un cajero?",
+            "co-medellin": "¿Dónde hay un cajero?",
+            "us-ca": "Where is an ATM?"
+        },
+        "slang": {}
+    },
+    {
+        "id": 83,
+        "common": {
+            "co-cartagena": "Vamos a comer algo",
+            "co-medellin": "Vamos a comer algo",
+            "us-ca": "Let's eat something now"
+        },
+        "slang": {
+            "us-ca": "Grab food"
+        }
+    },
+    {
+        "id": 84,
+        "common": {
+            "co-cartagena": "La comida está rica",
+            "co-medellin": "La comida está rica",
+            "us-ca": "Food is really good"
+        },
+        "slang": {
+            "co-cartagena": "Está barro",
+            "co-medellin": "Está una chimba",
+            "us-ca": "Food is bussin"
+        }
+    },
+    {
+        "id": 85,
+        "common": {
+            "co-cartagena": "No me gusta picante",
+            "co-medellin": "No me gusta picante",
+            "us-ca": "Don't like spicy food"
+        },
+        "slang": {}
+    },
+    {
+        "id": 86,
+        "common": {
+            "co-cartagena": "Soy alergico a nueces",
+            "co-medellin": "Soy alergico a nueces",
+            "us-ca": "Allergic to nuts here"
+        },
+        "slang": {}
+    },
+    {
+        "id": 87,
+        "common": {
+            "co-cartagena": "Un vaso de agua",
+            "co-medellin": "Un vaso de agua",
+            "us-ca": "A glass of water"
+        },
+        "slang": {}
+    },
+    {
+        "id": 88,
+        "common": {
+            "co-cartagena": "¿Me trae el menu?",
+            "co-medellin": "¿Me trae la carta?",
+            "us-ca": "Bring me the menu"
+        },
+        "slang": {}
+    },
+    {
+        "id": 89,
+        "common": {
+            "co-cartagena": "Todo estuvo muy bien",
+            "co-medellin": "Todo estuvo muy bien",
+            "us-ca": "Everything was very good"
+        },
+        "slang": {
+            "co-medellin": "Estuvo melo",
+            "us-ca": "Hit the spot"
+        }
+    },
+    {
+        "id": 90,
+        "common": {
+            "co-cartagena": "Hasta la proxima vez",
+            "co-medellin": "Hasta la proxima vez",
+            "us-ca": "Until the next time"
+        },
+        "slang": {
+            "co-medellin": "La buena",
+            "us-ca": "See ya"
+        }
+    },
+    {
+        "id": 91,
+        "common": {
+            "co-cartagena": "Espero verte muy pronto",
+            "co-medellin": "Espero verte muy pronto",
+            "us-ca": "Hope see you soon"
+        },
+        "slang": {}
+    },
+    {
+        "id": 92,
+        "common": {
+            "co-cartagena": "Cuidate mucho mi amigo",
+            "co-medellin": "Cuídese mucho mi amigo",
+            "us-ca": "Take care my friend"
+        },
+        "slang": {
+            "co-medellin": "Juicioso",
+            "us-ca": "Stay safe"
+        }
+    },
+    {
+        "id": 93,
+        "common": {
+            "co-cartagena": "No olvides llamar hoy",
+            "co-medellin": "No olvide llamar hoy",
+            "us-ca": "Don't forget call today"
+        },
+        "slang": {}
+    },
+    {
+        "id": 94,
+        "common": {
+            "co-cartagena": "Te voy a extrañar",
+            "co-medellin": "Lo voy a extrañar",
+            "us-ca": "I'm going miss you"
+        },
+        "slang": {
+            "co-medellin": "Me hacer falta"
+        }
+    },
+    {
+        "id": 95,
+        "common": {
+            "co-cartagena": "Regresa cuando tu quieras",
+            "co-medellin": "Vuelva cuando usted quiera",
+            "us-ca": "Come back when want"
+        },
+        "slang": {}
+    },
+    {
+        "id": 96,
+        "common": {
+            "co-cartagena": "Esta es tu casa",
+            "co-medellin": "Esta es su casa",
+            "us-ca": "This is your house"
+        },
+        "slang": {}
+    },
+    {
+        "id": 97,
+        "common": {
+            "co-cartagena": "Dios te bendiga siempre",
+            "co-medellin": "Dios le bendiga siempre",
+            "us-ca": "God bless you always"
+        },
+        "slang": {
+            "co-medellin": "Que Dios lo bendiga"
+        }
+    },
+    {
+        "id": 98,
+        "common": {
+            "co-cartagena": "Que tengas buen dia",
+            "co-medellin": "Que tenga buen dia",
+            "us-ca": "Have a good day"
+        },
+        "slang": {
+            "us-ca": "Have good one"
+        }
+    },
+    {
+        "id": 99,
+        "common": {
+            "co-cartagena": "Nos vemos el lunes",
+            "co-medellin": "Nos vemos el lunes",
+            "us-ca": "See you on Monday"
+        },
+        "slang": {}
+    },
+    {
+        "id": 100,
+        "common": {
+            "co-cartagena": "Gracias por todo hoy",
+            "co-medellin": "Gracias por todo hoy",
+            "us-ca": "Thanks for everything today"
+        },
+        "slang": {
+            "co-medellin": "La buena parceros"
+        }
+    }
+]

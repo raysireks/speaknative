@@ -1,102 +1,102 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { LocaleProvider } from './context/LocaleContext';
 import Landing from './Landing';
 
+// Helper to render with locale context
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(<LocaleProvider>{ui}</LocaleProvider>);
+};
+
 describe('Landing', () => {
-  it('renders the main heading', () => {
-    render(<Landing />);
+  const mockOnStartFlashcards = vi.fn();
+
+  beforeEach(() => {
+    mockOnStartFlashcards.mockClear();
+  });
+
+  it('displays the app name', () => {
+    renderWithLocale(<Landing />);
     expect(screen.getByText('SpeakNative')).toBeInTheDocument();
   });
 
-  it('renders app language selector', () => {
-    render(<Landing />);
-    expect(screen.getByLabelText('Switch to English')).toBeInTheDocument();
-    expect(screen.getByLabelText('Switch to Spanish')).toBeInTheDocument();
+  it('shows "I speak" toggle button', () => {
+    renderWithLocale(<Landing />);
+    expect(screen.getByLabelText('Toggle my language')).toBeInTheDocument();
   });
 
-  it('renders language selection initially', () => {
-    render(<Landing />);
-    expect(screen.getByText('Select Your Language')).toBeInTheDocument();
-    expect(screen.getByText('English', { selector: 'h3' })).toBeInTheDocument();
-    expect(screen.getByText('Spanish', { selector: 'h3' })).toBeInTheDocument();
+  it('filters regions based on language', () => {
+    renderWithLocale(<Landing />);
+
+    // Default is English user -> Spanish regions
+    expect(screen.getByText('Cartagena')).toBeInTheDocument();
+
+    // Switch to Spanish user -> English regions
+    const toggleButton = screen.getByLabelText('Toggle my language');
+    fireEvent.click(toggleButton);
+
+    expect(screen.getByText('California')).toBeInTheDocument();
   });
 
-  it('shows locale selection after selecting English', () => {
-    render(<Landing />);
-    const englishButton = screen.getByLabelText('Select English');
-    fireEvent.click(englishButton);
+  it('selects a region when clicked', () => {
+    renderWithLocale(<Landing />);
 
-    expect(screen.getByText('Select Your Locale')).toBeInTheDocument();
-    expect(screen.getByText('United States - Midwest')).toBeInTheDocument();
-    expect(screen.getByText('United States - East Coast')).toBeInTheDocument();
+    // Switch to Spanish user -> English regions
+    const toggleButton = screen.getByLabelText('Toggle my language');
+    fireEvent.click(toggleButton);
+
+    fireEvent.click(screen.getByText('California'));
+
+    expect(screen.getByText('¡Listo para Aprender!')).toBeInTheDocument();
+    expect(screen.getByText(/California\s+English/i)).toBeInTheDocument();
   });
 
-  it('shows locale selection after selecting Spanish', () => {
-    render(<Landing />);
-    const spanishButton = screen.getByLabelText('Select Spanish');
-    fireEvent.click(spanishButton);
+  it('allows selecting a region', () => {
+    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
-    expect(screen.getByText('Select Your Locale')).toBeInTheDocument();
-    expect(screen.getByText('Colombia - Cartagena')).toBeInTheDocument();
-    expect(screen.getByText('Colombia - Medellín')).toBeInTheDocument();
+    const cartagenaButton = screen.getByLabelText('Select Cartagena');
+    fireEvent.click(cartagenaButton);
+
+    expect(screen.getByText('Ready to Learn!')).toBeInTheDocument();
   });
 
-  it('shows selection complete screen after choosing language and locale', () => {
-    render(<Landing />);
+  it('shows Start Flashcards button after region selection', () => {
+    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
-    // Select English
-    const englishButton = screen.getByLabelText('Select English');
-    fireEvent.click(englishButton);
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
 
-    // Select Midwest locale
-    const midwestButton = screen.getByLabelText('Select United States - Midwest');
-    fireEvent.click(midwestButton);
-
-    expect(screen.getByText('Selection Complete!')).toBeInTheDocument();
-    expect(screen.getByText('Language:')).toBeInTheDocument();
-    expect(screen.getByText('United States - Midwest')).toBeInTheDocument();
+    expect(screen.getByText('Start Flashcards')).toBeInTheDocument();
   });
 
-  it('allows returning to language selection from locale selection', () => {
-    render(<Landing />);
+  it('calls onStartFlashcards with locale and userLocale when starting', () => {
+    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
-    // Select English
-    const englishButton = screen.getByLabelText('Select English');
-    fireEvent.click(englishButton);
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+    fireEvent.click(screen.getByText('Start Flashcards'));
 
-    // Click Back
-    const backButton = screen.getByLabelText('Back to language selection');
-    fireEvent.click(backButton);
-
-    expect(screen.getByText('Select Your Language')).toBeInTheDocument();
+    expect(mockOnStartFlashcards).toHaveBeenCalledWith('co-cartagena', 'en');
   });
 
-  it('calls onStartFlashcards when Start Learning is clicked', () => {
-    const mockOnStartFlashcards = vi.fn();
-    render(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+  it('allows changing region', () => {
+    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
-    // Complete selection
-    fireEvent.click(screen.getByLabelText('Select Spanish'));
-    fireEvent.click(screen.getByLabelText('Select Colombia - Cartagena'));
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+    fireEvent.click(screen.getByText('Change Region'));
 
-    // Click Start Learning
-    const startLearningButton = screen.getByLabelText('Start learning with flashcards');
-    fireEvent.click(startLearningButton);
-
-    expect(mockOnStartFlashcards).toHaveBeenCalledWith('co-cartagena');
+    expect(screen.getByText('Choose a region to learn')).toBeInTheDocument();
   });
 
-  it('allows starting over from selection complete screen', () => {
-    render(<Landing />);
+  it('passes correct userLocale when Spanish is selected', () => {
+    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
-    // Complete selection
-    fireEvent.click(screen.getByLabelText('Select Spanish'));
-    fireEvent.click(screen.getByLabelText('Select Colombia - Cartagena'));
+    // Toggle to Spanish
+    fireEvent.click(screen.getByLabelText('Toggle my language'));
 
-    // Start over
-    const startOverButton = screen.getByLabelText('Start over');
-    fireEvent.click(startOverButton);
+    // Select California
+    fireEvent.click(screen.getByLabelText('Select California'));
+    // Button text is now in Spanish: 'Iniciar Tarjetas'
+    fireEvent.click(screen.getByLabelText('Start learning with flashcards'));
 
-    expect(screen.getByText('Select Your Language')).toBeInTheDocument();
+    expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-ca', 'es');
   });
 });

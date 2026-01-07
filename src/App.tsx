@@ -1,29 +1,37 @@
 import { useState } from 'react';
+import { LocaleProvider } from './context/LocaleContext';
+import type { SupportedLocale } from './data/locales';
 import Landing from './Landing';
 import Flashcards from './Flashcards';
 
 function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'flashcards'>('landing');
-  const [selectedLocale, setSelectedLocale] = useState<string>('');
+  const [selectedTargetLocale, setSelectedTargetLocale] = useState<string>('');
+  const [userLocale, setUserLocale] = useState<SupportedLocale>('en');
 
-  const handleStartFlashcards = (locale: string) => {
-    setSelectedLocale(locale);
+  const handleStartFlashcards = (targetLocale: string, userLang: SupportedLocale) => {
+    setSelectedTargetLocale(targetLocale);
+    setUserLocale(userLang);
     setCurrentView('flashcards');
   };
 
   const handleBackToLanding = () => {
     setCurrentView('landing');
-    setSelectedLocale('');
+    setSelectedTargetLocale('');
   };
 
   return (
-    <>
+    <LocaleProvider>
       {currentView === 'landing' ? (
         <Landing onStartFlashcards={handleStartFlashcards} />
       ) : (
-        <Flashcards locale={selectedLocale} onBack={handleBackToLanding} />
+        <Flashcards
+          targetLocale={selectedTargetLocale}
+          userLocale={userLocale}
+          onBack={handleBackToLanding}
+        />
       )}
-    </>
+    </LocaleProvider>
   );
 }
 

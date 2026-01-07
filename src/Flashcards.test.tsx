@@ -1,102 +1,136 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { LocaleProvider } from './context/LocaleContext';
 import Flashcards from './Flashcards';
+
+// Helper to render with locale context
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(<LocaleProvider>{ui}</LocaleProvider>);
+};
 
 describe('Flashcards', () => {
   const mockOnBack = vi.fn();
 
-  it('shows settings screen before starting', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    expect(screen.getByText('Flashcards Settings')).toBeInTheDocument();
-    expect(screen.getByText('Total Phrases:')).toBeInTheDocument();
+  beforeEach(() => {
+    mockOnBack.mockClear();
   });
 
-  it('shows include slang checkbox', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    expect(screen.getByText('Include Slang')).toBeInTheDocument();
-    expect(
-      screen.getByText('Mix in 30 Gen Z & Millennial slang phrases from the last 5 years')
-    ).toBeInTheDocument();
+  it('shows settings screen before starting', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    expect(screen.getByText('Flashcard Settings')).toBeInTheDocument();
+  });
+
+  it('shows region name in settings', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    expect(screen.getByText('Cartagena')).toBeInTheDocument();
   });
 
   it('allows user to start flashcards', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    const startButton = screen.getByText('Start Flashcards');
-    fireEvent.click(startButton);
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
 
-    // Should show first phrase
-    expect(screen.getByText('1 / 70')).toBeInTheDocument();
-  });
-
-  it('shows all phrases when slang is included', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    const slangCheckbox = screen.getByRole('checkbox');
-    fireEvent.click(slangCheckbox);
-
-    const startButton = screen.getByText('Start Flashcards');
-    fireEvent.click(startButton);
-
-    // Should show total of 100 phrases
     expect(screen.getByText('1 / 100')).toBeInTheDocument();
   });
 
-  it('allows navigation between flashcards', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    fireEvent.click(screen.getByText('Start Flashcards'));
+  it('shows phrase to learn on flashcard', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
 
-    const nextButton = screen.getByText('Next');
-    fireEvent.click(nextButton);
-
-    expect(screen.getByText('2 / 70')).toBeInTheDocument();
-
-    const previousButton = screen.getByText('Previous');
-    fireEvent.click(previousButton);
-
-    expect(screen.getByText('1 / 70')).toBeInTheDocument();
+    expect(screen.getByText('Phrase to learn')).toBeInTheDocument();
+    expect(screen.getByText('Hola')).toBeInTheDocument();
   });
 
-  it('shows translation when flip button is clicked', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    fireEvent.click(screen.getByText('Start Flashcards'));
+  it('shows regional slang when available', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
 
-    expect(screen.getByText('Phrase')).toBeInTheDocument();
+    expect(screen.getByText('Cartagena SLANG')).toBeInTheDocument();
+    expect(screen.getByText('Buenas')).toBeInTheDocument();
+  });
 
-    const flipButton = screen.getByText('Show Translation');
-    fireEvent.click(flipButton);
+  it('shows reveal button initially', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
 
-    expect(screen.getByText('Translation')).toBeInTheDocument();
-    expect(screen.getByText('Show Phrase')).toBeInTheDocument();
+    expect(screen.getByText('Reveal 🇺🇸')).toBeInTheDocument();
+  });
+
+  it('reveals translation in user language when clicked', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
+    fireEvent.click(screen.getByText('Reveal 🇺🇸'));
+
+    expect(screen.getByText('Your language')).toBeInTheDocument();
+    expect(screen.getByText('Hi')).toBeInTheDocument();
+  });
+
+  it('allows navigation between flashcards', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
+    fireEvent.click(screen.getByText('Next →'));
+
+    expect(screen.getByText('2 / 100')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('← Previous'));
+    expect(screen.getByText('1 / 100')).toBeInTheDocument();
   });
 
   it('calls onBack when back button is clicked', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
-    const backButton = screen.getByText('Back');
-    fireEvent.click(backButton);
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Back'));
 
     expect(mockOnBack).toHaveBeenCalled();
   });
 
-  it('handles invalid locale gracefully', () => {
-    render(<Flashcards locale="invalid" onBack={mockOnBack} />);
-    expect(screen.getByText('Invalid Locale')).toBeInTheDocument();
-    expect(screen.getByText('Go Back')).toBeInTheDocument();
+  it('handles empty phrases gracefully', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="invalid-locale" userLocale="en" onBack={mockOnBack} />
+    );
+    expect(screen.getByText('No Phrases Available')).toBeInTheDocument();
   });
 
-  it('shows slang badge for slang phrases', () => {
-    render(<Flashcards locale="us-midwest" onBack={mockOnBack} />);
+  it('shows audio button with listen text', () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
+    fireEvent.click(screen.getByText('Start Learning'));
 
-    // Enable slang
-    const slangCheckbox = screen.getByRole('checkbox');
-    fireEvent.click(slangCheckbox);
+    expect(screen.getByText('Listen')).toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByText('Start Flashcards'));
+  it('works for Spanish speakers learning English', () => {
+    // Render with Spanish locale provider
+    render(
+      <LocaleProvider defaultLocale="es">
+        <Flashcards targetLocale="us-ca" userLocale="es" onBack={mockOnBack} />
+      </LocaleProvider>
+    );
+    // UI is in Spanish - 'Comenzar a Aprender' means 'Start Learning'
+    fireEvent.click(screen.getByText('Comenzar a Aprender'));
 
-    // Navigate to a slang phrase (they start at position 71)
-    const nextButton = screen.getByText('Next');
-    for (let i = 0; i < 70; i++) {
-      fireEvent.click(nextButton);
-    }
+    // Should show English phrase to learn
+    expect(screen.getByText('Hi')).toBeInTheDocument();
 
-    expect(screen.getByText('SLANG')).toBeInTheDocument();
+    // Reveal should show Spanish translation
+    fireEvent.click(screen.getByText('Revelar 🇪🇸'));
+    expect(screen.getByText('Hola')).toBeInTheDocument();
   });
 });

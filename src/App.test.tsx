@@ -6,6 +6,8 @@ describe('App', () => {
   it('renders the Landing component initially', () => {
     render(<App />);
     expect(screen.getByText('SpeakNative')).toBeInTheDocument();
-    expect(screen.getByText('Choose Your Language & Locale')).toBeInTheDocument();
+    // Default is English user learning Spanish
+    expect(screen.getAllByText(/Learn/)[0]).toBeInTheDocument();
+    expect(screen.getAllByText(/Spanish/)[0]).toBeInTheDocument();
   });
 });
