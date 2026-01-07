@@ -3775,11 +3775,11 @@
                     "3p": "begin"
                 },
                 "past": {
-                    "1s": "begined",
-                    "2s": "begined",
-                    "3s": "begined",
-                    "1p": "begined",
-                    "3p": "begined"
+                    "1s": "began",
+                    "2s": "began",
+                    "3s": "began",
+                    "1p": "began",
+                    "3p": "began"
                 },
                 "future": {
                     "1s": "will begin",
