@@ -6,9 +6,10 @@ import Flashcards from './Flashcards';
 import { VerbNavigator } from './VerbNavigator';
 import { ReviewSession } from './components/ReviewSession';
 
-
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'flashcards' | 'verbs' | 'review'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'flashcards' | 'verbs' | 'review'>(
+    'landing'
+  );
   const [selectedTargetLocale, setSelectedTargetLocale] = useState<string>('');
   const [userLocale, setUserLocale] = useState<SupportedLocale>('en');
 
@@ -52,7 +53,7 @@ function App() {
         />
       )}
       {currentView === 'verbs' && (
-        <div className="min-h-screen bg-black overflow-hidden flex flex-col">
+        <div className="flex min-h-screen flex-col overflow-hidden bg-black">
           {/* Simple wrapper for verbs similar to Flashcards or standalone */}
           <VerbNavigator
             sourceLocale={userLocale === 'en' ? 'us-ca' : 'co-cartagena'} // Native locale (Source)

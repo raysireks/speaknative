@@ -5,16 +5,16 @@ import type { SupportedLocale } from './data/locales';
 import { shuffleArray } from './utils/array';
 
 interface FlashcardsProps {
-  targetLocale: string;  // The locale to learn (e.g., 'co-cartagena' or 'us-eastcoast')
-  userLocale: SupportedLocale;  // User's native language ('en' or 'es')
+  targetLocale: string; // The locale to learn (e.g., 'co-cartagena' or 'us-eastcoast')
+  userLocale: SupportedLocale; // User's native language ('en' or 'es')
   onBack: () => void;
 }
 
 export interface FlashcardItem {
   id: number;
-  phraseToLearn: string;      // The phrase in the language being learned
-  phraseInUserLang: string;   // The phrase in user's native language
-  slangToLearn?: string;      // Regional slang in the language being learned
+  phraseToLearn: string; // The phrase in the language being learned
+  phraseInUserLang: string; // The phrase in user's native language
+  slangToLearn?: string; // Regional slang in the language being learned
 }
 
 const REGION_NAMES: Record<string, string> = {
@@ -45,9 +45,9 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
       if (p.text) {
         items.push({
           id: p.id,
-          phraseToLearn: p.text,          // Target language phrase
+          phraseToLearn: p.text, // Target language phrase
           phraseInUserLang: p.translation, // User's language translation
-          slangToLearn: p.slangText,       // Regional slang in target language
+          slangToLearn: p.slangText, // Regional slang in target language
         });
       }
     });
@@ -121,21 +121,19 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
               <div className="rounded-2xl bg-violet-50 p-6 dark:bg-violet-900/20">
                 <p className="mb-2 text-lg text-gray-700 dark:text-gray-300">
                   <span className="font-semibold">{t('Region:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">
-                    {regionName}
-                  </span>
+                  <span className="text-violet-600 dark:text-violet-400">{regionName}</span>
                 </p>
                 <p className="text-lg text-gray-700 dark:text-gray-300">
                   <span className="font-semibold">{t('Phrases:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">
-                    {phrases.length}
-                  </span>
+                  <span className="text-violet-600 dark:text-violet-400">{phrases.length}</span>
                 </p>
               </div>
 
               <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
                 <p className="text-gray-600 dark:text-gray-400">
-                  {t('Each flashcard shows a phrase to learn. Tap reveal to see it in your language.')}
+                  {t(
+                    'Each flashcard shows a phrase to learn. Tap reveal to see it in your language.'
+                  )}
                 </p>
               </div>
             </div>
@@ -171,9 +169,9 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
         <div className="flex min-h-[500px] flex-col rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
           {/* Phrase to Learn */}
-          <div className="flex-1 flex flex-col items-center justify-center text-center">
+          <div className="flex flex-1 flex-col items-center justify-center text-center">
             <div className="mb-6">
-              <p className="mb-2 text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
                 {t('Phrase to learn')}
               </p>
               <h2 className="text-4xl font-bold text-gray-800 sm:text-5xl lg:text-6xl dark:text-white">
@@ -184,10 +182,10 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
             {/* Regional Slang (if available) */}
             {currentPhrase.slangToLearn && (
               <div className="mb-6">
-                <span className="inline-block rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-3 py-1 text-xs font-bold text-white mb-2">
+                <span className="mb-2 inline-block rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-3 py-1 text-xs font-bold text-white">
                   {regionName} {t('SLANG')}
                 </span>
-                <p className="text-2xl text-purple-600 font-semibold sm:text-3xl dark:text-purple-400">
+                <p className="text-2xl font-semibold text-purple-600 sm:text-3xl dark:text-purple-400">
                   {currentPhrase.slangToLearn}
                 </p>
               </div>
@@ -218,7 +216,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
               </button>
             ) : (
               <div className="animate-in fade-in duration-300">
-                <p className="mb-2 text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
                   {t('Your language')}
                 </p>
                 <h3 className="text-3xl font-bold text-green-600 sm:text-4xl dark:text-green-400">

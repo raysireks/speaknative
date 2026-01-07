@@ -450,25 +450,25 @@
             },
             "us-ca": {
                 "present": {
-                    "1s": "be able",
-                    "2s": "be able",
-                    "3s": "be ables",
-                    "1p": "be able",
-                    "3p": "be able"
+                    "1s": "can",
+                    "2s": "can",
+                    "3s": "can",
+                    "1p": "can",
+                    "3p": "can"
                 },
                 "past": {
-                    "1s": "be abled",
-                    "2s": "be abled",
-                    "3s": "be abled",
-                    "1p": "be abled",
-                    "3p": "be abled"
+                    "1s": "could",
+                    "2s": "could",
+                    "3s": "could",
+                    "1p": "could",
+                    "3p": "could"
                 },
                 "future": {
-                    "1s": "will be able",
-                    "2s": "will be able",
-                    "3s": "will be able",
-                    "1p": "will be able",
-                    "3p": "will be able"
+                    "1s": "will be able to",
+                    "2s": "will be able to",
+                    "3s": "will be able to",
+                    "1p": "will be able to",
+                    "3p": "will be able to"
                 }
             }
         }
@@ -1084,7 +1084,7 @@
                 "present": {
                     "1s": "pass",
                     "2s": "pass",
-                    "3s": "passs",
+                    "3s": "passes",
                     "1p": "pass",
                     "3p": "pass"
                 },
@@ -2506,7 +2506,7 @@
                 "present": {
                     "1s": "search",
                     "2s": "search",
-                    "3s": "searchs",
+                    "3s": "searches",
                     "1p": "search",
                     "3p": "search"
                 },

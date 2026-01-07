@@ -95,7 +95,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
         {/* User Language Toggle - "I speak..." */}
         <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600 dark:text-gray-400 hidden sm:inline">
+            <span className="hidden text-sm text-gray-600 sm:inline dark:text-gray-400">
               {t('I speak:')}
             </span>
             <button
@@ -104,9 +104,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
               aria-label="Toggle my language"
             >
               <span className="text-xl">{userLangInfo.flag}</span>
-              <span className="text-gray-700 dark:text-gray-300">
-                {userLangInfo.nativeName}
-              </span>
+              <span className="text-gray-700 dark:text-gray-300">{userLangInfo.nativeName}</span>
             </button>
           </div>
         </div>
@@ -148,7 +146,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                       <p className="text-base text-gray-600 sm:text-lg dark:text-gray-300">
                         {region.description}
                       </p>
-                      <div className="mt-4 text-sm text-violet-600 font-medium dark:text-violet-400">
+                      <div className="mt-4 text-sm font-medium text-violet-600 dark:text-violet-400">
                         {targetLangInfo.flag} {targetLangInfo.name}
                       </div>
                     </div>
@@ -180,7 +178,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                     </span>
                   </p>
                 </div>
-                <div className="flex flex-col gap-4 sm:flex-row sm:justify-center flex-wrap">
+                <div className="flex flex-col flex-wrap gap-4 sm:flex-row sm:justify-center">
                   <button
                     onClick={handleStartLearning}
                     className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
@@ -207,7 +205,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                 <div className="mt-6 flex justify-center">
                   <button
                     onClick={() => onStartReview?.(selectedTargetLocale, userLocale)}
-                    className="transform rounded-full border-2 border-violet-500 bg-transparent px-8 py-3 text-base font-semibold text-violet-600 transition duration-300 hover:scale-105 hover:bg-violet-50 dark:border-violet-400 dark:text-violet-400 dark:hover:bg-violet-900/20 sm:px-12 sm:py-4 sm:text-lg"
+                    className="transform rounded-full border-2 border-violet-500 bg-transparent px-8 py-3 text-base font-semibold text-violet-600 transition duration-300 hover:scale-105 hover:bg-violet-50 sm:px-12 sm:py-4 sm:text-lg dark:border-violet-400 dark:text-violet-400 dark:hover:bg-violet-900/20"
                   >
                     📝 {t('Review Phrases')}
                   </button>
