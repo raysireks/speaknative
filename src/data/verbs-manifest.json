@@ -1870,29 +1870,29 @@
                     "3p": "encontrarán"
                 }
             },
-            "us-ca": {
-                "present": {
-                    "1s": "find",
-                    "2s": "find",
-                    "3s": "finds",
-                    "1p": "find",
-                    "3p": "find"
-                },
-                "past": {
-                    "1s": "finded",
-                    "2s": "finded",
-                    "3s": "finded",
-                    "1p": "finded",
-                    "3p": "finded"
-                },
-                "future": {
-                    "1s": "will find",
-                    "2s": "will find",
+                                "us-ca": {
+                                    "present": {
+                                        "1s": "find",
+                                        "2s": "find",
+                                        "3s": "finds",
+                                        "1p": "find",
+                                        "3p": "find"
+                                    },
+                                    "past": {
+                                        "1s": "found",
+                                        "2s": "found",
+                                        "3s": "found",
+                                        "1p": "found",
+                                        "3p": "found"
+                                    },
+                                    "future": {
+                                        "1s": "will find",
+                                        "2s": "will find",
                     "3s": "will find",
-                    "1p": "will find",
-                    "3p": "will find"
-                }
-            }
+                                        "1p": "will find",
+                                        "3p": "will find"
+                                    }
+                                }
         }
     },
     {
