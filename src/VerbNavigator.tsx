@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getVerbsForLocale } from './data/verb-adapter';
-import type { Verb } from './data/verb-adapter';
+
 import { getText } from './data/locales';
 import type { SupportedLocale } from './data/locales';
 import { ArrowLeft, ArrowRight, ChevronRight } from 'lucide-react';
@@ -32,39 +32,27 @@ const TENSE_KEYS: Record<Tense, string> = {
 };
 
 export const VerbNavigator: React.FC<VerbNavigatorProps> = ({ sourceLocale, targetLocale, userLocale, onBack }) => {
-    const [verbs, setVerbs] = useState<Verb[]>([]);
+    // Derived state for verbs (avoids sync setState in useEffect)
+    const verbs = React.useMemo(() => {
+        return getVerbsForLocale(sourceLocale, targetLocale);
+    }, [sourceLocale, targetLocale]);
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Persisted state across verbs
     const [currentTense, setCurrentTense] = useState<Tense>('present');
     const [currentPerson, setCurrentPerson] = useState<Person>('1s');
 
-    useEffect(() => {
-        const data = getVerbsForLocale(sourceLocale, targetLocale);
-        setVerbs(data);
-    }, [sourceLocale, targetLocale]);
-
-    // Keyboard navigation
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'ArrowRight') nextVerb();
-            if (e.key === 'ArrowLeft') prevVerb();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [verbs.length, currentIndex]); // Dep on verbs/index
-
-    const t = (key: string) => getText(key, userLocale);
-
-    if (verbs.length === 0) return <div className="p-8 text-center text-white/50">{t('Loading verbs...')}</div>;
-
-    const verb = verbs[currentIndex];
-    const targetConjugation = verb.conjugation?.[currentTense]?.[currentPerson] || '...';
-    const nativeConjugation = verb.translationConjugation?.[currentTense]?.[currentPerson] || '...';
-
     // Navigation handlers
-    const nextVerb = () => setCurrentIndex(prev => (prev + 1) % verbs.length);
-    const prevVerb = () => setCurrentIndex(prev => (prev - 1 + verbs.length) % verbs.length);
+    const nextVerb = React.useCallback(() => {
+        if (verbs.length === 0) return;
+        setCurrentIndex(prev => (prev + 1) % verbs.length);
+    }, [verbs.length]);
+
+    const prevVerb = React.useCallback(() => {
+        if (verbs.length === 0) return;
+        setCurrentIndex(prev => (prev - 1 + verbs.length) % verbs.length);
+    }, [verbs.length]);
 
     const nextTense = () => {
         const tenses: Tense[] = ['present', 'past', 'future'];
@@ -77,6 +65,23 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({ sourceLocale, targ
         const idx = persons.indexOf(currentPerson);
         setCurrentPerson(persons[(idx + 1) % persons.length]);
     };
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight') nextVerb();
+            if (e.key === 'ArrowLeft') prevVerb();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [nextVerb, prevVerb]);
+    const t = (key: string) => getText(key, userLocale);
+
+    if (verbs.length === 0) return <div className="p-8 text-center text-white/50">{t('Loading verbs...')}</div>;
+
+    const verb = verbs[currentIndex];
+    const targetConjugation = verb.conjugation?.[currentTense]?.[currentPerson] || '...';
+    const nativeConjugation = verb.translationConjugation?.[currentTense]?.[currentPerson] || '...';
 
     return (
         <div className="flex flex-col h-full max-w-md mx-auto w-full p-6 animate-in fade-in duration-500">
