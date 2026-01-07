@@ -685,29 +685,29 @@
                     "3p": "verán"
                 }
             },
-            "us-ca": {
-                "present": {
-                    "1s": "see",
-                    "2s": "see",
-                    "3s": "sees",
-                    "1p": "see",
-                    "3p": "see"
-                },
-                "past": {
-                    "1s": "seed",
-                    "2s": "seed",
-                    "3s": "seed",
-                    "1p": "seed",
-                    "3p": "seed"
-                },
-                "future": {
-                    "1s": "will see",
-                    "2s": "will see",
-                    "3s": "will see",
-                    "1p": "will see",
-                    "3p": "will see"
-                }
-            }
+                                "us-ca": {
+                                    "present": {
+                                        "1s": "see",
+                                        "2s": "see",
+                                        "3s": "sees",
+                                        "1p": "see",
+                                        "3p": "see"
+                                    },
+                                    "past": {
+                                        "1s": "saw",
+                                        "2s": "saw",
+                                        "3s": "saw",
+                                        "1p": "saw",
+                                        "3p": "saw"
+                                    },
+                                    "future": {
+                                        "1s": "will see",
+                                        "2s": "will see",
+                                        "3s": "will see",
+                                        "1p": "will see",
+                                        "3p": "will see"
+                                    }
+                                }
         }
     },
     {
