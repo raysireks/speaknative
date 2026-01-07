@@ -852,11 +852,11 @@
                     "3p": "know"
                 },
                 "past": {
-                    "1s": "knowed",
-                    "2s": "knowed",
-                    "3s": "knowed",
-                    "1p": "knowed",
-                    "3p": "knowed"
+                    "1s": "knew",
+                    "2s": "knew",
+                    "3s": "knew",
+                    "1p": "knew",
+                    "3p": "knew"
                 },
                 "future": {
                     "1s": "will know",
