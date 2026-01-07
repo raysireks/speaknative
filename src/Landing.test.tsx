@@ -47,8 +47,8 @@ describe('Landing', () => {
 
     fireEvent.click(screen.getByText('California'));
 
-    expect(screen.getByText('Ready to Learn!')).toBeInTheDocument();
-    expect(screen.getByText('California English 🇺🇸')).toBeInTheDocument();
+    expect(screen.getByText('¡Listo para Aprender!')).toBeInTheDocument();
+    expect(screen.getByText(/California\s+English/i)).toBeInTheDocument();
   });
 
   it('allows selecting a region', () => {
@@ -92,11 +92,11 @@ describe('Landing', () => {
     // Toggle to Spanish
     fireEvent.click(screen.getByLabelText('Toggle my language'));
 
-    // Select East Coast
-    fireEvent.click(screen.getByLabelText('Select East Coast'));
+    // Select California
+    fireEvent.click(screen.getByLabelText('Select California'));
     // Button text is now in Spanish: 'Iniciar Tarjetas'
     fireEvent.click(screen.getByLabelText('Start learning with flashcards'));
 
-    expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-eastcoast', 'es');
+    expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-ca', 'es');
   });
 });

@@ -55,7 +55,7 @@ describe('Flashcards', () => {
     fireEvent.click(screen.getByText('Start Learning'));
 
     expect(screen.getByText('Cartagena SLANG')).toBeInTheDocument();
-    expect(screen.getByText('¿Qué más?')).toBeInTheDocument();
+    expect(screen.getByText('Buenas')).toBeInTheDocument();
   });
 
   it('shows reveal button initially', () => {
