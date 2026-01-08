@@ -12,6 +12,7 @@ function App() {
   );
   const [selectedTargetLocale, setSelectedTargetLocale] = useState<string>('');
   const [userLocale, setUserLocale] = useState<SupportedLocale>('en');
+  const [reviewMode, setReviewMode] = useState<'audio-only' | 'speaker'>('audio-only');
 
   const handleStartFlashcards = (targetLocale: string, userLang: SupportedLocale) => {
     setSelectedTargetLocale(targetLocale);
@@ -25,9 +26,14 @@ function App() {
     setCurrentView('verbs');
   };
 
-  const handleStartReview = (targetLocale: string, userLang: SupportedLocale) => {
+  const handleStartReview = (
+    targetLocale: string,
+    userLang: SupportedLocale,
+    mode: 'audio-only' | 'speaker'
+  ) => {
     setSelectedTargetLocale(targetLocale);
     setUserLocale(userLang);
+    setReviewMode(mode);
     setCurrentView('review');
   };
 
@@ -68,6 +74,7 @@ function App() {
           targetLocale={selectedTargetLocale}
           userLocale={userLocale}
           onBack={handleBackToLanding}
+          initialMode={reviewMode}
         />
       )}
     </LocaleProvider>

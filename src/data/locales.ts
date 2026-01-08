@@ -22,6 +22,16 @@ export const UI_TEXT: Record<string, LocaleStrings> = {
   'You speak:': { es: 'Tú hablas:' },
   'Learning:': { es: 'Aprendiendo:' },
   'Start Flashcards': { es: 'Iniciar Tarjetas' },
+  'Learn phrases with interactive flashcards': {
+    es: 'Aprende frases con tarjetas interactivas',
+  },
+  'Start Verbs': { es: 'Iniciar Verbos' },
+  'Master verb conjugations and usage': { es: 'Domina conjugaciones y uso de verbos' },
+  'Audio Challenge': { es: 'Desafío de Audio' },
+  'Listen and guess the meaning': { es: 'Escucha y adivina el significado' },
+  'Translation Challenge': { es: 'Desafío de Traducción' },
+  'Translate and speak aloud': { es: 'Traduce y habla en voz alta' },
+  '← Choose a different region': { es: '← Elegir una región diferente' },
   'Change Region': { es: 'Cambiar Región' },
   'Master the language and culture of your chosen region': {
     es: 'Domina el idioma y la cultura de tu región elegida',

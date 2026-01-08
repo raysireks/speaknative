@@ -10,6 +10,7 @@ interface ReviewSessionProps {
   targetLocale: string;
   userLocale: SupportedLocale;
   onBack: () => void;
+  initialMode?: 'audio-only' | 'speaker';
 }
 
 type ReviewMode = 'selection' | 'audio-only' | 'speaker';
@@ -21,9 +22,14 @@ const REGION_NAMES: Record<string, string> = {
   'us-midwest': 'Midwest',
 };
 
-export function ReviewSession({ targetLocale, userLocale, onBack }: ReviewSessionProps) {
+export function ReviewSession({
+  targetLocale,
+  userLocale,
+  onBack,
+  initialMode,
+}: ReviewSessionProps) {
   const { t } = useLocale();
-  const [mode, setMode] = useState<ReviewMode>('selection');
+  const [mode, setMode] = useState<ReviewMode>(initialMode || 'selection');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
 

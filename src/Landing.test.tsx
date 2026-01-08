@@ -10,9 +10,11 @@ const renderWithLocale = (ui: React.ReactElement) => {
 
 describe('Landing', () => {
   const mockOnStartFlashcards = vi.fn();
+  const mockOnStartReview = vi.fn();
 
   beforeEach(() => {
     mockOnStartFlashcards.mockClear();
+    mockOnStartReview.mockClear();
   });
 
   it('displays the app name', () => {
@@ -81,7 +83,7 @@ describe('Landing', () => {
     renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
 
     fireEvent.click(screen.getByLabelText('Select Cartagena'));
-    fireEvent.click(screen.getByText('Change Region'));
+    fireEvent.click(screen.getByLabelText('Choose a different region'));
 
     expect(screen.getByText('Choose a region to learn')).toBeInTheDocument();
   });
@@ -98,5 +100,39 @@ describe('Landing', () => {
     fireEvent.click(screen.getByLabelText('Start learning with flashcards'));
 
     expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-ca', 'es');
+  });
+
+  it('shows Audio Challenge button after region selection', () => {
+    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+
+    expect(screen.getByLabelText('Start audio challenge')).toBeInTheDocument();
+  });
+
+  it('shows Translation Challenge button after region selection', () => {
+    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+
+    expect(screen.getByLabelText('Start translation challenge')).toBeInTheDocument();
+  });
+
+  it('calls onStartReview with audio-only mode when Audio Challenge is clicked', () => {
+    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+    fireEvent.click(screen.getByLabelText('Start audio challenge'));
+
+    expect(mockOnStartReview).toHaveBeenCalledWith('co-cartagena', 'en', 'audio-only');
+  });
+
+  it('calls onStartReview with speaker mode when Translation Challenge is clicked', () => {
+    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+
+    fireEvent.click(screen.getByLabelText('Select Cartagena'));
+    fireEvent.click(screen.getByLabelText('Start translation challenge'));
+
+    expect(mockOnStartReview).toHaveBeenCalledWith('co-cartagena', 'en', 'speaker');
   });
 });

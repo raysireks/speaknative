@@ -47,7 +47,11 @@ const LANGUAGE_INFO: Record<string, { name: string; flag: string; nativeName: st
 interface LandingProps {
   onStartFlashcards?: (targetLocale: string, userLocale: SupportedLocale) => void;
   onStartVerbs?: (targetLocale: string, userLocale: SupportedLocale) => void;
-  onStartReview?: (targetLocale: string, userLocale: SupportedLocale) => void;
+  onStartReview?: (
+    targetLocale: string,
+    userLocale: SupportedLocale,
+    mode: 'audio-only' | 'speaker'
+  ) => void;
 }
 
 function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProps) {
@@ -178,36 +182,81 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                     </span>
                   </p>
                 </div>
-                <div className="flex flex-col flex-wrap gap-4 sm:flex-row sm:justify-center">
+                {/* Learning Options Grid */}
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {/* Start Flashcards */}
                   <button
                     onClick={handleStartLearning}
-                    className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                     aria-label="Start learning with flashcards"
                   >
-                    {t('Start Flashcards')}
+                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="relative z-10">
+                      <div className="mb-3 text-4xl">🗂️</div>
+                      <h3 className="mb-2 text-xl font-bold text-white">{t('Start Flashcards')}</h3>
+                      <p className="text-sm text-purple-100">
+                        {t('Learn phrases with interactive flashcards')}
+                      </p>
+                    </div>
                   </button>
+
+                  {/* Start Verbs */}
                   <button
                     onClick={handleStartVerbs}
-                    className="transform rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-blue-700 hover:to-cyan-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                     aria-label="Start learning verbs"
                   >
-                    Start Verbs
+                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="relative z-10">
+                      <div className="mb-3 text-4xl">📚</div>
+                      <h3 className="mb-2 text-xl font-bold text-white">{t('Start Verbs')}</h3>
+                      <p className="text-sm text-blue-100">
+                        {t('Master verb conjugations and usage')}
+                      </p>
+                    </div>
                   </button>
+
+                  {/* Audio Challenge */}
                   <button
-                    onClick={handleReset}
-                    className="rounded-full bg-gray-200 px-8 py-3 text-base font-semibold text-gray-800 shadow-lg transition duration-300 hover:bg-gray-300 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-                    aria-label="Start over"
+                    onClick={() => onStartReview?.(selectedTargetLocale, userLocale, 'audio-only')}
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    aria-label="Start audio challenge"
                   >
-                    {t('Change Region')}
+                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="relative z-10">
+                      <div className="mb-3 text-4xl">👂</div>
+                      <h3 className="mb-2 text-xl font-bold text-white">{t('Audio Challenge')}</h3>
+                      <p className="text-sm text-emerald-100">
+                        {t('Listen and guess the meaning')}
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Translation Challenge */}
+                  <button
+                    onClick={() => onStartReview?.(selectedTargetLocale, userLocale, 'speaker')}
+                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-fuchsia-500 to-pink-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    aria-label="Start translation challenge"
+                  >
+                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="relative z-10">
+                      <div className="mb-3 text-4xl">🗣️</div>
+                      <h3 className="mb-2 text-xl font-bold text-white">
+                        {t('Translation Challenge')}
+                      </h3>
+                      <p className="text-sm text-fuchsia-100">{t('Translate and speak aloud')}</p>
+                    </div>
                   </button>
                 </div>
 
-                <div className="mt-6 flex justify-center">
+                {/* Back to Region Selection */}
+                <div className="mt-6 text-center">
                   <button
-                    onClick={() => onStartReview?.(selectedTargetLocale, userLocale)}
-                    className="transform rounded-full border-2 border-violet-500 bg-transparent px-8 py-3 text-base font-semibold text-violet-600 transition duration-300 hover:scale-105 hover:bg-violet-50 sm:px-12 sm:py-4 sm:text-lg dark:border-violet-400 dark:text-violet-400 dark:hover:bg-violet-900/20"
+                    onClick={handleReset}
+                    className="text-sm font-medium text-gray-600 underline decoration-dotted underline-offset-4 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                    aria-label="Choose a different region"
                   >
-                    📝 {t('Review Phrases')}
+                    {t('← Choose a different region')}
                   </button>
                 </div>
               </div>
