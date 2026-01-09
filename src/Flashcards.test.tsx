@@ -15,7 +15,7 @@ describe('Flashcards', () => {
     mockOnBack.mockClear();
     // Mock shuffleArray to return items as-is for deterministic testing
     vi.mock('./utils/array', () => ({
-      shuffleArray: (arr: unknown[]) => arr,
+      shuffleArray: vi.fn((arr: unknown[]) => arr),
     }));
   });
 
@@ -23,34 +23,32 @@ describe('Flashcards', () => {
     vi.clearAllMocks();
   });
 
-  it('shows settings screen before starting', () => {
+  it('renders flashcards directly', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    expect(screen.getByText('Flashcard Settings')).toBeInTheDocument();
+    expect(screen.getByText('Phrase to learn')).toBeInTheDocument();
   });
 
-  it('shows region name in settings', () => {
+  it('shows region name with slang', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    expect(screen.getByText('Cartagena')).toBeInTheDocument();
+    // Cartagena SLANG should be visible for the first phrase (id: 1)
+    expect(screen.getByText(/Cartagena/)).toBeInTheDocument();
   });
 
-  it('allows user to start flashcards', () => {
+  it('shows progress indicator', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
-
-    expect(screen.getByText('1 / 100')).toBeInTheDocument();
+    expect(screen.getByText(/1 \//)).toBeInTheDocument();
   });
 
   it('shows phrase to learn on flashcard', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
 
     expect(screen.getByText('Phrase to learn')).toBeInTheDocument();
     expect(screen.getByText('Hola')).toBeInTheDocument();
@@ -60,9 +58,8 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
 
-    expect(screen.getByText('Cartagena SLANG')).toBeInTheDocument();
+    expect(screen.getByText(/Cartagena SLANG/)).toBeInTheDocument();
     expect(screen.getByText('Buenas')).toBeInTheDocument();
   });
 
@@ -70,19 +67,18 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
 
-    expect(screen.getByText('Reveal 🇺🇸')).toBeInTheDocument();
+    expect(screen.getByText(/Reveal/)).toBeInTheDocument();
   });
 
   it('reveals translation in user language when clicked', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
-    fireEvent.click(screen.getByText('Reveal 🇺🇸'));
+    fireEvent.click(screen.getByText(/Reveal/));
 
     expect(screen.getByText('Your language')).toBeInTheDocument();
+    // In id: 1, common.us-ca is "Hi"
     expect(screen.getByText('Hi')).toBeInTheDocument();
   });
 
@@ -90,13 +86,12 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
     fireEvent.click(screen.getByText('Next →'));
 
-    expect(screen.getByText('2 / 100')).toBeInTheDocument();
+    expect(screen.getByText(/2 \//)).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('← Previous'));
-    expect(screen.getByText('1 / 100')).toBeInTheDocument();
+    expect(screen.getByText(/1 \//)).toBeInTheDocument();
   });
 
   it('calls onBack when back button is clicked', () => {
@@ -119,7 +114,6 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    fireEvent.click(screen.getByText('Start Learning'));
 
     expect(screen.getByText('Listen')).toBeInTheDocument();
   });
@@ -131,14 +125,12 @@ describe('Flashcards', () => {
         <Flashcards targetLocale="us-ca" userLocale="es" onBack={mockOnBack} />
       </LocaleProvider>
     );
-    // UI is in Spanish - 'Comenzar a Aprender' means 'Start Learning'
-    fireEvent.click(screen.getByText('Comenzar a Aprender'));
 
-    // Should show English phrase to learn
+    // Should show English phrase to learn (Hi)
     expect(screen.getByText('Hi')).toBeInTheDocument();
 
-    // Reveal should show Spanish translation
-    fireEvent.click(screen.getByText('Revelar 🇪🇸'));
+    // Reveal should show Spanish translation (Hola)
+    fireEvent.click(screen.getByText(/Revelar/));
     expect(screen.getByText('Hola')).toBeInTheDocument();
   });
 });

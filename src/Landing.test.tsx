@@ -120,12 +120,14 @@ describe('Landing', () => {
     expect(mockOnSelectTargetLocale).toHaveBeenCalledWith('us-ca');
 
     // Re-render with selected region to show the next screen
-    renderWithLocale(
-      <Landing
-        selectedTargetLocale="us-ca"
-        onSelectTargetLocale={mockOnSelectTargetLocale}
-        onStartFlashcards={mockOnStartFlashcards}
-      />
+    render(
+      <LocaleProvider defaultLocale="es">
+        <Landing
+          selectedTargetLocale="us-ca"
+          onSelectTargetLocale={mockOnSelectTargetLocale}
+          onStartFlashcards={mockOnStartFlashcards}
+        />
+      </LocaleProvider>
     );
 
     fireEvent.click(screen.getByText('Flashcards'));
