@@ -13,8 +13,6 @@ interface ReviewSessionProps {
   initialMode?: 'audio-only' | 'speaker';
 }
 
-type ReviewMode = 'selection' | 'audio-only' | 'speaker';
-
 const REGION_NAMES: Record<string, string> = {
   'co-cartagena': 'Cartagena',
   'co-medellin': 'Medellín',
@@ -29,7 +27,7 @@ export function ReviewSession({
   initialMode,
 }: ReviewSessionProps) {
   const { t } = useLocale();
-  const [mode, setMode] = useState<ReviewMode>(initialMode || 'selection');
+  const mode = initialMode || 'audio-only'; // Mode is fixed, no switching
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
 
@@ -54,12 +52,6 @@ export function ReviewSession({
 
     return shuffleArray(items);
   }, [targetLocale, userLangLocale]);
-
-  const handleStartMode = (selectedMode: ReviewMode) => {
-    setMode(selectedMode);
-    setCurrentIndex(0);
-    setRevealed(false);
-  };
 
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {

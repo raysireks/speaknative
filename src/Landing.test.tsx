@@ -11,24 +11,31 @@ const renderWithLocale = (ui: React.ReactElement) => {
 describe('Landing', () => {
   const mockOnStartFlashcards = vi.fn();
   const mockOnStartReview = vi.fn();
+  const mockOnSelectTargetLocale = vi.fn();
 
   beforeEach(() => {
     mockOnStartFlashcards.mockClear();
     mockOnStartReview.mockClear();
+    mockOnSelectTargetLocale.mockClear();
   });
 
+  const defaultProps = {
+    selectedTargetLocale: null,
+    onSelectTargetLocale: mockOnSelectTargetLocale,
+  };
+
   it('displays the app name', () => {
-    renderWithLocale(<Landing />);
+    renderWithLocale(<Landing {...defaultProps} />);
     expect(screen.getByText('SpeakNative')).toBeInTheDocument();
   });
 
   it('shows "I speak" toggle button', () => {
-    renderWithLocale(<Landing />);
+    renderWithLocale(<Landing {...defaultProps} />);
     expect(screen.getByRole('button', { name: /Toggle language/i })).toBeInTheDocument();
   });
 
   it('filters regions based on language', () => {
-    renderWithLocale(<Landing />);
+    renderWithLocale(<Landing {...defaultProps} />);
 
     // Default is English user -> Spanish regions
     expect(screen.getByText('Cartagena')).toBeInTheDocument();
@@ -41,7 +48,7 @@ describe('Landing', () => {
   });
 
   it('selects a region when clicked', () => {
-    renderWithLocale(<Landing />);
+    renderWithLocale(<Landing {...defaultProps} />);
 
     // Switch to Spanish user -> English regions
     const toggleButton = screen.getByRole('button', { name: /Toggle language/i });
@@ -53,7 +60,7 @@ describe('Landing', () => {
   });
 
   it('allows selecting a region', () => {
-    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+    renderWithLocale(<Landing {...defaultProps} onStartFlashcards={mockOnStartFlashcards} />);
 
     const cartagenaButton = screen.getByText('Cartagena');
     fireEvent.click(cartagenaButton);
@@ -62,7 +69,7 @@ describe('Landing', () => {
   });
 
   it('shows Start Flashcards button after region selection', () => {
-    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+    renderWithLocale(<Landing {...defaultProps} onStartFlashcards={mockOnStartFlashcards} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
 
@@ -70,7 +77,7 @@ describe('Landing', () => {
   });
 
   it('calls onStartFlashcards with locale and userLocale when starting', () => {
-    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+    renderWithLocale(<Landing {...defaultProps} onStartFlashcards={mockOnStartFlashcards} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
     // The button containing "Flashcards"
@@ -80,7 +87,7 @@ describe('Landing', () => {
   });
 
   it('allows changing region', () => {
-    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+    renderWithLocale(<Landing {...defaultProps} onStartFlashcards={mockOnStartFlashcards} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
     fireEvent.click(screen.getByText('← Choose a different region'));
@@ -89,7 +96,7 @@ describe('Landing', () => {
   });
 
   it('passes correct userLocale when Spanish is selected', () => {
-    renderWithLocale(<Landing onStartFlashcards={mockOnStartFlashcards} />);
+    renderWithLocale(<Landing {...defaultProps} onStartFlashcards={mockOnStartFlashcards} />);
 
     // Toggle to Spanish
     fireEvent.click(screen.getByRole('button', { name: /Toggle language/i }));
@@ -122,7 +129,7 @@ describe('Landing', () => {
   });
 
   it('shows Audio Challenge button after region selection', () => {
-    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+    renderWithLocale(<Landing {...defaultProps} onStartReview={mockOnStartReview} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
 
@@ -130,7 +137,7 @@ describe('Landing', () => {
   });
 
   it('shows Translation Challenge button after region selection', () => {
-    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+    renderWithLocale(<Landing {...defaultProps} onStartReview={mockOnStartReview} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
 
@@ -138,7 +145,7 @@ describe('Landing', () => {
   });
 
   it('calls onStartReview with audio-only mode when Audio Challenge is clicked', () => {
-    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+    renderWithLocale(<Landing {...defaultProps} onStartReview={mockOnStartReview} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
     fireEvent.click(screen.getByText('Listening'));
@@ -147,7 +154,7 @@ describe('Landing', () => {
   });
 
   it('calls onStartReview with speaker mode when Translation Challenge is clicked', () => {
-    renderWithLocale(<Landing onStartReview={mockOnStartReview} />);
+    renderWithLocale(<Landing {...defaultProps} onStartReview={mockOnStartReview} />);
 
     fireEvent.click(screen.getByText('Cartagena'));
     fireEvent.click(screen.getByText('Speaking'));
