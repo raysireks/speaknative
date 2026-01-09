@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useLocale } from '../context/LocaleContext';
+import { useLocale } from '../context/useLocale';
 import { getPhrasesForLocale, type Phrase } from '../data/phrase-adapter';
 import type { SupportedLocale } from '../data/locales';
 import { shuffleArray } from '../utils/array';

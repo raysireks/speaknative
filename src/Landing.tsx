@@ -1,4 +1,4 @@
-import { useLocale } from './context/LocaleContext';
+import { useLocale } from './context/useLocale';
 import type { SupportedLocale } from './data/locales';
 
 interface LocaleOption {
