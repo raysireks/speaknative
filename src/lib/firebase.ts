@@ -5,7 +5,7 @@ import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAI } from "firebase/ai";
 
-export const app = initializeApp(__FIREBASE_CONFIG__);
+export const app = initializeApp(__FIREBASE_CONFIG__!);
 
 // Enable App Check debug mode for local development
 // Set VITE_APPCHECK_DEBUG_TOKEN in your .env.local file with a UUID

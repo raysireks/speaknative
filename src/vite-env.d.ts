@@ -1,6 +1,10 @@
 /// <reference types="vite/client" />
 
-declare const __FIREBASE_CONFIG__: any;
+import type { FirebaseOptions } from 'firebase/app';
+
+declare global {
+    const __FIREBASE_CONFIG__: FirebaseOptions | null;
+}
 
 interface ImportMetaEnv {
     readonly VITE_FIREBASE_API_KEY: string
@@ -17,3 +21,5 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv
 }
+
+export { };

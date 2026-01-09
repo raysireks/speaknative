@@ -36,6 +36,8 @@ jobs:
         run: npm run test:run
 
       - name: Build
+        env:
+          VITE_BASE_PATH: '/speaknative/'
         run: npm run build
 
       - name: Upload artifact
