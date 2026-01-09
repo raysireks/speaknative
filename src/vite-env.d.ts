@@ -1,11 +1,5 @@
 /// <reference types="vite/client" />
 
-import type { FirebaseOptions } from 'firebase/app';
-
-declare global {
-    const __FIREBASE_CONFIG__: FirebaseOptions | null;
-}
-
 interface ImportMetaEnv {
     readonly VITE_FIREBASE_API_KEY: string
     readonly VITE_FIREBASE_AUTH_DOMAIN: string
@@ -16,10 +10,11 @@ interface ImportMetaEnv {
     readonly VITE_FIREBASE_MEASUREMENT_ID: string
     readonly VITE_USE_AUTH_EMULATOR: string
     readonly VITE_RECAPTCHA_SITE_KEY: string
+    readonly VITE_APPCHECK_DEBUG_TOKEN?: string
 }
 
 interface ImportMeta {
     readonly env: ImportMetaEnv
 }
 
-export { };
+declare const __FIREBASE_CONFIG__: import('firebase/app').FirebaseOptions | null;
