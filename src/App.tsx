@@ -39,13 +39,15 @@ function App() {
 
   const handleBackToLanding = () => {
     setCurrentView('landing');
-    setSelectedTargetLocale('');
+    // Do NOT reset selectedTargetLocale here, so we return to dashboard
   };
 
   return (
     <LocaleProvider>
       {currentView === 'landing' && (
         <Landing
+          selectedTargetLocale={selectedTargetLocale}
+          onSelectTargetLocale={setSelectedTargetLocale}
           onStartFlashcards={handleStartFlashcards}
           onStartVerbs={handleStartVerbs}
           onStartReview={handleStartReview}
@@ -59,7 +61,7 @@ function App() {
         />
       )}
       {currentView === 'verbs' && (
-        <div className="flex min-h-screen flex-col overflow-hidden bg-black">
+        <div className="flex min-h-screen flex-col overflow-hidden">
           {/* Simple wrapper for verbs similar to Flashcards or standalone */}
           <VerbNavigator
             sourceLocale={userLocale === 'en' ? 'us-ca' : 'co-cartagena'} // Native locale (Source)

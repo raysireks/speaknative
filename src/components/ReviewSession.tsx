@@ -79,84 +79,29 @@ export function ReviewSession({
     alert(t('🔊 Audio playback coming soon!'));
   };
 
-  // 1. Mode Selection Screen
-  if (mode === 'selection') {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
-        <div className="w-full max-w-4xl">
-          <button
-            onClick={onBack}
-            className="mb-6 flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
-          >
-            <span className="text-2xl">←</span> {t('Back')}
-          </button>
+  // 1. Review Session (Card View)
+  // We skip the internal selection screen as per user request
 
-          <div className="rounded-3xl bg-white p-8 text-center shadow-2xl sm:p-12 dark:bg-gray-800">
-            <h1 className="mb-4 text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
-              {t('Review Session')}
-            </h1>
-            <p className="mb-8 text-xl text-gray-600 dark:text-gray-300">
-              {t('Choose how you want to review your phrases')}
-            </p>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {/* Audio Only Mode */}
-              <button
-                onClick={() => handleStartMode('audio-only')}
-                className="group relative overflow-hidden rounded-2xl bg-violet-50 p-8 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-violet-900/20"
-              >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-violet-100 transition-transform duration-500 group-hover:scale-150 dark:bg-violet-800/30" />
-                <span className="relative z-10 mb-4 block text-4xl">👂</span>
-                <h3 className="relative z-10 mb-2 text-2xl font-bold text-gray-800 dark:text-white">
-                  {t('Audio Challenge')}
-                </h3>
-                <p className="relative z-10 text-gray-600 dark:text-gray-300">
-                  {t('Listen to the phrase and guess what it means.')}
-                </p>
-              </button>
-
-              {/* Speaker Mode */}
-              <button
-                onClick={() => handleStartMode('speaker')}
-                className="group relative overflow-hidden rounded-2xl bg-fuchsia-50 p-8 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-fuchsia-900/20"
-              >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-fuchsia-100 transition-transform duration-500 group-hover:scale-150 dark:bg-fuchsia-800/30" />
-                <span className="relative z-10 mb-4 block text-4xl">🗣️</span>
-                <h3 className="relative z-10 mb-2 text-2xl font-bold text-gray-800 dark:text-white">
-                  {t('Translation Challenge')}
-                </h3>
-                <p className="relative z-10 text-gray-600 dark:text-gray-300">
-                  {t('Read the phrase in your language and say it in the target language.')}
-                </p>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 2. Review Session (Card View)
   const currentPhrase = phrases[currentIndex];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-4xl">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <button
-            onClick={() => setMode('selection')}
-            className="flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            onClick={onBack}
+            className="flex items-center gap-2 font-medium text-slate-400 hover:text-slate-200"
           >
-            <span className="text-2xl">←</span> {t('Change Mode')}
+            <span className="text-2xl">←</span> {t('Back')}
           </button>
-          <div className="font-semibold text-gray-700 dark:text-gray-300">
+          <div className="rounded-full bg-slate-900 border border-slate-800 px-4 py-1 text-sm font-medium text-slate-400">
             {currentIndex + 1} / {phrases.length}
           </div>
         </div>
 
         {/* Card */}
-        <div className="flex min-h-[500px] flex-col rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
+        <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl sm:p-12">
           <ReviewCard
             phrase={currentPhrase}
             mode={mode as 'audio-only' | 'speaker'}
@@ -172,14 +117,14 @@ export function ReviewSession({
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-6 py-3 font-semibold text-slate-300 transition duration-300 hover:bg-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('← Previous')}
             </button>
             <button
               onClick={handleNext}
               disabled={currentIndex === phrases.length - 1}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-indigo-500 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('Next →')}
             </button>

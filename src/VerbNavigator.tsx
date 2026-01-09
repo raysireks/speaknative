@@ -170,79 +170,87 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
       <div className="mb-8 flex items-center justify-between">
         <button
           onClick={onBack}
-          className="-ml-2 rounded-full p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+          className="-ml-2 rounded-full p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200"
         >
           <ArrowLeft size={24} />
         </button>
-        <div className="text-sm font-medium tracking-wider text-white/40 uppercase">
+        <div className="text-sm font-medium tracking-wider text-slate-500 uppercase">
           {t('Top 50 Verbs')} • {currentIndex + 1} / {verbs.length}
         </div>
         <div className="w-10" /> {/* Spacer */}
       </div>
 
       {/* Main Card */}
-      <div className="perspective-container relative flex flex-1 flex-col items-center justify-center">
-        <div className="group relative w-full overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-white/30">
-          {/* Background Accent */}
-          <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl transition-all duration-500 group-hover:bg-blue-500/30" />
-          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl transition-all duration-500 group-hover:bg-purple-500/30" />
+      <div className="relative flex flex-1 flex-col items-center justify-center">
+        <div className="group relative w-full overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl transition-all duration-300 hover:border-indigo-500/30">
 
           {/* Verb Infinitive */}
           <div className="mb-6 text-center">
-            <h2 className="mb-2 text-4xl font-bold text-white drop-shadow-sm">{verb.infinitive}</h2>
-            <p className="text-lg text-white/60">{verb.translation}</p>
+            <h2 className="mb-2 text-4xl font-bold text-slate-50">{verb.infinitive}</h2>
+            <p className="text-lg text-slate-400">{verb.translation}</p>
           </div>
 
           {/* Controls */}
           <div className="mb-6 grid grid-cols-2 gap-3">
             <button
               onClick={nextTense}
-              className="group/btn flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 active:bg-white/15"
+              className="group/btn flex items-center justify-between rounded-xl border border-slate-700 bg-slate-800/50 p-4 transition-all hover:bg-slate-800 hover:border-slate-600 active:bg-slate-700"
             >
               <div className="text-left">
-                <div className="text-[10px] tracking-wider text-white/40 uppercase">
+                <div className="text-[10px] tracking-wider text-slate-500 uppercase">
                   {t('Tense')}
                 </div>
-                <div className="font-medium text-white">{t(TENSE_KEYS[currentTense])}</div>
+                <div className="font-medium text-slate-200">{t(TENSE_KEYS[currentTense])}</div>
               </div>
               <ChevronRight
                 size={16}
-                className="text-white/30 transition-colors group-hover/btn:text-white/70"
+                className="text-slate-500 transition-colors group-hover/btn:text-slate-300"
               />
             </button>
 
             <button
               onClick={nextPerson}
-              className="group/btn flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 active:bg-white/15"
+              className="group/btn flex items-center justify-between rounded-xl border border-slate-700 bg-slate-800/50 p-4 transition-all hover:bg-slate-800 hover:border-slate-600 active:bg-slate-700"
             >
               <div className="text-left">
-                <div className="text-[10px] tracking-wider text-white/40 uppercase">
+                <div className="text-[10px] tracking-wider text-slate-500 uppercase">
                   {t('Person')}
                 </div>
-                <div className="max-w-[80px] truncate font-medium text-white">
+                <div className="max-w-[80px] truncate font-medium text-slate-200">
                   {PERSON_LABELS[currentPerson].split(' / ')[0]}
                 </div>
               </div>
               <ChevronRight
                 size={16}
-                className="text-white/30 transition-colors group-hover/btn:text-white/70"
+                className="text-slate-500 transition-colors group-hover/btn:text-slate-300"
               />
             </button>
           </div>
 
           {/* Conjugation Display */}
-          <div className="rounded-2xl border border-white/5 bg-black/20 p-6 text-center backdrop-blur-sm">
+          <div className="rounded-2xl border border-slate-700 bg-slate-950/50 p-6 text-center">
             <div className="mb-4">
-              <div className="mb-1 text-3xl font-medium text-white">
+              <div className="mb-1 text-3xl font-medium text-indigo-400">
                 {targetSubject} {targetConjugation}
               </div>
-              <div className="text-base text-white/50">
+              <div className="text-base text-slate-500">
                 {nativeSubject} {nativeConjugation}
               </div>
             </div>
-            <div className="border-t border-white/10 pt-4">
-              <div className="mb-1 text-sm text-white/70 italic">{targetSentence}</div>
-              <div className="text-xs text-white/50 italic">{nativeSentence}</div>
+
+            {/* Audio Stub */}
+            <div className="mb-4 flex justify-center">
+              <button
+                onClick={() => alert(t('🔊 Audio playback coming soon!'))}
+                className="flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-2 text-sm font-medium text-indigo-400 transition-colors hover:bg-slate-800 hover:text-indigo-300"
+              >
+                <span>🔊</span> {t('Listen')}
+              </button>
+            </div>
+
+            <div className="border-t border-slate-800 pt-4">
+              <div className="mb-1 text-sm text-slate-400 italic">{targetSentence}</div>
+              <div className="text-xs text-slate-600 italic">{nativeSentence}</div>
             </div>
           </div>
         </div>
@@ -252,14 +260,14 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
       <div className="mt-8 flex items-center justify-between gap-4">
         <button
           onClick={prevVerb}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/5 p-4 font-medium text-white transition-all hover:bg-white/10 active:scale-95"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 p-4 font-medium text-slate-300 transition-all hover:bg-slate-700 hover:text-white active:scale-95"
         >
           <ArrowLeft size={18} />
           {t('Prev Verb')}
         </button>
         <button
           onClick={nextVerb}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white p-4 font-bold text-black shadow-lg transition-all hover:scale-[1.02] hover:shadow-white/20 active:scale-95"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 p-4 font-bold text-white shadow-lg transition-all hover:bg-indigo-500 hover:shadow-indigo-500/20 active:scale-95"
         >
           {t('Next Verb')}
           <ArrowRight size={18} />
