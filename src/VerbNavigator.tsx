@@ -170,11 +170,11 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
       <div className="mb-8 flex items-center justify-between">
         <button
           onClick={onBack}
-          className="-ml-2 rounded-full p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+          className="-ml-2 rounded-full p-2 text-corporate-text-tertiary transition-colors hover:bg-corporate-surface hover:text-corporate-text-secondary"
         >
           <ArrowLeft size={24} />
         </button>
-        <div className="text-sm font-medium tracking-wider text-white/40 uppercase">
+        <div className="text-sm font-medium tracking-wider text-corporate-text-tertiary uppercase">
           {t('Top 50 Verbs')} • {currentIndex + 1} / {verbs.length}
         </div>
         <div className="w-10" /> {/* Spacer */}
@@ -182,67 +182,67 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
 
       {/* Main Card */}
       <div className="perspective-container relative flex flex-1 flex-col items-center justify-center">
-        <div className="group relative w-full overflow-hidden rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-white/30">
+        <div className="group relative w-full overflow-hidden rounded-corporate-lg border border-corporate-border bg-corporate-surface-elevated p-8 shadow-corporate-lg backdrop-blur-xl transition-all duration-200 hover:border-corporate-border-light">
           {/* Background Accent */}
-          <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl transition-all duration-500 group-hover:bg-blue-500/30" />
-          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl transition-all duration-500 group-hover:bg-purple-500/30" />
+          <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-corporate-accent-primary/10 blur-3xl transition-all duration-300 group-hover:bg-corporate-accent-primary/20" />
+          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-corporate-accent-secondary/10 blur-3xl transition-all duration-300 group-hover:bg-corporate-accent-secondary/20" />
 
           {/* Verb Infinitive */}
           <div className="mb-6 text-center">
-            <h2 className="mb-2 text-4xl font-bold text-white drop-shadow-sm">{verb.infinitive}</h2>
-            <p className="text-lg text-white/60">{verb.translation}</p>
+            <h2 className="mb-2 text-4xl font-bold text-corporate-text-primary drop-shadow-sm">{verb.infinitive}</h2>
+            <p className="text-lg text-corporate-text-tertiary">{verb.translation}</p>
           </div>
 
           {/* Controls */}
           <div className="mb-6 grid grid-cols-2 gap-3">
             <button
               onClick={nextTense}
-              className="group/btn flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 active:bg-white/15"
+              className="group/btn flex items-center justify-between rounded-corporate border border-corporate-border bg-corporate-surface p-4 transition-all hover:bg-corporate-surface-hover active:bg-corporate-surface-hover"
             >
               <div className="text-left">
-                <div className="text-[10px] tracking-wider text-white/40 uppercase">
+                <div className="text-[10px] tracking-wider text-corporate-text-tertiary uppercase">
                   {t('Tense')}
                 </div>
-                <div className="font-medium text-white">{t(TENSE_KEYS[currentTense])}</div>
+                <div className="font-medium text-corporate-text-primary">{t(TENSE_KEYS[currentTense])}</div>
               </div>
               <ChevronRight
                 size={16}
-                className="text-white/30 transition-colors group-hover/btn:text-white/70"
+                className="text-corporate-text-tertiary transition-colors group-hover/btn:text-corporate-text-secondary"
               />
             </button>
 
             <button
               onClick={nextPerson}
-              className="group/btn flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10 active:bg-white/15"
+              className="group/btn flex items-center justify-between rounded-corporate border border-corporate-border bg-corporate-surface p-4 transition-all hover:bg-corporate-surface-hover active:bg-corporate-surface-hover"
             >
               <div className="text-left">
-                <div className="text-[10px] tracking-wider text-white/40 uppercase">
+                <div className="text-[10px] tracking-wider text-corporate-text-tertiary uppercase">
                   {t('Person')}
                 </div>
-                <div className="max-w-[80px] truncate font-medium text-white">
+                <div className="max-w-[80px] truncate font-medium text-corporate-text-primary">
                   {PERSON_LABELS[currentPerson].split(' / ')[0]}
                 </div>
               </div>
               <ChevronRight
                 size={16}
-                className="text-white/30 transition-colors group-hover/btn:text-white/70"
+                className="text-corporate-text-tertiary transition-colors group-hover/btn:text-corporate-text-secondary"
               />
             </button>
           </div>
 
           {/* Conjugation Display */}
-          <div className="rounded-2xl border border-white/5 bg-black/20 p-6 text-center backdrop-blur-sm">
+          <div className="rounded-corporate border border-corporate-border bg-corporate-bg-secondary p-6 text-center backdrop-blur-sm">
             <div className="mb-4">
-              <div className="mb-1 text-3xl font-medium text-white">
+              <div className="mb-1 text-3xl font-medium text-corporate-text-primary">
                 {targetSubject} {targetConjugation}
               </div>
-              <div className="text-base text-white/50">
+              <div className="text-base text-corporate-text-tertiary">
                 {nativeSubject} {nativeConjugation}
               </div>
             </div>
-            <div className="border-t border-white/10 pt-4">
-              <div className="mb-1 text-sm text-white/70 italic">{targetSentence}</div>
-              <div className="text-xs text-white/50 italic">{nativeSentence}</div>
+            <div className="border-t border-corporate-border pt-4">
+              <div className="mb-1 text-sm text-corporate-text-secondary italic">{targetSentence}</div>
+              <div className="text-xs text-corporate-text-tertiary italic">{nativeSentence}</div>
             </div>
           </div>
         </div>
@@ -252,14 +252,14 @@ export const VerbNavigator: React.FC<VerbNavigatorProps> = ({
       <div className="mt-8 flex items-center justify-between gap-4">
         <button
           onClick={prevVerb}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/5 p-4 font-medium text-white transition-all hover:bg-white/10 active:scale-95"
+          className="flex flex-1 items-center justify-center gap-2 rounded-corporate bg-corporate-surface border border-corporate-border p-4 font-medium text-corporate-text-primary transition-all hover:bg-corporate-surface-hover active:scale-95"
         >
           <ArrowLeft size={18} />
           {t('Prev Verb')}
         </button>
         <button
           onClick={nextVerb}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white p-4 font-bold text-black shadow-lg transition-all hover:scale-[1.02] hover:shadow-white/20 active:scale-95"
+          className="flex flex-1 items-center justify-center gap-2 rounded-corporate bg-corporate-accent-primary p-4 font-bold text-white shadow-corporate transition-all hover:bg-corporate-accent-hover active:scale-95"
         >
           {t('Next Verb')}
           <ArrowRight size={18} />

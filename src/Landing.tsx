@@ -94,31 +94,31 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-7xl">
         {/* User Language Toggle - "I speak..." */}
         <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
           <div className="flex items-center gap-2">
-            <span className="hidden text-sm text-gray-600 sm:inline dark:text-gray-400">
+            <span className="hidden text-sm text-corporate-text-secondary sm:inline">
               {t('I speak:')}
             </span>
             <button
               onClick={toggleUserLocale}
-              className="flex items-center gap-2 rounded-full bg-white px-4 py-2 font-medium shadow-lg transition-all duration-300 hover:shadow-xl dark:bg-gray-800"
+              className="flex items-center gap-2 rounded-corporate bg-corporate-surface-elevated px-4 py-2 font-medium border border-corporate-border shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
               aria-label="Toggle my language"
             >
               <span className="text-xl">{userLangInfo.flag}</span>
-              <span className="text-gray-700 dark:text-gray-300">{userLangInfo.nativeName}</span>
+              <span className="text-corporate-text-primary">{userLangInfo.nativeName}</span>
             </button>
           </div>
         </div>
 
         {/* Header */}
         <header className="mb-8 text-center sm:mb-12 lg:mb-16">
-          <h1 className="mb-3 bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent sm:mb-4 sm:text-5xl md:text-6xl lg:text-7xl dark:from-violet-400 dark:to-purple-400">
+          <h1 className="mb-3 text-4xl font-bold text-corporate-text-primary sm:mb-4 sm:text-5xl md:text-6xl lg:text-7xl">
             {t('SpeakNative')}
           </h1>
-          <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
+          <p className="text-lg text-corporate-text-secondary sm:text-xl md:text-2xl">
             {t('Learn')} {targetLangInfo.name} {targetLangInfo.flag}
           </p>
         </header>
@@ -128,7 +128,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
           {!selectedTargetLocale ? (
             /* Region Selection */
             <div className="animate-in fade-in duration-500">
-              <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800 sm:mb-8 sm:text-3xl md:text-4xl lg:mb-12 dark:text-white">
+              <h2 className="mb-6 text-center text-2xl font-semibold text-corporate-text-primary sm:mb-8 sm:text-3xl md:text-4xl lg:mb-12">
                 {t('Choose a region to learn')}
               </h2>
               <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
@@ -136,21 +136,21 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                   <button
                     key={region.value}
                     onClick={() => handleRegionSelect(region.value)}
-                    className="group relative transform overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl sm:rounded-3xl sm:p-10 lg:p-12 dark:bg-gray-800"
+                    className="group relative transform overflow-hidden rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light sm:p-10 lg:p-12"
                     aria-label={`Select ${region.label}`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-purple-500/20 dark:to-pink-500/20"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-corporate-accent-primary/5 to-corporate-accent-secondary/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
                     <div className="relative z-10">
                       <div className="mb-4 text-5xl sm:mb-6 sm:text-6xl lg:text-7xl">
                         {region.flag}
                       </div>
-                      <h3 className="mb-2 text-2xl font-bold text-gray-800 sm:text-3xl lg:text-4xl dark:text-white">
+                      <h3 className="mb-2 text-2xl font-bold text-corporate-text-primary sm:text-3xl lg:text-4xl">
                         {region.label}
                       </h3>
-                      <p className="text-base text-gray-600 sm:text-lg dark:text-gray-300">
+                      <p className="text-base text-corporate-text-secondary sm:text-lg">
                         {region.description}
                       </p>
-                      <div className="mt-4 text-sm font-medium text-violet-600 dark:text-violet-400">
+                      <div className="mt-4 text-sm font-medium text-corporate-accent-secondary">
                         {targetLangInfo.flag} {targetLangInfo.name}
                       </div>
                     </div>
@@ -161,23 +161,23 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
           ) : (
             /* Selection Complete */
             <div className="animate-in fade-in duration-500">
-              <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 text-center shadow-2xl sm:rounded-3xl sm:p-10 lg:p-16 dark:bg-gray-800">
+              <div className="mx-auto max-w-3xl rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 text-center shadow-corporate-lg sm:p-10 lg:p-16">
                 <div className="mb-6 text-6xl sm:mb-8 sm:text-7xl lg:text-8xl">
                   {getSelectedRegionInfo()?.flag}
                 </div>
-                <h2 className="mb-4 text-3xl font-bold text-gray-800 sm:mb-6 sm:text-4xl md:text-5xl dark:text-white">
+                <h2 className="mb-4 text-3xl font-bold text-corporate-text-primary sm:mb-6 sm:text-4xl md:text-5xl">
                   {t('Ready to Learn!')}
                 </h2>
                 <div className="mb-8 space-y-3 sm:mb-10 sm:space-y-4">
-                  <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
+                  <p className="text-lg text-corporate-text-secondary sm:text-xl md:text-2xl">
                     <span className="font-semibold">{t('You speak:')}</span>{' '}
-                    <span className="text-violet-600 dark:text-violet-400">
+                    <span className="text-corporate-accent-secondary">
                       {userLangInfo.nativeName} {userLangInfo.flag}
                     </span>
                   </p>
-                  <p className="text-lg text-gray-700 sm:text-xl md:text-2xl dark:text-gray-300">
+                  <p className="text-lg text-corporate-text-secondary sm:text-xl md:text-2xl">
                     <span className="font-semibold">{t('Learning:')}</span>{' '}
-                    <span className="text-violet-600 dark:text-violet-400">
+                    <span className="text-corporate-accent-secondary">
                       {getSelectedRegionInfo()?.label} {targetLangInfo.name} {targetLangInfo.flag}
                     </span>
                   </p>
@@ -187,14 +187,14 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                   {/* Start Flashcards */}
                   <button
                     onClick={handleStartLearning}
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    className="group relative overflow-hidden rounded-corporate bg-corporate-surface p-6 text-left border border-corporate-border shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
                     aria-label="Start learning with flashcards"
                   >
-                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="absolute inset-0 bg-corporate-accent-primary/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <div className="relative z-10">
                       <div className="mb-3 text-4xl">🗂️</div>
-                      <h3 className="mb-2 text-xl font-bold text-white">{t('Start Flashcards')}</h3>
-                      <p className="text-sm text-purple-100">
+                      <h3 className="mb-2 text-xl font-bold text-corporate-text-primary">{t('Start Flashcards')}</h3>
+                      <p className="text-sm text-corporate-text-tertiary">
                         {t('Learn phrases with interactive flashcards')}
                       </p>
                     </div>
@@ -203,14 +203,14 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                   {/* Start Verbs */}
                   <button
                     onClick={handleStartVerbs}
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    className="group relative overflow-hidden rounded-corporate bg-corporate-surface p-6 text-left border border-corporate-border shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
                     aria-label="Start learning verbs"
                   >
-                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="absolute inset-0 bg-corporate-accent-primary/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <div className="relative z-10">
                       <div className="mb-3 text-4xl">📚</div>
-                      <h3 className="mb-2 text-xl font-bold text-white">{t('Start Verbs')}</h3>
-                      <p className="text-sm text-blue-100">
+                      <h3 className="mb-2 text-xl font-bold text-corporate-text-primary">{t('Start Verbs')}</h3>
+                      <p className="text-sm text-corporate-text-tertiary">
                         {t('Master verb conjugations and usage')}
                       </p>
                     </div>
@@ -219,14 +219,14 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                   {/* Audio Challenge */}
                   <button
                     onClick={() => onStartReview?.(selectedTargetLocale, userLocale, 'audio-only')}
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    className="group relative overflow-hidden rounded-corporate bg-corporate-surface p-6 text-left border border-corporate-border shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
                     aria-label="Start audio challenge"
                   >
-                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="absolute inset-0 bg-corporate-accent-primary/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <div className="relative z-10">
                       <div className="mb-3 text-4xl">👂</div>
-                      <h3 className="mb-2 text-xl font-bold text-white">{t('Audio Challenge')}</h3>
-                      <p className="text-sm text-emerald-100">
+                      <h3 className="mb-2 text-xl font-bold text-corporate-text-primary">{t('Audio Challenge')}</h3>
+                      <p className="text-sm text-corporate-text-tertiary">
                         {t('Listen and guess the meaning')}
                       </p>
                     </div>
@@ -235,16 +235,16 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                   {/* Translation Challenge */}
                   <button
                     onClick={() => onStartReview?.(selectedTargetLocale, userLocale, 'speaker')}
-                    className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-fuchsia-500 to-pink-600 p-6 text-left shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                    className="group relative overflow-hidden rounded-corporate bg-corporate-surface p-6 text-left border border-corporate-border shadow-corporate transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
                     aria-label="Start translation challenge"
                   >
-                    <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+                    <div className="absolute inset-0 bg-corporate-accent-primary/5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <div className="relative z-10">
                       <div className="mb-3 text-4xl">🗣️</div>
-                      <h3 className="mb-2 text-xl font-bold text-white">
+                      <h3 className="mb-2 text-xl font-bold text-corporate-text-primary">
                         {t('Translation Challenge')}
                       </h3>
-                      <p className="text-sm text-fuchsia-100">{t('Translate and speak aloud')}</p>
+                      <p className="text-sm text-corporate-text-tertiary">{t('Translate and speak aloud')}</p>
                     </div>
                   </button>
                 </div>
@@ -253,7 +253,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
                 <div className="mt-6 text-center">
                   <button
                     onClick={handleReset}
-                    className="text-sm font-medium text-gray-600 underline decoration-dotted underline-offset-4 transition-colors duration-200 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                    className="text-sm font-medium text-corporate-text-tertiary underline decoration-dotted underline-offset-4 transition-colors duration-200 hover:text-corporate-text-secondary"
                     aria-label="Choose a different region"
                   >
                     {t('← Choose a different region')}
@@ -265,7 +265,7 @@ function Landing({ onStartFlashcards, onStartVerbs, onStartReview }: LandingProp
         </main>
 
         {/* Footer */}
-        <footer className="mt-8 text-center text-sm text-gray-600 sm:mt-12 sm:text-base lg:mt-16 dark:text-gray-400">
+        <footer className="mt-8 text-center text-sm text-corporate-text-tertiary sm:mt-12 sm:text-base lg:mt-16">
           <p>{t('Master the language and culture of your chosen region')}</p>
         </footer>
       </div>

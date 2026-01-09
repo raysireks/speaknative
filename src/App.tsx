@@ -59,7 +59,7 @@ function App() {
         />
       )}
       {currentView === 'verbs' && (
-        <div className="flex min-h-screen flex-col overflow-hidden bg-black">
+        <div className="flex min-h-screen flex-col overflow-hidden bg-corporate-bg-primary">
           {/* Simple wrapper for verbs similar to Flashcards or standalone */}
           <VerbNavigator
             sourceLocale={userLocale === 'en' ? 'us-ca' : 'co-cartagena'} // Native locale (Source)

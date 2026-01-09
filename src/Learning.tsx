@@ -114,14 +114,14 @@ function Learning({ language, locale, onBack }: LearningProps) {
 
   if (!currentPhrase) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
-        <div className="w-full max-w-3xl rounded-2xl bg-white p-8 text-center shadow-2xl sm:rounded-3xl sm:p-10 lg:p-16 dark:bg-gray-800">
-          <p className="mb-6 text-xl text-gray-700 dark:text-gray-300">
+      <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-3xl rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 text-center shadow-corporate-lg sm:p-10 lg:p-16">
+          <p className="mb-6 text-xl text-corporate-text-secondary">
             No learning content available for this selection.
           </p>
           <button
             onClick={onBack}
-            className="transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl sm:px-12 sm:py-4 sm:text-lg"
+            className="transform rounded-corporate bg-corporate-accent-primary px-8 py-3 text-base font-semibold text-white shadow-corporate transition duration-200 hover:bg-corporate-accent-hover sm:px-12 sm:py-4 sm:text-lg"
             aria-label="Go back"
           >
             Go Back
@@ -132,47 +132,47 @@ function Learning({ language, locale, onBack }: LearningProps) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 lg:p-8 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-4xl">
         {/* Header */}
         <header className="mb-6 text-center sm:mb-8">
           <div className="mb-4 flex items-center justify-between">
             <button
               onClick={onBack}
-              className="flex items-center gap-2 text-base font-medium text-violet-600 hover:text-violet-700 sm:text-lg dark:text-violet-400 dark:hover:text-violet-300"
+              className="flex items-center gap-2 text-base font-medium text-corporate-accent-secondary hover:text-corporate-accent-primary transition-colors sm:text-lg"
               aria-label="Back to home"
             >
               <span className="text-xl sm:text-2xl">←</span> Back
             </button>
-            <div className="text-sm text-gray-600 sm:text-base dark:text-gray-400">
+            <div className="text-sm text-corporate-text-tertiary sm:text-base">
               {currentIndex + 1} / {phrases.length}
             </div>
           </div>
-          <h1 className="mb-2 bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl dark:from-violet-400 dark:to-purple-400">
+          <h1 className="mb-2 text-3xl font-bold text-corporate-text-primary sm:text-4xl md:text-5xl">
             Learning {language.charAt(0).toUpperCase() + language.slice(1)}
           </h1>
-          <p className="text-base text-gray-700 sm:text-lg dark:text-gray-300">
+          <p className="text-base text-corporate-text-secondary sm:text-lg">
             Practice common phrases
           </p>
         </header>
 
         {/* Main Learning Card */}
         <main>
-          <div className="mb-6 rounded-2xl bg-white p-8 shadow-2xl sm:rounded-3xl sm:p-10 lg:p-12 dark:bg-gray-800">
+          <div className="mb-6 rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 shadow-corporate-lg sm:p-10 lg:p-12">
             <div className="mb-8 text-center">
-              <div className="mb-6 text-4xl font-bold text-gray-800 sm:text-5xl md:text-6xl dark:text-white">
+              <div className="mb-6 text-4xl font-bold text-corporate-text-primary sm:text-5xl md:text-6xl">
                 {currentPhrase.text}
               </div>
 
               {currentPhrase.pronunciation && (
-                <div className="mb-6 text-lg font-medium text-violet-600 sm:text-xl dark:text-violet-400">
+                <div className="mb-6 text-lg font-medium text-corporate-accent-secondary sm:text-xl">
                   [{currentPhrase.pronunciation}]
                 </div>
               )}
 
               <button
                 onClick={toggleTranslation}
-                className="rounded-full bg-violet-100 px-8 py-3 text-base font-semibold text-violet-700 transition duration-300 hover:bg-violet-200 sm:text-lg dark:bg-violet-900/30 dark:text-violet-300 dark:hover:bg-violet-900/50"
+                className="rounded-corporate bg-corporate-surface border border-corporate-border px-8 py-3 text-base font-semibold text-corporate-text-primary transition duration-200 hover:bg-corporate-surface-hover sm:text-lg"
                 aria-label={showTranslation ? 'Hide translation' : 'Show translation'}
               >
                 {showTranslation ? 'Hide' : 'Show'} Translation
@@ -180,8 +180,8 @@ function Learning({ language, locale, onBack }: LearningProps) {
             </div>
 
             {showTranslation && (
-              <div className="animate-in fade-in rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 p-6 text-center duration-300 dark:from-violet-900/20 dark:to-purple-900/20">
-                <p className="text-lg text-gray-700 sm:text-xl dark:text-gray-300">
+              <div className="animate-in fade-in rounded-corporate bg-corporate-surface p-6 text-center border border-corporate-border duration-300">
+                <p className="text-lg text-corporate-text-secondary sm:text-xl">
                   {currentPhrase.translation}
                 </p>
               </div>
@@ -193,7 +193,7 @@ function Learning({ language, locale, onBack }: LearningProps) {
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="max-w-xs flex-1 transform rounded-full bg-white px-6 py-3 text-base font-semibold text-gray-700 shadow-lg transition duration-300 hover:scale-105 hover:bg-gray-50 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 sm:px-8 sm:py-4 sm:text-lg dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="max-w-xs flex-1 transform rounded-corporate bg-corporate-surface border border-corporate-border px-6 py-3 text-base font-semibold text-corporate-text-primary shadow-corporate transition duration-200 hover:bg-corporate-surface-hover disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 sm:py-4 sm:text-lg"
               aria-label="Previous phrase"
             >
               ← Previous
@@ -201,7 +201,7 @@ function Learning({ language, locale, onBack }: LearningProps) {
             <button
               onClick={handleNext}
               disabled={currentIndex === phrases.length - 1}
-              className="max-w-xs flex-1 transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 sm:px-8 sm:py-4 sm:text-lg"
+              className="max-w-xs flex-1 transform rounded-corporate bg-corporate-accent-primary px-6 py-3 text-base font-semibold text-white shadow-corporate transition duration-200 hover:bg-corporate-accent-hover disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 sm:py-4 sm:text-lg"
               aria-label="Next phrase"
             >
               Next →
@@ -210,7 +210,7 @@ function Learning({ language, locale, onBack }: LearningProps) {
         </main>
 
         {/* Footer */}
-        <footer className="mt-8 text-center text-sm text-gray-600 sm:text-base dark:text-gray-400">
+        <footer className="mt-8 text-center text-sm text-corporate-text-tertiary sm:text-base">
           <p>Practice and learn at your own pace</p>
         </footer>
       </div>

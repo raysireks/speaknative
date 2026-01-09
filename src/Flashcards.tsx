@@ -85,14 +85,14 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
   if (phrases.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+      <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4">
         <div className="text-center">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+          <h2 className="mb-4 text-2xl font-bold text-corporate-text-primary">
             {t('No Phrases Available')}
           </h2>
           <button
             onClick={onBack}
-            className="rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 font-semibold text-white transition duration-300 hover:from-violet-700 hover:to-purple-700"
+            className="rounded-corporate bg-corporate-accent-primary px-8 py-3 font-semibold text-white transition duration-200 hover:bg-corporate-accent-hover"
           >
             {t('Go Back')}
           </button>
@@ -103,34 +103,34 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
   if (!started) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+      <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4">
         <div className="w-full max-w-2xl">
           <button
             onClick={onBack}
-            className="mb-6 flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="mb-6 flex items-center gap-2 font-medium text-corporate-accent-secondary hover:text-corporate-accent-primary transition-colors"
           >
             <span className="text-2xl">←</span> {t('Back')}
           </button>
 
-          <div className="rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
-            <h1 className="mb-6 text-center text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
+          <div className="rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 shadow-corporate-lg sm:p-12">
+            <h1 className="mb-6 text-center text-3xl font-bold text-corporate-text-primary sm:text-4xl">
               {t('Flashcard Settings')}
             </h1>
 
             <div className="mb-8 space-y-6">
-              <div className="rounded-2xl bg-violet-50 p-6 dark:bg-violet-900/20">
-                <p className="mb-2 text-lg text-gray-700 dark:text-gray-300">
+              <div className="rounded-corporate bg-corporate-surface p-6 border border-corporate-border">
+                <p className="mb-2 text-lg text-corporate-text-secondary">
                   <span className="font-semibold">{t('Region:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">{regionName}</span>
+                  <span className="text-corporate-accent-secondary">{regionName}</span>
                 </p>
-                <p className="text-lg text-gray-700 dark:text-gray-300">
+                <p className="text-lg text-corporate-text-secondary">
                   <span className="font-semibold">{t('Phrases:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">{phrases.length}</span>
+                  <span className="text-corporate-accent-secondary">{phrases.length}</span>
                 </p>
               </div>
 
-              <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
-                <p className="text-gray-600 dark:text-gray-400">
+              <div className="border-t border-corporate-border pt-6">
+                <p className="text-corporate-text-tertiary">
                   {t(
                     'Each flashcard shows a phrase to learn. Tap reveal to see it in your language.'
                   )}
@@ -140,7 +140,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
             <button
               onClick={handleStart}
-              className="w-full transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
+              className="w-full transform rounded-corporate bg-corporate-accent-primary px-8 py-4 text-lg font-semibold text-white shadow-corporate transition duration-200 hover:bg-corporate-accent-hover"
             >
               {t('Start Learning')}
             </button>
@@ -153,28 +153,28 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const currentPhrase = phrases[currentIndex];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4">
       <div className="w-full max-w-4xl">
         <div className="mb-6 flex items-center justify-between">
           <button
             onClick={() => setStarted(false)}
-            className="flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="flex items-center gap-2 font-medium text-corporate-accent-secondary hover:text-corporate-accent-primary transition-colors"
           >
             <span className="text-2xl">←</span> {t('Settings')}
           </button>
-          <div className="font-semibold text-gray-700 dark:text-gray-300">
+          <div className="font-semibold text-corporate-text-secondary">
             {currentIndex + 1} / {phrases.length}
           </div>
         </div>
 
-        <div className="flex min-h-[500px] flex-col rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
+        <div className="flex min-h-[500px] flex-col rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 shadow-corporate-lg sm:p-12">
           {/* Phrase to Learn */}
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <div className="mb-6">
-              <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
+              <p className="mb-2 text-sm font-medium tracking-wide text-corporate-text-tertiary uppercase">
                 {t('Phrase to learn')}
               </p>
-              <h2 className="text-4xl font-bold text-gray-800 sm:text-5xl lg:text-6xl dark:text-white">
+              <h2 className="text-4xl font-bold text-corporate-text-primary sm:text-5xl lg:text-6xl">
                 {currentPhrase.phraseToLearn}
               </h2>
             </div>
@@ -182,10 +182,10 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
             {/* Regional Slang (if available) */}
             {currentPhrase.slangToLearn && (
               <div className="mb-6">
-                <span className="mb-2 inline-block rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-3 py-1 text-xs font-bold text-white">
+                <span className="mb-2 inline-block rounded-corporate bg-corporate-accent-primary px-3 py-1 text-xs font-bold text-white">
                   {regionName} {t('SLANG')}
                 </span>
-                <p className="text-2xl font-semibold text-purple-600 sm:text-3xl dark:text-purple-400">
+                <p className="text-2xl font-semibold text-corporate-accent-secondary sm:text-3xl">
                   {currentPhrase.slangToLearn}
                 </p>
               </div>
@@ -194,7 +194,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
             {/* Audio Button */}
             <button
               onClick={handlePlayAudio}
-              className="flex items-center gap-2 rounded-full bg-violet-100 px-6 py-3 font-semibold text-violet-600 transition duration-300 hover:bg-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
+              className="flex items-center gap-2 rounded-corporate bg-corporate-surface px-6 py-3 font-semibold text-corporate-accent-secondary border border-corporate-border transition duration-200 hover:bg-corporate-surface-hover hover:text-corporate-accent-primary"
               aria-label="Play audio"
             >
               <span className="text-2xl">🔊</span>
@@ -203,23 +203,23 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
           </div>
 
           {/* Divider */}
-          <div className="my-6 border-t border-gray-200 dark:border-gray-700"></div>
+          <div className="my-6 border-t border-corporate-border"></div>
 
           {/* Reveal Section */}
           <div className="text-center">
             {!revealed ? (
               <button
                 onClick={handleReveal}
-                className="w-full rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
+                className="w-full rounded-corporate bg-corporate-accent-primary px-8 py-4 text-lg font-semibold text-white shadow-corporate transition duration-200 hover:bg-corporate-accent-hover"
               >
                 {t('Reveal')} {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
               </button>
             ) : (
               <div className="animate-in fade-in duration-300">
-                <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                <p className="mb-2 text-sm font-medium tracking-wide text-corporate-text-tertiary uppercase">
                   {t('Your language')}
                 </p>
-                <h3 className="text-3xl font-bold text-green-600 sm:text-4xl dark:text-green-400">
+                <h3 className="text-3xl font-bold text-corporate-success sm:text-4xl">
                   {currentPhrase.phraseInUserLang}
                 </h3>
               </div>
@@ -231,14 +231,14 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-corporate bg-corporate-surface border border-corporate-border px-6 py-3 font-semibold text-corporate-text-primary transition duration-200 hover:bg-corporate-surface-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('← Previous')}
             </button>
             <button
               onClick={handleNext}
               disabled={currentIndex === phrases.length - 1}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-corporate bg-corporate-surface border border-corporate-border px-6 py-3 font-semibold text-corporate-text-primary transition duration-200 hover:bg-corporate-surface-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('Next →')}
             </button>

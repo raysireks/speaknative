@@ -82,20 +82,20 @@ export function ReviewSession({
   // 1. Mode Selection Screen
   if (mode === 'selection') {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+      <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4">
         <div className="w-full max-w-4xl">
           <button
             onClick={onBack}
-            className="mb-6 flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="mb-6 flex items-center gap-2 font-medium text-corporate-accent-secondary hover:text-corporate-accent-primary transition-colors"
           >
             <span className="text-2xl">←</span> {t('Back')}
           </button>
 
-          <div className="rounded-3xl bg-white p-8 text-center shadow-2xl sm:p-12 dark:bg-gray-800">
-            <h1 className="mb-4 text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
+          <div className="rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 text-center shadow-corporate-lg sm:p-12">
+            <h1 className="mb-4 text-3xl font-bold text-corporate-text-primary sm:text-4xl">
               {t('Review Session')}
             </h1>
-            <p className="mb-8 text-xl text-gray-600 dark:text-gray-300">
+            <p className="mb-8 text-xl text-corporate-text-secondary">
               {t('Choose how you want to review your phrases')}
             </p>
 
@@ -103,14 +103,14 @@ export function ReviewSession({
               {/* Audio Only Mode */}
               <button
                 onClick={() => handleStartMode('audio-only')}
-                className="group relative overflow-hidden rounded-2xl bg-violet-50 p-8 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-violet-900/20"
+                className="group relative overflow-hidden rounded-corporate bg-corporate-surface border border-corporate-border p-8 text-left transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
               >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-violet-100 transition-transform duration-500 group-hover:scale-150 dark:bg-violet-800/30" />
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-corporate-accent-primary/10 transition-transform duration-300 group-hover:scale-150" />
                 <span className="relative z-10 mb-4 block text-4xl">👂</span>
-                <h3 className="relative z-10 mb-2 text-2xl font-bold text-gray-800 dark:text-white">
+                <h3 className="relative z-10 mb-2 text-2xl font-bold text-corporate-text-primary">
                   {t('Audio Challenge')}
                 </h3>
-                <p className="relative z-10 text-gray-600 dark:text-gray-300">
+                <p className="relative z-10 text-corporate-text-tertiary">
                   {t('Listen to the phrase and guess what it means.')}
                 </p>
               </button>
@@ -118,14 +118,14 @@ export function ReviewSession({
               {/* Speaker Mode */}
               <button
                 onClick={() => handleStartMode('speaker')}
-                className="group relative overflow-hidden rounded-2xl bg-fuchsia-50 p-8 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-fuchsia-900/20"
+                className="group relative overflow-hidden rounded-corporate bg-corporate-surface border border-corporate-border p-8 text-left transition-all duration-200 hover:bg-corporate-surface-hover hover:border-corporate-border-light"
               >
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-fuchsia-100 transition-transform duration-500 group-hover:scale-150 dark:bg-fuchsia-800/30" />
+                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-corporate-accent-primary/10 transition-transform duration-300 group-hover:scale-150" />
                 <span className="relative z-10 mb-4 block text-4xl">🗣️</span>
-                <h3 className="relative z-10 mb-2 text-2xl font-bold text-gray-800 dark:text-white">
+                <h3 className="relative z-10 mb-2 text-2xl font-bold text-corporate-text-primary">
                   {t('Translation Challenge')}
                 </h3>
-                <p className="relative z-10 text-gray-600 dark:text-gray-300">
+                <p className="relative z-10 text-corporate-text-tertiary">
                   {t('Read the phrase in your language and say it in the target language.')}
                 </p>
               </button>
@@ -140,23 +140,23 @@ export function ReviewSession({
   const currentPhrase = phrases[currentIndex];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-corporate-bg-primary p-4">
       <div className="w-full max-w-4xl">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <button
             onClick={() => setMode('selection')}
-            className="flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            className="flex items-center gap-2 font-medium text-corporate-accent-secondary hover:text-corporate-accent-primary transition-colors"
           >
             <span className="text-2xl">←</span> {t('Change Mode')}
           </button>
-          <div className="font-semibold text-gray-700 dark:text-gray-300">
+          <div className="font-semibold text-corporate-text-secondary">
             {currentIndex + 1} / {phrases.length}
           </div>
         </div>
 
         {/* Card */}
-        <div className="flex min-h-[500px] flex-col rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
+        <div className="flex min-h-[500px] flex-col rounded-corporate-lg bg-corporate-surface-elevated border border-corporate-border p-8 shadow-corporate-lg sm:p-12">
           <ReviewCard
             phrase={currentPhrase}
             mode={mode as 'audio-only' | 'speaker'}
@@ -172,14 +172,14 @@ export function ReviewSession({
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-corporate bg-corporate-surface border border-corporate-border px-6 py-3 font-semibold text-corporate-text-primary transition duration-200 hover:bg-corporate-surface-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('← Previous')}
             </button>
             <button
               onClick={handleNext}
               disabled={currentIndex === phrases.length - 1}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-corporate bg-corporate-surface border border-corporate-border px-6 py-3 font-semibold text-corporate-text-primary transition duration-200 hover:bg-corporate-surface-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t('Next →')}
             </button>
