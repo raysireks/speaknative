@@ -1,1 +1,20 @@
 @import 'tailwindcss';
+
+@theme {
+    --color-slate-950: #020617;
+}
+
+@layer base {
+    body {
+        @apply bg-slate-950 text-slate-200 antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-slate-50 font-semibold tracking-tight;
+    }
+}

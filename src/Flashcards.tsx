@@ -26,7 +26,6 @@ const REGION_NAMES: Record<string, string> = {
 
 function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
-  const [started, setStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
 
@@ -55,12 +54,6 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
     return shuffleArray(items);
   }, [targetLocale, userLangLocale]);
 
-  const handleStart = () => {
-    setCurrentIndex(0);
-    setRevealed(false);
-    setStarted(true);
-  };
-
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -85,14 +78,14 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
   if (phrases.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4">
         <div className="text-center">
-          <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+          <h2 className="mb-4 text-2xl font-bold text-slate-50">
             {t('No Phrases Available')}
           </h2>
           <button
             onClick={onBack}
-            className="rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-3 font-semibold text-white transition duration-300 hover:from-violet-700 hover:to-purple-700"
+            className="rounded-lg bg-indigo-600 px-8 py-3 font-semibold text-white transition duration-200 hover:bg-indigo-500"
           >
             {t('Go Back')}
           </button>
@@ -101,91 +94,42 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
     );
   }
 
-  if (!started) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
-        <div className="w-full max-w-2xl">
-          <button
-            onClick={onBack}
-            className="mb-6 flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
-          >
-            <span className="text-2xl">←</span> {t('Back')}
-          </button>
-
-          <div className="rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
-            <h1 className="mb-6 text-center text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
-              {t('Flashcard Settings')}
-            </h1>
-
-            <div className="mb-8 space-y-6">
-              <div className="rounded-2xl bg-violet-50 p-6 dark:bg-violet-900/20">
-                <p className="mb-2 text-lg text-gray-700 dark:text-gray-300">
-                  <span className="font-semibold">{t('Region:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">{regionName}</span>
-                </p>
-                <p className="text-lg text-gray-700 dark:text-gray-300">
-                  <span className="font-semibold">{t('Phrases:')}</span>{' '}
-                  <span className="text-violet-600 dark:text-violet-400">{phrases.length}</span>
-                </p>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
-                <p className="text-gray-600 dark:text-gray-400">
-                  {t(
-                    'Each flashcard shows a phrase to learn. Tap reveal to see it in your language.'
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={handleStart}
-              className="w-full transform rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:scale-105 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
-            >
-              {t('Start Learning')}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const currentPhrase = phrases[currentIndex];
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4">
       <div className="w-full max-w-4xl">
         <div className="mb-6 flex items-center justify-between">
           <button
-            onClick={() => setStarted(false)}
-            className="flex items-center gap-2 font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+            onClick={onBack}
+            className="flex items-center gap-2 font-medium text-slate-400 hover:text-slate-200 transition-colors"
           >
-            <span className="text-2xl">←</span> {t('Settings')}
+            <span className="text-xl">←</span> {t('Back')}
           </button>
-          <div className="font-semibold text-gray-700 dark:text-gray-300">
+          <div className="rounded-full bg-slate-900 border border-slate-800 px-4 py-1 text-sm font-medium text-slate-400">
             {currentIndex + 1} / {phrases.length}
           </div>
         </div>
 
-        <div className="flex min-h-[500px] flex-col rounded-3xl bg-white p-8 shadow-2xl sm:p-12 dark:bg-gray-800">
+        <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-xl sm:p-12">
           {/* Phrase to Learn */}
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <div className="mb-6">
-              <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
+            <div className="mb-8">
+              <p className="mb-4 text-sm font-medium tracking-widest text-slate-500 uppercase">
                 {t('Phrase to learn')}
               </p>
-              <h2 className="text-4xl font-bold text-gray-800 sm:text-5xl lg:text-6xl dark:text-white">
+              <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl">
                 {currentPhrase.phraseToLearn}
               </h2>
             </div>
 
             {/* Regional Slang (if available) */}
             {currentPhrase.slangToLearn && (
-              <div className="mb-6">
-                <span className="mb-2 inline-block rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-3 py-1 text-xs font-bold text-white">
+              <div className="mb-8">
+                <span className="mb-3 inline-block rounded-full bg-pink-500/10 border border-pink-500/20 px-3 py-1 text-xs font-bold text-pink-400 tracking-wider">
                   {regionName} {t('SLANG')}
                 </span>
-                <p className="text-2xl font-semibold text-purple-600 sm:text-3xl dark:text-purple-400">
+                <p className="text-2xl font-semibold text-pink-400 sm:text-3xl">
                   {currentPhrase.slangToLearn}
                 </p>
               </div>
@@ -194,32 +138,32 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
             {/* Audio Button */}
             <button
               onClick={handlePlayAudio}
-              className="flex items-center gap-2 rounded-full bg-violet-100 px-6 py-3 font-semibold text-violet-600 transition duration-300 hover:bg-violet-200 dark:bg-violet-900/30 dark:text-violet-400 dark:hover:bg-violet-900/50"
+              className="group flex items-center gap-3 rounded-full border border-slate-700 bg-slate-800/50 px-6 py-3 font-semibold text-indigo-400 transition duration-200 hover:bg-slate-800 hover:border-indigo-500/50 hover:text-indigo-300"
               aria-label="Play audio"
             >
-              <span className="text-2xl">🔊</span>
+              <span className="text-xl opacity-70 group-hover:opacity-100">🔊</span>
               {t('Listen')}
             </button>
           </div>
 
           {/* Divider */}
-          <div className="my-6 border-t border-gray-200 dark:border-gray-700"></div>
+          <div className="my-8 border-t border-slate-800"></div>
 
           {/* Reveal Section */}
           <div className="text-center">
             {!revealed ? (
               <button
                 onClick={handleReveal}
-                className="w-full rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:from-violet-700 hover:to-purple-700 hover:shadow-xl"
+                className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-sm transition duration-200 hover:bg-indigo-500 hover:shadow-md"
               >
                 {t('Reveal')} {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
               </button>
             ) : (
-              <div className="animate-in fade-in duration-300">
-                <p className="mb-2 text-sm font-medium tracking-wide text-gray-500 uppercase dark:text-gray-400">
+              <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <p className="mb-3 text-sm font-medium tracking-widest text-slate-500 uppercase">
                   {t('Your language')}
                 </p>
-                <h3 className="text-3xl font-bold text-green-600 sm:text-4xl dark:text-green-400">
+                <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
                   {currentPhrase.phraseInUserLang}
                 </h3>
               </div>
@@ -227,18 +171,18 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
           </div>
 
           {/* Navigation */}
-          <div className="mt-8 flex gap-4">
+          <div className="mt-10 flex gap-4">
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-6 py-4 font-semibold text-slate-300 transition duration-200 hover:bg-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-800"
             >
               {t('← Previous')}
             </button>
             <button
               onClick={handleNext}
               disabled={currentIndex === phrases.length - 1}
-              className="flex-1 rounded-full bg-gray-200 px-6 py-3 font-semibold text-gray-800 transition duration-300 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              className="flex-1 rounded-xl border border-slate-700 bg-slate-800 px-6 py-4 font-semibold text-slate-300 transition duration-200 hover:bg-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-800"
             >
               {t('Next →')}
             </button>
