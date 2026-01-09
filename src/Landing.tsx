@@ -1,8 +1,5 @@
-import { useState } from 'react';
-import { useLocale } from './context/LocaleContext';
+import { useLocale } from './context/useLocale';
 import type { SupportedLocale } from './data/locales';
-
-type Locale = string | null;
 
 interface LocaleOption {
   value: string;

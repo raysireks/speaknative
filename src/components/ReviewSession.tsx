@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useLocale } from '../context/LocaleContext';
+import { useLocale } from '../context/useLocale';
 import { getPhrasesForLocale, type Phrase } from '../data/phrase-adapter';
 import type { SupportedLocale } from '../data/locales';
 import { shuffleArray } from '../utils/array';
@@ -12,8 +12,6 @@ interface ReviewSessionProps {
   onBack: () => void;
   initialMode?: 'audio-only' | 'speaker';
 }
-
-type ReviewMode = 'selection' | 'audio-only' | 'speaker';
 
 const REGION_NAMES: Record<string, string> = {
   'co-cartagena': 'Cartagena',
@@ -29,7 +27,7 @@ export function ReviewSession({
   initialMode,
 }: ReviewSessionProps) {
   const { t } = useLocale();
-  const [mode, setMode] = useState<ReviewMode>(initialMode || 'selection');
+  const mode = initialMode || 'selection';
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
 
@@ -54,12 +52,6 @@ export function ReviewSession({
 
     return shuffleArray(items);
   }, [targetLocale, userLangLocale]);
-
-  const handleStartMode = (selectedMode: ReviewMode) => {
-    setMode(selectedMode);
-    setCurrentIndex(0);
-    setRevealed(false);
-  };
 
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
