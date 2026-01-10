@@ -203,6 +203,7 @@ speaknative/
 - Test AI-generated code thoroughly
 - Verify that generated code matches the existing style
 
+
 ### What to Delegate
 - Boilerplate component creation
 - Test file generation
@@ -216,6 +217,10 @@ speaknative/
 - Authentication/authorization
 - Data validation and sanitization
 - State management
+
+### Deprecated Patterns
+- **Do NOT use `concept_id`**: This field is being removed from the database schema. Do not try to link phrases across locales using an explicit ID string. Instead, rely on vector similarity embeddings or other mechanisms to find related phrases.
+
 
 ## Performance Considerations
 

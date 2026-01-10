@@ -51,6 +51,7 @@ export function ReviewSession({
               phraseToLearn: p.text,
               phraseInUserLang: p.translation,
               slangToLearn: p.slangText,
+              variants: p.variants,
             });
           }
         });

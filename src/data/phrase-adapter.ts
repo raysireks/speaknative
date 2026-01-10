@@ -15,6 +15,12 @@ export interface Phrase {
   slangTranslation?: string;
   is_slang?: boolean;
   usage_count?: number;
+  variants?: {
+    text: string;
+    is_slang: boolean;
+    is_question: boolean;
+    score?: number;
+  }[];
 }
 
 /**
@@ -65,15 +71,8 @@ export async function fetchCachedPhrases(locale: string): Promise<Phrase[]> {
       return phrases.map((p: any) => ({
         id: p.id,
         text: p.text,
-        // We need the translation in the user's language.
-        // The cache object structure is: { translations: { 'en-US-CA': "..." } }
-        // BUT here we don't know the USER locale easily without passing it.
-        // Let's assume this view is "Explore Target Locale".
-        // The caller of fetchCachedPhrases knows the target locale. 
-        // We might need to handle translation mapping in getDynamicPhrases.
-        // For now, return the raw object structure or specific fields.
-        translations: p.translations,
-        translation: '', // will be filled by consumer
+        variants: p.variants, // UPDATED: Key is 'variants' in DB
+        translation: '',
         usage_count: p.usage_count,
         is_slang: p.is_slang
       }));
@@ -84,9 +83,6 @@ export async function fetchCachedPhrases(locale: string): Promise<Phrase[]> {
   return [];
 }
 
-/**
- * Direct Translation: User asks for a translation
- */
 export async function translatePhrase(text: string, userLocale: string, targetLocale: string): Promise<Phrase | null> {
   const translateParams = {
     text,
@@ -123,10 +119,33 @@ export async function getDynamicPhrases(targetLocale: string, userLocale: string
   const cached = await fetchCachedPhrases(targetLocale);
   if (cached && cached.length > 0) {
     // Map the cached items to show translation in User Locale
-    return cached.map((p: any) => ({
-      ...p,
-      translation: p.translations?.[backendUser] || 'Translation unavailable'
-    }));
+    return cached.map((p: any) => {
+      const userRaw = p.variants?.[backendUser];
+      let primary = 'Translation unavailable';
+      let variants: { text: string; is_slang: boolean }[] = [];
+
+      if (Array.isArray(userRaw)) {
+        if (userRaw.length > 0) {
+          const firstItem = userRaw[0];
+          if (firstItem && typeof firstItem.text === 'string') {
+            primary = firstItem.text;
+          } else {
+            // Fallback unique to prevent React crash if data is malformed
+            primary = typeof firstItem === 'object' ? (firstItem.text || JSON.stringify(firstItem)) : String(firstItem);
+          }
+          variants = userRaw;
+        }
+      } else if (typeof userRaw === 'string') {
+        primary = userRaw;
+        variants = [{ text: userRaw, is_slang: false }];
+      }
+
+      return {
+        ...p,
+        translation: primary,
+        variants: variants
+      };
+    });
   }
 
   return [];

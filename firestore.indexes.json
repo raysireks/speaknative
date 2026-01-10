@@ -5,6 +5,27 @@
             "queryScope": "COLLECTION",
             "fields": [
                 {
+                    "fieldPath": "is_question",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "locale",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "embedding",
+                    "vectorConfig": {
+                        "dimension": 768,
+                        "flat": {}
+                    }
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
                     "fieldPath": "locale",
                     "order": "ASCENDING"
                 },
@@ -41,6 +62,57 @@
                 {
                     "fieldPath": "usage_count",
                     "order": "DESCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "intent_embedding",
+                    "vectorConfig": {
+                        "dimension": 768,
+                        "flat": {}
+                    }
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "is_question",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "locale",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "intent_embedding",
+                    "vectorConfig": {
+                        "dimension": 768,
+                        "flat": {}
+                    }
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "locale",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "intent_embedding",
+                    "vectorConfig": {
+                        "dimension": 768,
+                        "flat": {}
+                    }
                 }
             ]
         }
