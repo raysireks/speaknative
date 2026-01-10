@@ -47,9 +47,16 @@ export function ReviewCard({
           <div className="animate-in fade-in zoom-in w-full space-y-8 duration-300">
             {/* Target Phrase (Revealed) */}
             <div>
-              <p className="mb-2 text-sm font-medium tracking-wide text-slate-500 uppercase">
-                Phrase
-              </p>
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-sm font-medium tracking-wide text-slate-500 uppercase">
+                  Phrase
+                </p>
+                {phrase.isSlang && (
+                  <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                    SLANG
+                  </span>
+                )}
+              </div>
               <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl">
                 {phrase.phraseToLearn}
               </h2>
@@ -74,9 +81,20 @@ export function ReviewCard({
               <p className="mb-2 text-sm font-medium tracking-wide text-slate-500 uppercase">
                 Translation
               </p>
-              <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
-                {phrase.phraseInUserLang}
-              </h3>
+              {phrase.variants && phrase.variants.length > 1 ? (
+                <div className="flex gap-3 overflow-x-auto pb-2 snap-x justify-center">
+                  {phrase.variants.map((v, idx) => (
+                    <div key={idx} className="snap-center shrink-0 rounded-lg bg-slate-800/80 px-4 py-3 border border-slate-700 min-w-[120px]">
+                      <div className="text-2xl font-bold text-emerald-400">{v.text}</div>
+                      {v.is_slang && <div className="text-[10px] text-pink-400 font-bold tracking-wider mt-1">SLANG</div>}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
+                  {phrase.phraseInUserLang}
+                </h3>
+              )}
             </div>
           </div>
         )}
@@ -93,9 +111,20 @@ export function ReviewCard({
         <p className="mb-2 text-sm font-medium tracking-wide text-slate-500 uppercase">
           Translate this
         </p>
-        <h3 className="text-3xl font-bold text-slate-50 sm:text-5xl">
-          {phrase.phraseInUserLang}
-        </h3>
+        {phrase.variants && phrase.variants.length > 1 ? (
+          <div className="flex gap-3 overflow-x-auto pb-2 snap-x justify-center max-w-full no-scrollbar">
+            {phrase.variants.map((v, idx) => (
+              <div key={idx} className="snap-center shrink-0 rounded-lg bg-slate-800/80 px-5 py-4 border border-slate-700">
+                <div className="text-3xl font-bold text-slate-50">{v.text}</div>
+                {v.is_slang && <div className="text-[10px] text-pink-400 font-bold tracking-wider mt-1 text-center">SLANG</div>}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h3 className="text-3xl font-bold text-slate-50 sm:text-5xl">
+            {phrase.phraseInUserLang}
+          </h3>
+        )}
       </div>
 
       {!revealed ? (
@@ -113,9 +142,16 @@ export function ReviewCard({
 
           {/* Target Phrase (Revealed) */}
           <div>
-            <p className="mb-2 text-sm font-medium tracking-wide text-slate-500 uppercase">
-              Answer
-            </p>
+            <div className="flex items-center gap-2 mb-2">
+              <p className="text-sm font-medium tracking-wide text-slate-500 uppercase">
+                Answer
+              </p>
+              {phrase.isSlang && (
+                <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                  SLANG
+                </span>
+              )}
+            </div>
             <h2 className="text-4xl font-bold text-emerald-400 sm:text-5xl">
               {phrase.phraseToLearn}
             </h2>

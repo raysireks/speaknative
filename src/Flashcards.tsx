@@ -15,6 +15,8 @@ export interface FlashcardItem {
   phraseToLearn: string; // The phrase in the language being learned
   phraseInUserLang: string; // The phrase in user's native language
   slangToLearn?: string; // Regional slang in the language being learned
+  isSlang?: boolean; // Is the main phrase itself slang?
+  variants?: { text: string; is_slang: boolean; score?: number }[];
 }
 
 const REGION_NAMES: Record<string, string> = {
@@ -30,6 +32,11 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const [revealed, setRevealed] = useState(false);
   const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [variantIndex, setVariantIndex] = useState(0);
+
+  useEffect(() => {
+    setVariantIndex(0);
+  }, [currentIndex]);
 
   const regionName = REGION_NAMES[targetLocale] || targetLocale;
 
@@ -53,6 +60,8 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
               phraseToLearn: p.text,
               phraseInUserLang: p.translation,
               slangToLearn: p.slangText,
+              isSlang: p.is_slang,
+              variants: p.variants,
             });
           }
         });
@@ -88,6 +97,20 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
   const handlePlayAudio = () => {
     alert(t('🔊 Audio playback coming soon!'));
+  };
+
+  const handlePrevVariant = () => {
+    const current = phrases[currentIndex];
+    if (current?.variants && variantIndex > 0) {
+      setVariantIndex(variantIndex - 1);
+    }
+  };
+
+  const handleNextVariant = () => {
+    const current = phrases[currentIndex];
+    if (current?.variants && variantIndex < current.variants.length - 1) {
+      setVariantIndex(variantIndex + 1);
+    }
   };
 
   if (loading) {
@@ -137,12 +160,18 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
         </div>
 
         <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-xl sm:p-12">
-          {/* Phrase to Learn */}
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <div className="mb-8">
-              <p className="mb-4 text-sm font-medium tracking-widest text-slate-500 uppercase">
-                {t('Phrase to learn')}
-              </p>
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <p className="text-sm font-medium tracking-widest text-slate-500 uppercase">
+                  {t('Phrase to learn')}
+                </p>
+                {currentPhrase.isSlang && (
+                  <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                    {t('SLANG')}
+                  </span>
+                )}
+              </div>
               <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl">
                 {currentPhrase.phraseToLearn}
               </h2>
@@ -188,9 +217,56 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
                 <p className="mb-3 text-sm font-medium tracking-widest text-slate-500 uppercase">
                   {t('Your language')}
                 </p>
-                <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
-                  {currentPhrase.phraseInUserLang}
-                </h3>
+                {currentPhrase.variants && currentPhrase.variants.length > 1 ? (
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="flex w-full items-center justify-between gap-4">
+                      {/* Left Nav */}
+                      <button
+                        onClick={handlePrevVariant}
+                        disabled={variantIndex === 0}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        ←
+                      </button>
+
+                      {/* Variant Content */}
+                      <div className="flex flex-col items-center flex-1">
+                        <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl text-center">
+                          {currentPhrase.variants[variantIndex].text}
+                        </h3>
+                        <div className="mt-2 flex items-center gap-2">
+                          {currentPhrase.variants[variantIndex].score !== undefined && (
+                            <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400 tracking-wider">
+                              {Math.round(currentPhrase.variants[variantIndex].score * 100)}% MATCH
+                            </span>
+                          )}
+                          {currentPhrase.variants[variantIndex].is_slang && (
+                            <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                              {t('SLANG')}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Right Nav */}
+                      <button
+                        onClick={handleNextVariant}
+                        disabled={variantIndex === currentPhrase.variants.length - 1}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        →
+                      </button>
+                    </div>
+                    {/* Counter */}
+                    <div className="mt-2 text-xs font-medium text-slate-500 font-mono bg-slate-900/50 px-2 py-1 rounded">
+                      {variantIndex + 1} / {currentPhrase.variants.length}
+                    </div>
+                  </div>
+                ) : (
+                  <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
+                    {currentPhrase.phraseInUserLang}
+                  </h3>
+                )}
               </div>
             )}
           </div>
