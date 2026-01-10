@@ -7,7 +7,7 @@ interface ReviewCardProps {
   onReveal: () => void;
   onPlayAudio: () => void;
   regionName: string;
-  userLocale: 'en' | 'es';
+  userLocale: string;
 }
 
 export function ReviewCard({
@@ -40,7 +40,7 @@ export function ReviewCard({
               onClick={onReveal}
               className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:bg-indigo-500 hover:shadow-indigo-500/20"
             >
-              Reveal {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
+              Reveal {userLocale === 'en' ? '🇺🇸' : userLocale === 'es' ? '🇪🇸' : '🌐'}
             </button>
           </div>
         ) : (
@@ -104,7 +104,7 @@ export function ReviewCard({
             onClick={onReveal}
             className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:bg-indigo-500 hover:shadow-indigo-500/20"
           >
-            Reveal {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
+            Reveal {userLocale === 'en' ? '🇺🇸' : userLocale === 'es' ? '🇪🇸' : '🌐'}
           </button>
         </div>
       ) : (

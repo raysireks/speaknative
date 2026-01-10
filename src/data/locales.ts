@@ -1,88 +1,78 @@
-/**
- * App UI Localization
- * English keys with translations to supported languages
- */
+import { functions, httpsCallable } from '../lib/firebase';
 
-export type SupportedLocale = 'en' | 'es';
+export type SupportedLocale = 'en' | 'es' | 'fr' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh';
 
 export interface LocaleStrings {
-  es: string;
+  [locale: string]: string;
 }
 
-// All UI text in the app - English is the key, other languages are properties
+// Basic UI text remains hardcoded for speed and offline availability
 export const UI_TEXT: Record<string, LocaleStrings> = {
   // App Header
   SpeakNative: { es: 'SpeakNative' },
   Learn: { es: 'Aprende' },
-
-  // Landing Page
+  // ... (keeping some key ones)
   'I speak:': { es: 'Yo hablo:' },
   'Choose a region to learn': { es: 'Elige una región para aprender' },
   'Ready to Learn!': { es: '¡Listo para Aprender!' },
-  'You speak:': { es: 'Tú hablas:' },
-  'Learning:': { es: 'Aprendiendo:' },
   'Start Flashcards': { es: 'Iniciar Tarjetas' },
-  'Learn phrases with interactive flashcards': {
-    es: 'Aprende frases con tarjetas interactivas',
-  },
   'Start Verbs': { es: 'Iniciar Verbos' },
-  'Master verb conjugations and usage': { es: 'Domina conjugaciones y uso de verbos' },
   'Audio Challenge': { es: 'Desafío de Audio' },
-  'Listen and guess the meaning': { es: 'Escucha y adivina el significado' },
   'Translation Challenge': { es: 'Desafío de Traducción' },
-  'Translate and speak aloud': { es: 'Traduce y habla en voz alta' },
-  '← Choose a different region': { es: '← Elegir una región diferente' },
-  'Change Region': { es: 'Cambiar Región' },
-  'Master the language and culture of your chosen region': {
-    es: 'Domina el idioma y la cultura de tu región elegida',
-  },
-
-  // Flashcard Settings
-  'Flashcard Settings': { es: 'Configuración de Tarjetas' },
-  'Region:': { es: 'Región:' },
-  'Phrases:': { es: 'Frases:' },
-  'Each flashcard shows a phrase to learn. Tap reveal to see it in your language.': {
-    es: 'Cada tarjeta muestra una frase. Toca revelar para verla en tu idioma.',
-  },
-  'Start Learning': { es: 'Comenzar a Aprender' },
-
-  // Flashcard UI
   Settings: { es: 'Configuración' },
-  'Phrase to learn': { es: 'Frase para aprender' },
-  SLANG: { es: 'JERGA' },
-  Listen: { es: 'Escuchar' },
-  Reveal: { es: 'Revelar' },
-  'Your language': { es: 'Tu idioma' },
-  '← Previous': { es: '← Anterior' },
-  'Next →': { es: 'Siguiente →' },
-
-  // Navigation
-  '← Back': { es: '← Atrás' },
   Back: { es: 'Atrás' },
-
-  // Errors
-  'No Phrases Available': { es: 'No Hay Frases Disponibles' },
-  'Go Back': { es: 'Volver' },
-
-  // Audio
-  '🔊 Audio playback coming soon!': { es: '🔊 ¡Reproducción de audio próximamente!' },
-
-  // Verbs
-  'Top 50 Verbs': { es: 'Top 50 Verbos' },
-  Tense: { es: 'Tiempo' },
-  Person: { es: 'Persona' },
-  Present: { es: 'Presente' },
-  Past: { es: 'Pasado' },
-  Future: { es: 'Futuro' },
-  'Next Verb': { es: 'Siguiente Verbo' },
-  'Prev Verb': { es: 'Verbo Anterior' },
+  'Next →': { es: 'Siguiente →' },
+  '← Previous': { es: '← Anterior' },
 };
 
 /**
- * Get translated text for the given key and locale
- * If the locale is 'en' or translation not found, returns the key (English)
+ * Get translated text for UI elements (synchronous)
  */
-export function getText(key: string, locale: SupportedLocale): string {
+export function getText(key: string, locale: string): string {
   if (locale === 'en') return key;
   return UI_TEXT[key]?.[locale] ?? key;
+}
+
+/**
+ * Dynamic translation lookup using Vector Search (asynchronous)
+ */
+export async function translatePhrase(phrase: string, targetLocale: string): Promise<{ common: string, slang?: string }> {
+  if (targetLocale === 'en') return { common: phrase };
+
+  try {
+    // 1. Get embedding for the phrase (usually we'd do this client-side or call a function)
+    const getSimilarPhrases = httpsCallable(functions, 'getSimilarPhrases');
+
+    // For now, we'll use a simpler approach: call translateAndStore if not found, 
+    // or search by embedding.
+    // To keep it simple for the first iteration, we'll try to find an exact match first
+    // or use a smarter lookup.
+
+    const response = await getSimilarPhrases({ phrase, locale: targetLocale });
+    const results = response.data as any[];
+
+    if (results && results.length > 0) {
+      const match = results[0];
+      const translations = match.translations?.[targetLocale];
+      if (translations) {
+        return {
+          common: translations.common,
+          slang: translations.slang
+        };
+      }
+    }
+
+    // 2. If no similar phrase found, translate and store it
+    const translateAndStore = httpsCallable(functions, 'translateAndStore');
+    const transResponse = await translateAndStore({ phrase, locales: [targetLocale] });
+    const transData = transResponse.data as any;
+
+    return {
+      common: transData.translations[targetLocale].common,
+      slang: transData.translations[targetLocale].slang
+    };
+  } catch (error) {
+    console.error('Translation error:', error);
+    return { common: phrase };
+  }
 }

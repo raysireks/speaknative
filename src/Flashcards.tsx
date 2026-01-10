@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocale } from './context/useLocale';
-import { getPhrasesForLocale, type Phrase } from './data/phrase-adapter';
+import { getDynamicPhrases, type Phrase } from './data/phrase-adapter';
 import type { SupportedLocale } from './data/locales';
 import { shuffleArray } from './utils/array';
 
@@ -11,7 +11,7 @@ interface FlashcardsProps {
 }
 
 export interface FlashcardItem {
-  id: number;
+  id: number | string;
   phraseToLearn: string; // The phrase in the language being learned
   phraseInUserLang: string; // The phrase in user's native language
   slangToLearn?: string; // Regional slang in the language being learned
@@ -28,31 +28,45 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const regionName = REGION_NAMES[targetLocale] || targetLocale;
 
   // Determine which locale provides the user's language
   const userLangLocale = userLocale === 'en' ? 'us' : 'co';
 
-  // Get phrases: target (what they're learning) and user's language (for reveal)
-  const phrases = useMemo(() => {
-    // Get phrases with targetLocale as source, user's language as target
-    const raw = getPhrasesForLocale(targetLocale, userLangLocale);
-    const items: FlashcardItem[] = [];
+  useEffect(() => {
+    async function fetchPhrases() {
+      setLoading(true);
+      try {
+        // Try to get dynamic phrases from Firestore first
+        const dynamic = await getDynamicPhrases(targetLocale, userLocale);
 
-    raw.forEach((p: Phrase) => {
-      if (p.text) {
-        items.push({
-          id: p.id,
-          phraseToLearn: p.text, // Target language phrase
-          phraseInUserLang: p.translation, // User's language translation
-          slangToLearn: p.slangText, // Regional slang in target language
+        const items: FlashcardItem[] = [];
+        const sourceData = dynamic;
+
+        sourceData.forEach((p: Phrase) => {
+          if (p.text) {
+            items.push({
+              id: p.id,
+              phraseToLearn: p.text,
+              phraseInUserLang: p.translation,
+              slangToLearn: p.slangText,
+            });
+          }
         });
-      }
-    });
 
-    return shuffleArray(items);
-  }, [targetLocale, userLangLocale]);
+        setPhrases(shuffleArray(items));
+      } catch (error) {
+        console.error('Failed to fetch phrases:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPhrases();
+  }, [targetLocale, userLangLocale, userLocale]);
 
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
@@ -75,6 +89,17 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const handlePlayAudio = () => {
     alert(t('🔊 Audio playback coming soon!'));
   };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
+          <p className="text-slate-400">Loading translations...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (phrases.length === 0) {
     return (

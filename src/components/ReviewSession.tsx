@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocale } from '../context/useLocale';
-import { getPhrasesForLocale, type Phrase } from '../data/phrase-adapter';
+import { getDynamicPhrases, type Phrase } from '../data/phrase-adapter';
 import type { SupportedLocale } from '../data/locales';
 import { shuffleArray } from '../utils/array';
 import { ReviewCard } from './ReviewCard';
@@ -30,28 +30,41 @@ export function ReviewSession({
   const mode = initialMode || 'selection';
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const regionName = REGION_NAMES[targetLocale] || targetLocale;
   const userLangLocale = userLocale === 'en' ? 'us' : 'co';
 
-  // Fetch and shuffle phrases (same as Flashcards)
-  const phrases = useMemo(() => {
-    const raw = getPhrasesForLocale(targetLocale, userLangLocale);
-    const items: FlashcardItem[] = [];
+  useEffect(() => {
+    async function fetchPhrases() {
+      setLoading(true);
+      try {
+        const dynamic = await getDynamicPhrases(targetLocale, userLocale);
+        const items: FlashcardItem[] = [];
+        const sourceData = dynamic;
 
-    raw.forEach((p: Phrase) => {
-      if (p.text) {
-        items.push({
-          id: p.id,
-          phraseToLearn: p.text,
-          phraseInUserLang: p.translation,
-          slangToLearn: p.slangText,
+        sourceData.forEach((p: Phrase) => {
+          if (p.text) {
+            items.push({
+              id: p.id,
+              phraseToLearn: p.text,
+              phraseInUserLang: p.translation,
+              slangToLearn: p.slangText,
+            });
+          }
         });
-      }
-    });
 
-    return shuffleArray(items);
-  }, [targetLocale, userLangLocale]);
+        setPhrases(shuffleArray(items));
+      } catch (error) {
+        console.error('Failed to fetch phrases:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPhrases();
+  }, [targetLocale, userLangLocale, userLocale]);
 
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
@@ -71,8 +84,34 @@ export function ReviewSession({
     alert(t('🔊 Audio playback coming soon!'));
   };
 
-  // 1. Review Session (Card View)
-  // We skip the internal selection screen as per user request
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
+          <p className="text-slate-400">Loading review session...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (phrases.length === 0) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4">
+        <div className="text-center">
+          <h2 className="mb-4 text-2xl font-bold text-slate-50">
+            {t('No Phrases Available')}
+          </h2>
+          <button
+            onClick={onBack}
+            className="rounded-lg bg-indigo-600 px-8 py-3 font-semibold text-white transition duration-200 hover:bg-indigo-500"
+          >
+            {t('Go Back')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const currentPhrase = phrases[currentIndex];
 
