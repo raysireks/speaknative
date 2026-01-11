@@ -29,20 +29,37 @@ const LOCALES = [
     { code: 'es-CO-MDE', language: 'es', country: 'CO', region: 'Medellín' }
 ];
 
+// Parse arguments
+const args = process.argv.slice(2);
+const limitArg = args.find(a => a.startsWith('--limit='));
+const localeArg = args.find(a => a.startsWith('--locale='));
+
+const LIMIT = limitArg ? parseInt(limitArg.split('=')[1]) : 100;
+const LOCALE_FILTER = localeArg ? localeArg.split('=')[1] : null;
+
+console.log(`Config: Limit=${LIMIT}, Locale=${LOCALE_FILTER || 'ALL'}`);
+
 async function generateStructuredBasePhrases() {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // Use stable model
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    // Calculate distribution based on LIMIT
+    // 10% Tier 1, 20% Tier 2, 30% Tier 3, 40% Tier 4
+    const c1 = Math.max(1, Math.floor(LIMIT * 0.1));
+    const c2 = Math.max(1, Math.floor(LIMIT * 0.2));
+    const c3 = Math.max(1, Math.floor(LIMIT * 0.3));
+    const c4 = Math.max(1, LIMIT - c1 - c2 - c3);
 
     const tiers = [
-        { count: 10, prompt: "single-word common expressions (e.g. 'Hello', 'Thanks', 'Yes', 'What?')" },
-        { count: 20, prompt: "2-word common phrases (e.g. 'Good morning', 'Come here', 'No worries')" },
-        { count: 30, prompt: "3-word common phrases (e.g. 'How are you', 'Where is it', 'I am fine')" },
-        { count: 40, prompt: "4-word common phrases (e.g. 'Have a nice day', 'I need some help', 'Can you help me')" },
+        { count: c1, prompt: "single-word common expressions (e.g. 'Hello', 'Thanks', 'Yes', 'What?')" },
+        { count: c2, prompt: "2-word common phrases (e.g. 'Good morning', 'Come here', 'No worries')" },
+        { count: c3, prompt: "3-word common phrases (e.g. 'How are you', 'Where is it', 'I am fine')" },
+        { count: c4, prompt: "4-word common phrases (e.g. 'Have a nice day', 'I need some help', 'Can you help me')" },
     ];
 
     let allPhrases: string[] = [];
 
     for (const tier of tiers) {
-        // We ask for slightly more to ensure unique valid ones
+        if (tier.count <= 0) continue;
         const prompt = `Generate a list of the top ${tier.count} most useful and common ${tier.prompt} for daily conversation.
         Output JUST the phrases as a JSON array of strings in English. 
         Example: ["Phrase 1", "Phrase 2"]
@@ -56,7 +73,6 @@ async function generateStructuredBasePhrases() {
             const jsonStr = text.replace(/```json\n?|\n?```/g, '').trim();
             const phrases = JSON.parse(jsonStr);
 
-            // Take only the requested count
             const sliced = phrases.slice(0, tier.count);
             console.log(`   -> Got ${sliced.length} phrases.`);
             allPhrases = [...allPhrases, ...sliced];
@@ -146,77 +162,69 @@ async function processPhrase(originalPhrase: string, targetLocale: typeof LOCALE
     }
 }
 
-async function wipeDatabase() {
-    console.log('Use Recursive Delete to wipe collections...');
-    // We strictly wipe 'phrases' and 'cache_top_phrases'
-    const collections = ['phrases', 'cache_top_phrases'];
-
-    for (const col of collections) {
-        console.log(`Deleting collection: ${col}`);
-        const snapshot = await db.collection(col).get();
-        if (snapshot.empty) continue;
-
-        const batchSize = 400;
-        let batch = db.batch();
-        let count = 0;
-
-        for (const doc of snapshot.docs) {
-            batch.delete(doc.ref);
-            count++;
-            if (count >= batchSize) {
-                await batch.commit();
-                batch = db.batch();
-                count = 0;
-            }
-        }
-        if (count > 0) await batch.commit();
-        console.log(`   Deleted ${snapshot.size} docs from ${col}`);
-    }
-}
-
 async function seed() {
     try {
-        await wipeDatabase();
+        // REMOVED wipeDatabase(); ADDITIVE ONLY.
 
         console.log('Generating base structured phrases...');
+        // If we want consistency, we might want to check DB for existing English phrases first?
+        // But user said "take an input of 100 phrases... seed for those".
+        // Assuming generation is acceptable source.
         const basePhrases = await generateStructuredBasePhrases();
-        console.log(`Total Base Phrases: ${basePhrases.length} (Target: 100)`);
+        console.log(`Total Base Phrases: ${basePhrases.length}`);
 
         console.log('Translating and Seeding...');
 
         let totalDocs = 0;
 
+        let targetLocales = LOCALES;
+        if (LOCALE_FILTER) {
+            targetLocales = LOCALES.filter(l => l.code === LOCALE_FILTER);
+        }
+
         for (const base of basePhrases) {
             console.log(`Ref: "${base}"`);
 
-            // Process Locales Sequentially with Delay to avoid 429
-            for (const locale of LOCALES) {
+            for (const locale of targetLocales) {
+                // Check Global Existence before Process? 
+                // We do check inside the loop before Add.
+
                 const variants = await processPhrase(base, locale);
 
                 for (const v of variants) {
-                    await db.collection('phrases').add({
-                        text: v.text,
-                        is_slang: v.is_slang,
-                        is_question: v.is_question,
-                        usage_count: v.usage_count,
-                        locale: locale.code,
-                        language: locale.language,
-                        country: locale.country,
-                        region: locale.region,
-                        embedding: FieldValue.vector(v.embedding),
-                        intent_embedding: FieldValue.vector(v.intent_embedding),
-                        createdAt: FieldValue.serverTimestamp()
-                    });
-                    totalDocs++;
+                    // DUPLICATE CHECK
+                    const existSnap = await db.collection('phrases')
+                        .where('locale', '==', locale.code)
+                        .where('text', '==', v.text)
+                        .limit(1)
+                        .get();
+
+                    if (existSnap.empty) {
+                        await db.collection('phrases').add({
+                            text: v.text,
+                            is_slang: v.is_slang,
+                            is_question: v.is_question,
+                            usage_count: v.usage_count,
+                            locale: locale.code,
+                            language: locale.language,
+                            country: locale.country,
+                            region: locale.region,
+                            embedding: FieldValue.vector(v.embedding),
+                            intent_embedding: FieldValue.vector(v.intent_embedding),
+                            createdAt: FieldValue.serverTimestamp()
+                        });
+                        totalDocs++;
+                    } else {
+                        console.log(`   Skipping duplicate: "${v.text}" (${locale.code})`);
+                    }
                 }
-                // Rate limit delay (Optimized)
+                // Rate limit delay
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
-
-            process.stdout.write('.'); // Progress dot
+            process.stdout.write('.');
         }
 
-        console.log(`\n\nSeeding Completed! Total Documents Stored: ${totalDocs}`);
+        console.log(`\n\nSeeding Completed! Total New Documents Stored: ${totalDocs}`);
 
     } catch (error) {
         console.error('Fatal Error during seeding:', error);
@@ -225,3 +233,4 @@ async function seed() {
 }
 
 seed();
+

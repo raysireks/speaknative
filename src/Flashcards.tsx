@@ -24,14 +24,9 @@ export interface FlashcardItem {
 function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
   const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [variantIndex, setVariantIndex] = useState(0);
 
-  useEffect(() => {
-    setVariantIndex(0);
-  }, [currentIndex]);
 
 
 
@@ -75,38 +70,20 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setRevealed(false);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      setRevealed(false);
     }
   };
 
-  const handleReveal = () => {
-    setRevealed(true);
-  };
 
   const handlePlayAudio = () => {
     alert(t('🔊 Audio playback coming soon!'));
   };
 
-  const handlePrevVariant = () => {
-    const current = phrases[currentIndex];
-    if (current?.variants && variantIndex > 0) {
-      setVariantIndex(variantIndex - 1);
-    }
-  };
-
-  const handleNextVariant = () => {
-    const current = phrases[currentIndex];
-    if (current?.variants && variantIndex < current.variants.length - 1) {
-      setVariantIndex(variantIndex + 1);
-    }
-  };
 
   if (loading) {
     return (
@@ -155,111 +132,82 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
         </div>
 
         <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-xl sm:p-12">
-          {/* Top Section (Target Language) */}
-          <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <div className="mb-8 w-full">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <p className="text-sm font-medium tracking-widest text-slate-500 uppercase">
-                  {t('Phrase to learn')}
+          {/* Top Section (Target Language Variations) */}
+          <div className="flex flex-1 flex-col items-center justify-start text-center overflow-hidden">
+            <div className="mb-6 w-full">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <p className="text-xs font-bold tracking-[0.2em] text-indigo-500/80 uppercase">
+                  {t('Variations to learn')}
                 </p>
               </div>
 
-              {/* Variant Cycling Logic on Front (Target Lang) */}
-              {currentPhrase.variants && currentPhrase.variants.length > 1 ? (
-                <div className="flex flex-col items-center gap-2">
-                  <div className="flex w-full items-center justify-between gap-4">
-                    {/* Left Nav */}
-                    <button
-                      onClick={handlePrevVariant}
-                      disabled={variantIndex === 0}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+              {/* All Variants Display */}
+              <div className="flex flex-col gap-4 w-full max-h-[300px] overflow-y-auto pr-2 no-scrollbar">
+                {currentPhrase.variants && currentPhrase.variants.length > 0 ? (
+                  currentPhrase.variants.map((v, idx) => (
+                    <div
+                      key={idx}
+                      className="group flex flex-col items-center p-6 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
                     >
-                      ←
-                    </button>
-
-                    {/* Variant Content */}
-                    <div className="flex flex-col items-center flex-1">
-                      <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl px-2">
-                        {currentPhrase.variants[variantIndex].text}
+                      <h2 className="text-3xl font-bold text-slate-50 sm:text-4xl">
+                        {v.text}
                       </h2>
-                      <div className="mt-4 flex items-center gap-2 justify-center">
-                        {currentPhrase.variants[variantIndex].score !== undefined && (
-                          <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400 tracking-wider">
-                            {Math.round(currentPhrase.variants[variantIndex].score! * 100)}% MATCH
+                      <div className="mt-3 flex items-center gap-2">
+                        {v.score !== undefined && (
+                          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400/80 tracking-wider uppercase">
+                            {Math.round(v.score * 100)}% {t('Match')}
                           </span>
                         )}
-                        {currentPhrase.variants[variantIndex].is_slang && (
-                          <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
-                            {t('SLANG')}
+                        {v.is_slang && (
+                          <span className="rounded-full bg-pink-500/10 px-2 py-0.5 text-[10px] font-bold text-pink-400/80 tracking-wider uppercase">
+                            {t('Slang')}
                           </span>
                         )}
                       </div>
                     </div>
-
-                    {/* Right Nav */}
-                    <button
-                      onClick={handleNextVariant}
-                      disabled={variantIndex === currentPhrase.variants.length - 1}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-                    >
-                      →
-                    </button>
+                  ))
+                ) : (
+                  <div className="p-8 rounded-2xl bg-slate-800/20 border border-slate-700/30">
+                    <h2 className="text-3xl font-bold text-slate-50 opacity-40 italic">
+                      {currentPhrase.phraseToLearn}
+                    </h2>
                   </div>
-                  {/* Counter */}
-                  <div className="mt-2 text-xs font-medium text-slate-500 font-mono bg-slate-900/50 px-2 py-1 rounded">
-                    {variantIndex + 1} / {currentPhrase.variants.length}
-                  </div>
-                </div>
-              ) : (
-                /* Single Variant Case */
-                <div className="flex flex-col items-center">
-                  <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl">
-                    {currentPhrase.phraseToLearn}
-                  </h2>
-                  {currentPhrase.isSlang && (
-                    <div className="mt-4">
-                      <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
-                        {t('SLANG')}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* Audio Button */}
-            <button
-              onClick={handlePlayAudio}
-              className="group flex items-center gap-3 rounded-full border border-slate-700 bg-slate-800/50 px-6 py-3 font-semibold text-indigo-400 transition duration-200 hover:bg-slate-800 hover:border-indigo-500/50 hover:text-indigo-300"
-              aria-label="Play audio"
-            >
-              <span className="text-xl opacity-70 group-hover:opacity-100">🔊</span>
-              {t('Listen')}
-            </button>
+            <div className="mt-auto pt-6">
+              <button
+                onClick={handlePlayAudio}
+                className="group flex items-center gap-3 rounded-full border border-slate-700 bg-slate-800/50 px-8 py-3.5 font-bold text-indigo-400 transition-all duration-300 hover:bg-indigo-600 hover:border-indigo-500 hover:text-white"
+                aria-label="Play audio"
+              >
+                <span className="text-xl group-hover:scale-110 transition-transform">🔊</span>
+                {t('Listen')}
+              </button>
+            </div>
           </div>
 
           {/* Divider */}
-          <div className="my-8 border-t border-slate-800"></div>
+          <div className="my-8 relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-800/80"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-slate-900 px-4 text-xs font-bold text-slate-600 tracking-widest uppercase">
+                {t('Meaning')}
+              </span>
+            </div>
+          </div>
 
-          {/* Reveal Section (Source Language) */}
-          <div className="text-center">
-            {!revealed ? (
-              <button
-                onClick={handleReveal}
-                className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-sm transition duration-200 hover:bg-indigo-500 hover:shadow-md"
-              >
-                {t('Reveal')} {userLocale === 'en' ? '🇺🇸' : '🇪🇸'}
-              </button>
-            ) : (
-              <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <p className="mb-3 text-sm font-medium tracking-widest text-slate-500 uppercase">
-                  {t('Your language')}
-                </p>
-                <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
-                  {currentPhrase.phraseInUserLang}
-                </h3>
-              </div>
-            )}
+          {/* Bottom Section (Source Language - Always Visible) */}
+          <div className="text-center pb-2">
+            <div className="animate-in fade-in zoom-in duration-500">
+              <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl lg:text-5xl tracking-tight">
+                {currentPhrase.phraseInUserLang}
+              </h3>
+            </div>
           </div>
 
           {/* Navigation */}

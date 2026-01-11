@@ -29,7 +29,6 @@ export function ReviewSession({
   const { t } = useLocale();
   const mode = initialMode || 'selection';
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
   const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -70,14 +69,12 @@ export function ReviewSession({
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setRevealed(false);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      setRevealed(false);
     }
   };
 
@@ -137,8 +134,6 @@ export function ReviewSession({
           <ReviewCard
             phrase={currentPhrase}
             mode={mode as 'audio-only' | 'speaker'}
-            revealed={revealed}
-            onReveal={() => setRevealed(true)}
             onPlayAudio={handlePlayAudio}
             regionName={regionName}
             userLocale={userLocale}

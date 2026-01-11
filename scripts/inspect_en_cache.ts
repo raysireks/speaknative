@@ -10,8 +10,9 @@ if (getApps().length === 0) {
 const db = getFirestore();
 
 async function inspect() {
-    console.log('Fetching cache for en-US-CA...');
-    const docRef = await db.collection('cache_top_phrases').doc('en-US-CA').get();
+    const localeArg = process.argv[2] || 'en-US-CA';
+    console.log(`Fetching cache for ${localeArg}...`);
+    const docRef = await db.collection('cache_top_phrases').doc(localeArg).get();
 
     if (!docRef.exists) {
         console.log('Cache doc not found!');
@@ -22,17 +23,19 @@ async function inspect() {
     console.log(`Total phrases: ${data?.phrases?.length}`);
 
     if (data?.phrases?.length > 0) {
-        const sample = data.phrases[0];
-        console.log(`Sample: "${sample.text}"`);
-        const keys = Object.keys(sample.variants || {});
-        console.log(`Variant Keys: ${keys.join(', ')}`);
-
-        if (sample.variants?.['es-CO-CTG']) {
-            console.log(`Cartagena Variants: ${JSON.stringify(sample.variants['es-CO-CTG'], null, 2)}`);
-        } else {
-            console.log('No Cartagena variants for sample.');
-        }
+        data.phrases.forEach((sample: any, i: number) => {
+            console.log(`[${i}] "${sample.text}"`);
+            const variantLocales = Object.keys(sample.variants || {});
+            if (variantLocales.length > 0) {
+                variantLocales.forEach(loc => {
+                    console.log(`    -> ${loc}: ${sample.variants[loc].length} variants`);
+                });
+            } else {
+                console.log(`    -> No variants found.`);
+            }
+        });
     }
 }
+
 
 inspect().catch(console.error);

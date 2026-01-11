@@ -15,23 +15,22 @@ function cosineSimilarity(a: number[], b: number[]): number {
 async function check() {
     const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
-    const p1 = "Te quiero mucho";
-    const p2 = "I love you very much"; // Expected match
+    const checks = [
+        ["Te quiero mucho", "I love you very much"],
+        ["Thank you", "Gracias"],
+        ["How's it going?", "¿Cómo estás?"],
+        ["I need some help.", "¿Me das una mano?"],
+        ["Morning!", "¡Buen día!"],
+        ["Later, dude", "¡Bien, llave!"]
+    ];
 
-    console.log(`Embedding "${p1}"...`);
-    const r1 = await model.embedContent(p1);
-
-    console.log(`Embedding "${p2}"...`);
-    const r2 = await model.embedContent(p2);
-
-    const score = cosineSimilarity(r1.embedding.values, r2.embedding.values);
-    console.log(`\nSimilarity Score: ${score.toFixed(4)}`);
-
-    if (score < 0.8) {
-        console.log("Verdict: 0.8 Threshold is TOO HIGH");
-    } else {
-        console.log("Verdict: 0.8 Should have worked...");
+    for (const [p1, p2] of checks) {
+        const r1 = await model.embedContent(p1);
+        const r2 = await model.embedContent(p2);
+        const score = cosineSimilarity(r1.embedding.values, r2.embedding.values);
+        console.log(`Similarity "${p1}" <-> "${p2}": ${score.toFixed(4)}`);
     }
 }
+
 
 check().catch(console.error);
