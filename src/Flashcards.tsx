@@ -24,6 +24,7 @@ export interface FlashcardItem {
 function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [variantIndex, setVariantIndex] = useState(0);
   const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -66,6 +67,24 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
 
     fetchPhrases();
   }, [targetLocale, userLangLocale, userLocale]);
+
+  // Reset variant index when moving to next/previous main phrase
+  useEffect(() => {
+    setVariantIndex(0);
+  }, [currentIndex]);
+
+  const handleNextVariant = () => {
+    const currentPhrase = phrases[currentIndex];
+    if (currentPhrase?.variants && variantIndex < currentPhrase.variants.length - 1) {
+      setVariantIndex(variantIndex + 1);
+    }
+  };
+
+  const handlePrevVariant = () => {
+    if (variantIndex > 0) {
+      setVariantIndex(variantIndex - 1);
+    }
+  };
 
   const handleNext = () => {
     if (currentIndex < phrases.length - 1) {
@@ -141,34 +160,87 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
                 </p>
               </div>
 
-              {/* All Variants Display */}
-              <div className="flex flex-col gap-4 w-full max-h-[300px] overflow-y-auto pr-2 no-scrollbar">
+              {/* Horizontal Variants Selector */}
+              <div className="relative flex flex-col items-center w-full min-h-[320px] justify-center px-4">
                 {currentPhrase.variants && currentPhrase.variants.length > 0 ? (
-                  currentPhrase.variants.map((v, idx) => (
-                    <div
-                      key={idx}
-                      className="group flex flex-col items-center p-6 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
-                    >
-                      <h2 className="text-3xl font-bold text-slate-50 sm:text-4xl">
-                        {v.text}
-                      </h2>
-                      <div className="mt-3 flex items-center gap-2">
-                        {v.score !== undefined && (
-                          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400/80 tracking-wider uppercase">
-                            {Math.round(v.score * 100)}% {t('Match')}
-                          </span>
+                  <>
+                    {/* Phrases Content Area */}
+                    {(() => {
+                      const safeIdx = Math.min(variantIndex, currentPhrase.variants.length - 1);
+                      const v = currentPhrase.variants[safeIdx];
+                      const text = v?.text || currentPhrase.phraseToLearn;
+
+                      // Dynamic font size logic
+                      let fontSizeClass = 'text-4xl sm:text-5xl lg:text-6xl';
+                      if (text.length < 15) {
+                        fontSizeClass = 'text-5xl sm:text-6xl lg:text-7xl';
+                      } else if (text.length > 40) {
+                        fontSizeClass = 'text-2xl sm:text-3xl lg:text-4xl';
+                      }
+
+                      return (
+                        <div className="flex-1 w-full flex flex-col items-center justify-center animate-in fade-in slide-in-from-bottom-2 duration-300">
+                          <h2 className={`font-bold text-slate-50 text-center leading-tight mb-6 ${fontSizeClass}`}>
+                            {text}
+                          </h2>
+
+                          <div className="mb-8 flex items-center justify-center gap-3">
+                            {v?.score !== undefined && (
+                              <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-bold text-emerald-400/80 tracking-widest uppercase">
+                                {Math.round(v.score * 100)}% {t('Match')}
+                              </span>
+                            )}
+                            {v?.is_slang && (
+                              <span className="rounded-full bg-pink-500/10 px-3 py-1 text-[11px] font-bold text-pink-400/80 tracking-widest uppercase">
+                                {t('Slang')}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Navigation Controls (Below Word) */}
+                    <div className="flex flex-col items-center gap-6 mt-2">
+                      <div className="flex items-center gap-8">
+                        {/* Left Arrow */}
+                        <button
+                          onClick={handlePrevVariant}
+                          disabled={variantIndex === 0}
+                          className="p-3 rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700/80 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                          aria-label="Previous variation"
+                        >
+                          <span className="text-xl">←</span>
+                        </button>
+
+                        {/* Pagination Dots */}
+                        {currentPhrase.variants.length > 1 && (
+                          <div className="flex gap-2.5">
+                            {currentPhrase.variants.map((_, idx) => (
+                              <div
+                                key={idx}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${idx === variantIndex ? 'w-8 bg-indigo-500' : 'w-1.5 bg-slate-800'
+                                  }`}
+                              />
+                            ))}
+                          </div>
                         )}
-                        {v.is_slang && (
-                          <span className="rounded-full bg-pink-500/10 px-2 py-0.5 text-[10px] font-bold text-pink-400/80 tracking-wider uppercase">
-                            {t('Slang')}
-                          </span>
-                        )}
+
+                        {/* Right Arrow */}
+                        <button
+                          onClick={handleNextVariant}
+                          disabled={variantIndex >= (currentPhrase.variants.length - 1)}
+                          className="p-3 rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700/80 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                          aria-label="Next variation"
+                        >
+                          <span className="text-xl">→</span>
+                        </button>
                       </div>
                     </div>
-                  ))
+                  </>
                 ) : (
-                  <div className="p-8 rounded-2xl bg-slate-800/20 border border-slate-700/30">
-                    <h2 className="text-3xl font-bold text-slate-50 opacity-40 italic">
+                  <div className="p-12 rounded-2xl bg-slate-800/10 border border-slate-800/50 text-center">
+                    <h2 className="text-4xl font-bold text-slate-50 opacity-40 italic mb-4">
                       {currentPhrase.phraseToLearn}
                     </h2>
                   </div>
