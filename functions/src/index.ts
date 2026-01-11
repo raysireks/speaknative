@@ -96,7 +96,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
 
     // Filter by Confidence
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    matches = matches.filter((m: any) => m.score > 0.6);
+    matches = matches.filter((m: any) => m.score > 0.7);
     // Limit again after merge
     matches = matches.slice(0, limit);
 
@@ -172,7 +172,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
  */
 export const translateAndStore = functions.https.onCall(async (request) => {
     // 1. Validate Input
-    const { text, userLocale, targetLocale } = request.data;
+    const { text, userLocale, targetLocale, testThreshold } = request.data;
     if (!text || !userLocale || !targetLocale) {
         throw new functions.https.HttpsError('invalid-argument', 'text, userLocale, and targetLocale are required.');
     }
@@ -207,6 +207,9 @@ export const translateAndStore = functions.https.onCall(async (request) => {
     // We do NOT use concept_id anymore. 
     // If not found, create it without concept_id.
 
+    let sourceDocRef = null;
+    let sourceTranslated = false;
+
     if (userDocSnapshot.empty) {
         // User phrase missing, create it
         const newUserDoc = {
@@ -221,9 +224,13 @@ export const translateAndStore = functions.https.onCall(async (request) => {
             embedding: userVector,
             createdAt: admin.firestore.FieldValue.serverTimestamp()
         };
-        await phrasesRef.add(newUserDoc);
+        const ref = await phrasesRef.add(newUserDoc);
+        sourceDocRef = ref;
     } else {
         const doc = userDocSnapshot.docs[0];
+        const data = doc.data();
+        sourceTranslated = data.translated === true;
+        sourceDocRef = doc.ref;
         await doc.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
     }
 
@@ -259,8 +266,9 @@ export const translateAndStore = functions.https.onCall(async (request) => {
     }
 
     // Check Threshold
-    // Check Threshold
-    if (bestMatch && maxScore > 0.6) {
+    // If we have a good match OR the source was previously translated (trust the best vector match)
+    const activeThreshold = typeof testThreshold === 'number' ? testThreshold : 0.7;
+    if (bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
         const matchData = bestMatch.data();
         await bestMatch.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
         return {
@@ -274,29 +282,46 @@ export const translateAndStore = functions.https.onCall(async (request) => {
         };
     }
     // Else: Score too low, proceed to generate
-    // Else: Score too low, proceed to Generate
-    console.log(`Cache miss: Best vector match "${bestMatch?.data()?.text}" score ${maxScore.toFixed(4)} < 0.8. Generating new translation.`);
+    console.log(`Cache miss: Best vector match "${bestMatch?.data()?.text}" score ${maxScore.toFixed(4)} < 0.7. Generating new translation.`);
 
     // 6. IF MISSING: Call Gemini -> Store -> Return
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const regionContext = targetInfo
+    const targetRegionContext = targetInfo
         ? `dialect for ${targetInfo.region}, ${targetInfo.country}`
         : `standard dialect for ${targetLocale}`;
 
+    const sourceRegionContext = userInfo
+        ? `dialect for ${userInfo.region}, ${userInfo.country}`
+        : `standard dialect for ${userLocale}`;
+
     const translationPrompt = `
-        Translate "${text}" into the ${regionContext}.
-        Provide the most natural, common way to say this.
-        If it's a slang phrase in the source, try to match the slang level.
-        Identify if this is a question or statement.
-        Output JSON: { "text": "translated string", "is_slang": boolean, "is_question": boolean }
-        `;
+        Translate "${text}" (from ${sourceRegionContext}) into the ${targetRegionContext}.
+        1. Provide one main literal/common translation.
+        2. Provide up to 5 modern slang variations used by millennials/Gen Z if they exist.
+           - Quality over quantity. Only include slang that is genuinely used (high confidence).
+           - Ensure variants are distinct and not just minor grammatical variations.
+           - CRITICAL: Match the sentiment/intent of the original text exactly. Do NOT add sentiment (like "how cool", "how bad", "wow") if the original text is neutral.
+           - If the input is a noun (e.g. "shoes"), slang should be slang synonyms for that noun (e.g. "kicks"), NOT reactions to it.
+           - If there are no good/distinct slang variants, return an empty list.
+        Output JSON: {
+            "text": "main literal translation",
+            "is_slang": false,
+            "is_question": boolean,
+            "slang_variants": ["slang1", "slang2"]
+        }
+    `;
+
+    console.log("Generative AI Prompt:", translationPrompt);
 
     const transResult = await model.generateContent(translationPrompt);
     const transText = transResult.response.text();
-    const jsonStr = transText.replace(/```json\n?|\n?```/g, '').trim();
 
-    let parsed = { text: "Error translating", is_slang: false, is_question: false };
+    // Attempt to find the first JSON object in the text
+    const jsonMatch = transText.match(/\{[\s\S]*\}/);
+    const jsonStr = jsonMatch ? jsonMatch[0] : transText.replace(/```json\n?|\n?```/g, '').trim();
+
+    let parsed = { text: "Error translating", is_slang: false, is_question: false, slang_variants: [] as string[] };
     try {
         parsed = JSON.parse(jsonStr);
     } catch (e) {
@@ -312,11 +337,13 @@ export const translateAndStore = functions.https.onCall(async (request) => {
         .limit(1)
         .get();
 
+    let finalDoc = null;
+
     if (!existingTargetQuery.empty) {
         const existingDoc = existingTargetQuery.docs[0];
         const existingData = existingDoc.data();
         await existingDoc.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
-        return {
+        finalDoc = {
             id: existingDoc.id,
             text: existingData.text,
             is_slang: existingData.is_slang,
@@ -325,36 +352,70 @@ export const translateAndStore = functions.https.onCall(async (request) => {
             locale: existingData.locale,
             source: 'existing_text_match'
         };
+    } else {
+        const targetEmbedResult = await embeddingModel.embedContent(parsed.text);
+        const targetEmbedding = targetEmbedResult.embedding.values;
+        const targetVector = admin.firestore.FieldValue.vector(targetEmbedding);
+
+        const newTargetDoc = {
+            text: parsed.text,
+            is_slang: parsed.is_slang,
+            is_question: parsed.is_question !== undefined ? parsed.is_question : (parsed.text.includes('?') || parsed.text.includes('¿')),
+            usage_count: 1,
+            locale: targetLocale,
+            language: targetInfo?.language || targetLocale.split('-')[0],
+            country: targetInfo?.country || 'Unknown',
+            region: targetInfo?.region || 'Unknown',
+            embedding: targetVector,
+            intent_embedding: targetVector, // Default intent
+            createdAt: admin.firestore.FieldValue.serverTimestamp()
+        };
+
+        const docRef = await phrasesRef.add(newTargetDoc);
+        finalDoc = {
+            id: docRef.id,
+            ...newTargetDoc,
+            embedding: undefined,
+            source: 'generated'
+        };
     }
 
-    const targetEmbedResult = await embeddingModel.embedContent(parsed.text);
-    const targetEmbedding = targetEmbedResult.embedding.values;
-    const targetVector = admin.firestore.FieldValue.vector(targetEmbedding);
+    // Process Slang Variants (Asynchronously/Parallel store)
+    if (parsed.slang_variants && Array.isArray(parsed.slang_variants) && parsed.slang_variants.length > 0) {
+        // We generally fire-and-forget or await this. Awaiting ensures they exist for next query.
+        for (const slangText of parsed.slang_variants) {
+            const slangQuery = await phrasesRef
+                .where('locale', '==', targetLocale)
+                .where('text', '==', slangText)
+                .limit(1)
+                .get();
 
-    const newTargetDoc = {
-        text: parsed.text,
-        is_slang: parsed.is_slang,
-        is_question: parsed.is_question !== undefined ? parsed.is_question : (parsed.text.includes('?') || parsed.text.includes('¿')),
-        usage_count: 1,
-        locale: targetLocale,
-        language: targetInfo?.language || targetLocale.split('-')[0],
-        country: targetInfo?.country || 'Unknown',
-        region: targetInfo?.region || 'Unknown',
-        // No concept_id
-        // No concept_id
-        embedding: targetVector,
-        intent_embedding: targetVector, // Default intent
-        createdAt: admin.firestore.FieldValue.serverTimestamp()
-    };
+            if (slangQuery.empty) {
+                const slangEmbed = await embeddingModel.embedContent(slangText);
+                const slangVector = admin.firestore.FieldValue.vector(slangEmbed.embedding.values);
+                await phrasesRef.add({
+                    text: slangText,
+                    is_slang: true,
+                    is_question: parsed.is_question,
+                    usage_count: 1,
+                    locale: targetLocale,
+                    language: targetInfo?.language || targetLocale.split('-')[0],
+                    country: targetInfo?.country || 'Unknown',
+                    region: targetInfo?.region || 'Unknown',
+                    embedding: slangVector,
+                    intent_embedding: slangVector,
+                    createdAt: admin.firestore.FieldValue.serverTimestamp()
+                });
+            }
+        }
+    }
 
-    const docRef = await phrasesRef.add(newTargetDoc);
+    // Update Source Phrase to mark it as translated
+    if (sourceDocRef) {
+        await sourceDocRef.update({ translated: true });
+    }
 
-    return {
-        id: docRef.id,
-        ...newTargetDoc,
-        embedding: undefined,
-        source: 'generated'
-    };
+    return finalDoc;
 });
 
 /**
@@ -465,7 +526,7 @@ async function rebuildGlobalCacheLogic() {
                                 const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
                                 const variants: { text: string, is_slang: boolean, is_question: boolean, score: number }[] = [];
                                 for (const match of sortedMatches) {
-                                    if (!seen.has(match.text) && match.score > 0.6) {
+                                    if (!seen.has(match.text) && match.score > 0.7) {
                                         seen.add(match.text);
                                         variants.push({
                                             text: match.text,
