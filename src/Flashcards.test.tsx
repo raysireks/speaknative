@@ -73,7 +73,6 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    // Might match multiple (main counter + variant counter)
     const counters = await screen.findAllByText(/1 \//);
     expect(counters.length).toBeGreaterThan(0);
   });
@@ -120,13 +119,13 @@ describe('Flashcards', () => {
     const nextBtn = screen.getByText('Next →');
     fireEvent.click(nextBtn);
 
-    expect(await screen.findByText(/2 \//)).toBeInTheDocument();
+    const counters2 = await screen.findAllByText(/2 \//);
+    expect(counters2.length).toBeGreaterThan(0);
     expect(screen.getByText('Como estas')).toBeInTheDocument();
 
     const prevBtn = screen.getByText('← Previous');
     fireEvent.click(prevBtn);
 
-    // Might find multiple counters again
     const counters = await screen.findAllByText(/1 \//);
     expect(counters.length).toBeGreaterThan(0);
   });
