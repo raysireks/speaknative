@@ -8,8 +8,8 @@ if (!admin.apps || admin.apps.length === 0) {
 }
 const db = admin.firestore();
 
-// Heuristic regex for questions (Spanish and English)
-const QUESTION_REGEX = /^[\¿\?]|[\¿\?]$|^(what|where|who|when|why|how|can|could|would|do|does|did|is|are|am|will|shall|may|might|should)\b|.*\?$/i;
+// Heuristic regex was removed in favor of simple includes check
+
 
 async function backfillIsQuestion() {
     console.log("Starting backfill of is_question...");
@@ -26,7 +26,7 @@ async function backfillIsQuestion() {
         if (data.is_question !== undefined) continue; // Skip if already set
 
         const text = data.text || "";
-        const isQuestion = QUESTION_REGEX.test(text.trim());
+        const isQuestion = text.includes('?') || text.includes('¿');
 
         batch.update(doc.ref, { is_question: isQuestion });
         opCount++;

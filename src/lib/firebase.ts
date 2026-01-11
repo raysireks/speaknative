@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
@@ -6,7 +7,16 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAI } from "firebase/ai";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
-export const app = initializeApp(__FIREBASE_CONFIG__!);
+const rawConfig = typeof __FIREBASE_CONFIG__ !== 'undefined' ? __FIREBASE_CONFIG__ : null;
+const config = rawConfig || {
+    apiKey: "demo-key",
+    authDomain: "demo.firebaseapp.com",
+    projectId: "demo-project",
+    storageBucket: "demo.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef"
+};
+export const app = initializeApp(config);
 
 // Enable App Check debug mode for local development
 if (import.meta.env.DEV) {
@@ -34,9 +44,13 @@ if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
 }
 
 export const auth = getAuth(app);
-export const analytics = getAnalytics(app);
 export const functions = getFunctions(app);
 export const db = getFirestore(app);
+
+// Only initialize analytics if we have a real config (not demo)
+export const analytics = config.apiKey === "demo-key"
+    ? { app, logEvent: () => { } } as unknown as ReturnType<typeof getAnalytics>
+    : getAnalytics(app);
 export { httpsCallable };
 
 export const ai = getAI(app);

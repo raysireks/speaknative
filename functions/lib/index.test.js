@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 const firebaseFunctionsTest = require("firebase-functions-test");
 // Remove static import
 // import { translateAndStore } from './index';

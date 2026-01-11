@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as admin from 'firebase-admin';
 
@@ -106,7 +107,7 @@ async function rebuildGlobalCacheLogic() {
                                     const s2 = (variantIntent) ? cosineSimilarity(embeddingArray, variantIntent) : 0;
                                     const score = Math.max(s1, s2);
 
-                                    if (!seen.has(d.text) && score > 0.7) {
+                                    if (!seen.has(d.text) && score > 0.6) {
                                         seen.add(d.text);
                                         variants.push({
                                             text: d.text,

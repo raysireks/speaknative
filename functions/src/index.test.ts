@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 import * as firebaseFunctionsTest from 'firebase-functions-test';
 // Remove static import
 // import { translateAndStore } from './index';
