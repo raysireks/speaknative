@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { functions, httpsCallable, db } from '../lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 

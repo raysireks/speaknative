@@ -11,6 +11,7 @@ const db = admin.firestore();
 // Initialize Gemini
 const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 // Helper: Extract numeric array from Firestore VectorValue or array
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getVectorData(field) {
     if (!field)
         return null;
@@ -82,7 +83,7 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
     // Convert to array and sort
     let matches = Array.from(allDocs.values()).sort((a, b) => b.score - a.score);
     // Filter by Confidence
-    matches = matches.filter(m => m.score > 0.7);
+    matches = matches.filter((m) => m.score > 0.6);
     // Limit again after merge
     matches = matches.slice(0, limit);
     // If userLocale is provided, fetch translations via vector search (reverse lookup)
@@ -91,6 +92,7 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
         // Since we removed concept_id, we must use vector similarity.
         // This effectively means for each match, we search the user locale.
         // To optimize, we could do this in parallel.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const resultsWithTranslation = await Promise.all(matches.map(async (m) => {
             // If we have the embedding (we should, from the doc), use it.
             // But the doc might not have it in `data()` if it was excluded or format differs.
@@ -121,6 +123,7 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
         }));
         return resultsWithTranslation;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return matches.map((m) => (Object.assign(Object.assign({ id: m.id }, m), { is_slang: m.is_slang || false, embedding: undefined })));
 });
 /**
@@ -156,7 +159,7 @@ exports.translateAndStore = functions.https.onCall(async (request) => {
         .where('locale', '==', userLocale)
         .where('text', '==', text)
         .limit(1);
-    let userDocSnapshot = await userQuery.get();
+    const userDocSnapshot = await userQuery.get();
     // We do NOT use concept_id anymore. 
     // If not found, create it without concept_id.
     if (userDocSnapshot.empty) {
@@ -205,7 +208,7 @@ exports.translateAndStore = functions.https.onCall(async (request) => {
     }
     // Check Threshold
     // Check Threshold
-    if (bestMatch && maxScore > 0.7) {
+    if (bestMatch && maxScore > 0.6) {
         const matchData = bestMatch.data();
         await bestMatch.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
         return {
@@ -303,6 +306,7 @@ exports.forceRebuildCache = functions.https.onRequest(async (req, res) => {
 async function rebuildGlobalCacheLogic() {
     // 1. Define Supported Locales
     const SUPPORTED_LOCALES = ['en-US-CA', 'es-CO-CTG', 'es-CO-MDE'];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cacheData = {};
     const phrasesRef = db.collection('phrases');
     console.log(`Starting Global Cache Rebuild for: ${SUPPORTED_LOCALES.join(', ')}`);
@@ -323,6 +327,7 @@ async function rebuildGlobalCacheLogic() {
             const data = doc.data();
             // const phraseEmbedding = data.embedding; // Removed unused
             // Prepare base object
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const phraseEntry = {
                 id: doc.id,
                 text: data.text,
@@ -341,7 +346,7 @@ async function rebuildGlobalCacheLogic() {
                 // FILTER: Match matching Question/Statement type to separate questions from answers.
                 const intentVec = getVectorData(data.intent_embedding) || getVectorData(data.embedding);
                 if (intentVec) {
-                    let embeddingArray = intentVec;
+                    const embeddingArray = intentVec;
                     if (Array.isArray(embeddingArray)) {
                         try {
                             const baseQ = phrasesRef
@@ -354,23 +359,34 @@ async function rebuildGlobalCacheLogic() {
                             const variantsDocs = [...litSnap.docs, ...intSnap.docs];
                             if (variantsDocs.length > 0) {
                                 const seen = new Set();
-                                const variants = [];
+                                const allFound = new Map();
                                 for (const doc of variantsDocs) {
                                     const d = doc.data();
                                     // Parse Variant Embedding for Score using Helper
+                                    // re-calc score
                                     const variantEmbedding = getVectorData(d.embedding);
                                     const variantIntent = getVectorData(d.intent_embedding);
-                                    // Calculate Cosine Similarity Score using Helper
                                     const s1 = (variantEmbedding && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantEmbedding) : 0;
                                     const s2 = (variantIntent && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantIntent) : 0;
                                     const score = Math.max(s1, s2);
-                                    if (!seen.has(d.text) && score > 0.7) {
-                                        seen.add(d.text);
+                                    allFound.set(doc.id, {
+                                        text: d.text,
+                                        is_slang: d.is_slang || false,
+                                        is_question: d.is_question,
+                                        score
+                                    });
+                                }
+                                // Sort by score and filter unique texts
+                                const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
+                                const variants = [];
+                                for (const match of sortedMatches) {
+                                    if (!seen.has(match.text) && match.score > 0.6) {
+                                        seen.add(match.text);
                                         variants.push({
-                                            text: d.text,
-                                            is_slang: d.is_slang || false,
-                                            is_question: d.is_question,
-                                            score: parseFloat(score.toFixed(4))
+                                            text: match.text,
+                                            is_slang: match.is_slang || false,
+                                            is_question: match.is_question,
+                                            score: parseFloat(match.score.toFixed(4))
                                         });
                                     }
                                 }

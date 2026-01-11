@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = require("firebase-admin");
 // Initialize Admin (Auto-discovers credentials if logged in via `gcloud` or `firebase login`, 

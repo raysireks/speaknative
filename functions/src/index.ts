@@ -11,6 +11,7 @@ const db = admin.firestore();
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 
 // Helper: Extract numeric array from Firestore VectorValue or array
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getVectorData(field: any): number[] | null {
     if (!field) return null;
     if (Array.isArray(field)) return field;
@@ -68,7 +69,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
     ]);
 
     // Merge and Deduplicate
-    const allDocs = new Map<string, any>();
+    const allDocs = new Map<string, Record<string, unknown>>();
 
     [...literalSnapshot.docs, ...intentSnapshot.docs].forEach(doc => {
         if (!allDocs.has(doc.id)) {
@@ -90,10 +91,10 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
     });
 
     // Convert to array and sort
-    let matches = Array.from(allDocs.values()).sort((a, b) => b.score - a.score);
+    let matches = Array.from(allDocs.values()).sort((a: any, b: any) => b.score - a.score);
 
     // Filter by Confidence
-    matches = matches.filter(m => m.score > 0.7);
+    matches = matches.filter((m: any) => m.score > 0.6);
     // Limit again after merge
     matches = matches.slice(0, limit);
 
@@ -105,6 +106,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
         // This effectively means for each match, we search the user locale.
         // To optimize, we could do this in parallel.
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const resultsWithTranslation = await Promise.all(matches.map(async (m: any) => {
             // If we have the embedding (we should, from the doc), use it.
             // But the doc might not have it in `data()` if it was excluded or format differs.
@@ -151,6 +153,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
         return resultsWithTranslation;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return matches.map((m: any) => ({
         id: m.id,
         ...m,
@@ -173,7 +176,7 @@ export const translateAndStore = functions.https.onCall(async (request) => {
     }
 
     // Locale Map for Prompt Context (Expand as needed)
-    const LOCALE_MAP: Record<string, any> = {
+    const LOCALE_MAP: Record<string, { language: string; country: string; region: string }> = {
         'en-US-CA': { language: 'en', country: 'US', region: 'California' },
         'es-CO-CTG': { language: 'es', country: 'CO', region: 'Cartagena' },
         'es-CO-MDE': { language: 'es', country: 'CO', region: 'Medellín' }
@@ -197,7 +200,7 @@ export const translateAndStore = functions.https.onCall(async (request) => {
         .where('text', '==', text)
         .limit(1);
 
-    let userDocSnapshot = await userQuery.get();
+    const userDocSnapshot = await userQuery.get();
 
     // We do NOT use concept_id anymore. 
     // If not found, create it without concept_id.
@@ -255,7 +258,7 @@ export const translateAndStore = functions.https.onCall(async (request) => {
 
     // Check Threshold
     // Check Threshold
-    if (bestMatch && maxScore > 0.7) {
+    if (bestMatch && maxScore > 0.6) {
         const matchData = bestMatch.data();
         await bestMatch.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
         return {
@@ -370,6 +373,7 @@ export const forceRebuildCache = functions.https.onRequest(async (req, res) => {
 async function rebuildGlobalCacheLogic() {
     // 1. Define Supported Locales
     const SUPPORTED_LOCALES = ['en-US-CA', 'es-CO-CTG', 'es-CO-MDE'];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cacheData: Record<string, any[]> = {};
     const phrasesRef = db.collection('phrases');
 
@@ -396,6 +400,7 @@ async function rebuildGlobalCacheLogic() {
             // const phraseEmbedding = data.embedding; // Removed unused
 
             // Prepare base object
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const phraseEntry: any = {
                 id: doc.id, // Use Firestore Document ID
                 text: data.text,
@@ -417,7 +422,7 @@ async function rebuildGlobalCacheLogic() {
                 const intentVec = getVectorData(data.intent_embedding) || getVectorData(data.embedding);
 
                 if (intentVec) {
-                    let embeddingArray = intentVec;
+                    const embeddingArray = intentVec;
 
                     if (Array.isArray(embeddingArray)) {
                         try {
@@ -434,26 +439,37 @@ async function rebuildGlobalCacheLogic() {
 
                             if (variantsDocs.length > 0) {
                                 const seen = new Set<string>();
-                                const variants = [];
+                                const allFound = new Map<string, { text: string, is_slang: boolean, is_question: boolean, score: number }>();
+
                                 for (const doc of variantsDocs) {
                                     const d = doc.data();
 
                                     // Parse Variant Embedding for Score using Helper
+                                    // re-calc score
                                     const variantEmbedding = getVectorData(d.embedding);
                                     const variantIntent = getVectorData(d.intent_embedding);
-
-                                    // Calculate Cosine Similarity Score using Helper
                                     const s1 = (variantEmbedding && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantEmbedding) : 0;
                                     const s2 = (variantIntent && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantIntent) : 0;
                                     const score = Math.max(s1, s2);
+                                    allFound.set(doc.id, {
+                                        text: d.text,
+                                        is_slang: d.is_slang || false,
+                                        is_question: d.is_question,
+                                        score
+                                    });
+                                }
 
-                                    if (!seen.has(d.text) && score > 0.7) {
-                                        seen.add(d.text);
+                                // Sort by score and filter unique texts
+                                const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
+                                const variants: { text: string, is_slang: boolean, is_question: boolean, score: number }[] = [];
+                                for (const match of sortedMatches) {
+                                    if (!seen.has(match.text) && match.score > 0.6) {
+                                        seen.add(match.text);
                                         variants.push({
-                                            text: d.text,
-                                            is_slang: d.is_slang || false,
-                                            is_question: d.is_question,
-                                            score: parseFloat(score.toFixed(4))
+                                            text: match.text,
+                                            is_slang: match.is_slang || false,
+                                            is_question: match.is_question,
+                                            score: parseFloat(match.score.toFixed(4))
                                         });
                                     }
                                 }
