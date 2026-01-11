@@ -7,7 +7,6 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAI } from "firebase/ai";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
-// @ts-ignore
 const rawConfig = typeof __FIREBASE_CONFIG__ !== 'undefined' ? __FIREBASE_CONFIG__ : null;
 const config = rawConfig || {
     apiKey: "demo-key",
