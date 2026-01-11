@@ -44,9 +44,13 @@ if (import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
 }
 
 export const auth = getAuth(app);
-export const analytics = getAnalytics(app);
 export const functions = getFunctions(app);
 export const db = getFirestore(app);
+
+// Only initialize analytics if we have a real config (not demo)
+export const analytics = config.apiKey === "demo-key"
+    ? { app, logEvent: () => { } } as unknown as ReturnType<typeof getAnalytics>
+    : getAnalytics(app);
 export { httpsCallable };
 
 export const ai = getAI(app);
