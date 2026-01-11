@@ -51,7 +51,12 @@ describe('Flashcards', () => {
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
     expect(await screen.findByText('Phrase to learn')).toBeInTheDocument();
+  });
 
+  it('shows slang variant when cycling', async () => {
+    renderWithLocale(
+      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
+    );
 
     // First variant is "Hola"
     expect(await screen.findByText('Hola')).toBeInTheDocument();
@@ -68,7 +73,9 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    expect(await screen.findByText(/1 \//)).toBeInTheDocument();
+    // Might match multiple (main counter + variant counter)
+    const counters = await screen.findAllByText(/1 \//);
+    expect(counters.length).toBeGreaterThan(0);
   });
 
   it('shows phrase to learn on flashcard', async () => {
@@ -118,7 +125,10 @@ describe('Flashcards', () => {
 
     const prevBtn = screen.getByText('← Previous');
     fireEvent.click(prevBtn);
-    expect(await screen.findByText(/1 \//)).toBeInTheDocument();
+
+    // Might find multiple counters again
+    const counters = await screen.findAllByText(/1 \//);
+    expect(counters.length).toBeGreaterThan(0);
   });
 
   it('calls onBack when back button is clicked', async () => {

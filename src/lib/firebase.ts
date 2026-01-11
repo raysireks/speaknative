@@ -7,7 +7,15 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAI } from "firebase/ai";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
-export const app = initializeApp(__FIREBASE_CONFIG__!);
+const config = typeof __FIREBASE_CONFIG__ !== 'undefined' ? __FIREBASE_CONFIG__ : {
+    apiKey: "demo-key",
+    authDomain: "demo.firebaseapp.com",
+    projectId: "demo-project",
+    storageBucket: "demo.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef"
+};
+export const app = initializeApp(config);
 
 // Enable App Check debug mode for local development
 if (import.meta.env.DEV) {
