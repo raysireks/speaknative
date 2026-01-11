@@ -136,7 +136,6 @@ export function ReviewSession({
             mode={mode as 'audio-only' | 'speaker'}
             onPlayAudio={handlePlayAudio}
             regionName={regionName}
-            userLocale={userLocale}
           />
 
           {/* Navigation */}
