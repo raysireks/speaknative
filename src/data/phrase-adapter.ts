@@ -114,39 +114,42 @@ export async function translatePhrase(text: string, userLocale: string, targetLo
  * 1. Try Global Cache.
  */
 export async function getDynamicPhrases(targetLocale: string, userLocale: string): Promise<Phrase[]> {
-  const backendUser = LOCALE_MAP[userLocale] || userLocale;
 
-  // 1. Try Cache
-  const cached = await fetchCachedPhrases(targetLocale);
+
+  // 1. Try Cache for USER LOCALE (Source of Truth for "Concepts")
+  // We want to learn [TargetLocale], so we grab the UserLocale list (Source phrases)
+  // and show the TargetLocale variants.
+  const cached = await fetchCachedPhrases(userLocale);
+
   if (cached && cached.length > 0) {
-    // Map the cached items to show translation in User Locale
     return cached.map((p: any) => {
-      const userRaw = p.variants?.[backendUser];
-      let primary = 'Translation unavailable';
-      let variants: { text: string; is_slang: boolean }[] = [];
+      const targetVariantsRaw = p.variants?.[targetLocale] || [];
 
-      if (Array.isArray(userRaw)) {
-        if (userRaw.length > 0) {
-          const firstItem = userRaw[0];
-          if (firstItem && typeof firstItem.text === 'string') {
-            primary = firstItem.text;
-          } else {
-            // Fallback unique to prevent React crash if data is malformed
-            primary = typeof firstItem === 'object' ? (firstItem.text || JSON.stringify(firstItem)) : String(firstItem);
-          }
-          variants = userRaw;
-        }
-      } else if (typeof userRaw === 'string') {
-        primary = userRaw;
-        variants = [{ text: userRaw, is_slang: false }];
+      let primary = '';
+      let variants: { text: string; is_slang: boolean; score?: number }[] = [];
+
+      // Logic: 
+      // - primary (PhraseToLearn) = The First Variant in Target Locale
+      // - translation (PhraseInUserLang) = The Source Text (p.text)
+
+      if (Array.isArray(targetVariantsRaw) && targetVariantsRaw.length > 0) {
+        variants = targetVariantsRaw;
+        primary = variants[0].text;
+      } else {
+        // If no target variants, we might skip this phrase or show placeholder
+        // For now, we'll mark it as empty so the UI filters it out
+        primary = '';
       }
 
       return {
         ...p,
-        translation: primary,
+        text: primary, // usage in UI: phraseToLearn
+        translation: p.text, // usage in UI: phraseInUserLang (Source)
+        slangText: variants.find((v: any) => v.is_slang)?.text,
+        is_slang: variants.some((v: any) => v.is_slang),
         variants: variants
       };
-    });
+    }).filter(p => p.text !== ''); // Only return phrases that have a target translation
   }
 
   return [];

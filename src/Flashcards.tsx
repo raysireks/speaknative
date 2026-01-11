@@ -19,12 +19,7 @@ export interface FlashcardItem {
   variants?: { text: string; is_slang: boolean; score?: number }[];
 }
 
-const REGION_NAMES: Record<string, string> = {
-  'co-cartagena': 'Cartagena',
-  'co-medellin': 'Medellín',
-  'us-eastcoast': 'East Coast',
-  'us-midwest': 'Midwest',
-};
+
 
 function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
@@ -38,7 +33,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
     setVariantIndex(0);
   }, [currentIndex]);
 
-  const regionName = REGION_NAMES[targetLocale] || targetLocale;
+
 
   // Determine which locale provides the user's language
   const userLangLocale = userLocale === 'en' ? 'us' : 'co';
@@ -160,34 +155,77 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
         </div>
 
         <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-xl sm:p-12">
+          {/* Top Section (Target Language) */}
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <div className="mb-8">
+            <div className="mb-8 w-full">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <p className="text-sm font-medium tracking-widest text-slate-500 uppercase">
                   {t('Phrase to learn')}
                 </p>
-                {currentPhrase.isSlang && (
-                  <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
-                    {t('SLANG')}
-                  </span>
-                )}
               </div>
-              <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl">
-                {currentPhrase.phraseToLearn}
-              </h2>
-            </div>
 
-            {/* Regional Slang (if available) */}
-            {currentPhrase.slangToLearn && (
-              <div className="mb-8">
-                <span className="mb-3 inline-block rounded-full bg-pink-500/10 border border-pink-500/20 px-3 py-1 text-xs font-bold text-pink-400 tracking-wider">
-                  {regionName} {t('SLANG')}
-                </span>
-                <p className="text-2xl font-semibold text-pink-400 sm:text-3xl">
-                  {currentPhrase.slangToLearn}
-                </p>
-              </div>
-            )}
+              {/* Variant Cycling Logic on Front (Target Lang) */}
+              {currentPhrase.variants && currentPhrase.variants.length > 1 ? (
+                <div className="flex flex-col items-center gap-2">
+                  <div className="flex w-full items-center justify-between gap-4">
+                    {/* Left Nav */}
+                    <button
+                      onClick={handlePrevVariant}
+                      disabled={variantIndex === 0}
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      ←
+                    </button>
+
+                    {/* Variant Content */}
+                    <div className="flex flex-col items-center flex-1">
+                      <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl px-2">
+                        {currentPhrase.variants[variantIndex].text}
+                      </h2>
+                      <div className="mt-4 flex items-center gap-2 justify-center">
+                        {currentPhrase.variants[variantIndex].score !== undefined && (
+                          <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400 tracking-wider">
+                            {Math.round(currentPhrase.variants[variantIndex].score! * 100)}% MATCH
+                          </span>
+                        )}
+                        {currentPhrase.variants[variantIndex].is_slang && (
+                          <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                            {t('SLANG')}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Right Nav */}
+                    <button
+                      onClick={handleNextVariant}
+                      disabled={variantIndex === currentPhrase.variants.length - 1}
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                    >
+                      →
+                    </button>
+                  </div>
+                  {/* Counter */}
+                  <div className="mt-2 text-xs font-medium text-slate-500 font-mono bg-slate-900/50 px-2 py-1 rounded">
+                    {variantIndex + 1} / {currentPhrase.variants.length}
+                  </div>
+                </div>
+              ) : (
+                /* Single Variant Case */
+                <div className="flex flex-col items-center">
+                  <h2 className="text-4xl font-bold text-slate-50 sm:text-5xl lg:text-6xl">
+                    {currentPhrase.phraseToLearn}
+                  </h2>
+                  {currentPhrase.isSlang && (
+                    <div className="mt-4">
+                      <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
+                        {t('SLANG')}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* Audio Button */}
             <button
@@ -203,7 +241,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
           {/* Divider */}
           <div className="my-8 border-t border-slate-800"></div>
 
-          {/* Reveal Section */}
+          {/* Reveal Section (Source Language) */}
           <div className="text-center">
             {!revealed ? (
               <button
@@ -217,56 +255,9 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
                 <p className="mb-3 text-sm font-medium tracking-widest text-slate-500 uppercase">
                   {t('Your language')}
                 </p>
-                {currentPhrase.variants && currentPhrase.variants.length > 1 ? (
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="flex w-full items-center justify-between gap-4">
-                      {/* Left Nav */}
-                      <button
-                        onClick={handlePrevVariant}
-                        disabled={variantIndex === 0}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-                      >
-                        ←
-                      </button>
-
-                      {/* Variant Content */}
-                      <div className="flex flex-col items-center flex-1">
-                        <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl text-center">
-                          {currentPhrase.variants[variantIndex].text}
-                        </h3>
-                        <div className="mt-2 flex items-center gap-2">
-                          {currentPhrase.variants[variantIndex].score !== undefined && (
-                            <span className="rounded bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400 tracking-wider">
-                              {Math.round(currentPhrase.variants[variantIndex].score * 100)}% MATCH
-                            </span>
-                          )}
-                          {currentPhrase.variants[variantIndex].is_slang && (
-                            <span className="rounded bg-pink-500/10 border border-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-400 tracking-wider">
-                              {t('SLANG')}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Right Nav */}
-                      <button
-                        onClick={handleNextVariant}
-                        disabled={variantIndex === currentPhrase.variants.length - 1}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-slate-400 transition hover:bg-slate-700 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-                      >
-                        →
-                      </button>
-                    </div>
-                    {/* Counter */}
-                    <div className="mt-2 text-xs font-medium text-slate-500 font-mono bg-slate-900/50 px-2 py-1 rounded">
-                      {variantIndex + 1} / {currentPhrase.variants.length}
-                    </div>
-                  </div>
-                ) : (
-                  <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
-                    {currentPhrase.phraseInUserLang}
-                  </h3>
-                )}
+                <h3 className="text-3xl font-bold text-emerald-400 sm:text-4xl">
+                  {currentPhrase.phraseInUserLang}
+                </h3>
               </div>
             )}
           </div>

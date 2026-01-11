@@ -91,9 +91,11 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
     });
 
     // Convert to array and sort
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let matches = Array.from(allDocs.values()).sort((a: any, b: any) => b.score - a.score);
 
     // Filter by Confidence
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     matches = matches.filter((m: any) => m.score > 0.6);
     // Limit again after merge
     matches = matches.slice(0, limit);
