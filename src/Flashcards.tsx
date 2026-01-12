@@ -196,7 +196,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
                             )}
                             {v?.is_slang && (
                               <span className="rounded-full bg-pink-500/10 px-3 py-1 text-[11px] font-bold text-pink-400/80 tracking-widest uppercase">
-                                {t('Slang')}
+                                {t('SLANG')}
                               </span>
                             )}
                           </div>

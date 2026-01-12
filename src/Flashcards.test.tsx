@@ -50,7 +50,7 @@ describe('Flashcards', () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
-    expect(await screen.findByText('Phrase to learn')).toBeInTheDocument();
+    expect(await screen.findByText('Variations to learn')).toBeInTheDocument();
   });
 
   it('shows slang variant when cycling', async () => {
@@ -62,7 +62,7 @@ describe('Flashcards', () => {
     expect(await screen.findByText('Hola')).toBeInTheDocument();
 
     // Next variant -> "Buenas" (Slang)
-    const nextBtn = screen.getByText('→');
+    const nextBtn = screen.getByLabelText('Next variation');
     fireEvent.click(nextBtn);
 
     expect(await screen.findByText('Buenas')).toBeInTheDocument();
@@ -77,34 +77,23 @@ describe('Flashcards', () => {
     expect(counters.length).toBeGreaterThan(0);
   });
 
-  it('shows phrase to learn on flashcard', async () => {
+  it('shows variations section on flashcard', async () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
 
-    expect(await screen.findByText('Phrase to learn')).toBeInTheDocument();
+    expect(await screen.findByText('Variations to learn')).toBeInTheDocument();
     // Front shows Target (Hola)
     expect(screen.getByText('Hola')).toBeInTheDocument();
   });
 
-  it('shows reveal button initially', async () => {
+  it('shows meaning section and translation immediately', async () => {
     renderWithLocale(
       <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
     );
 
-    expect(await screen.findByText(/Reveal/)).toBeInTheDocument();
-  });
-
-  it('reveals translation in user language when clicked', async () => {
-    renderWithLocale(
-      <Flashcards targetLocale="co-cartagena" userLocale="en" onBack={mockOnBack} />
-    );
-
-    const revealBtn = await screen.findByText(/Reveal/);
-    fireEvent.click(revealBtn);
-
-    expect(await screen.findByText('Your language')).toBeInTheDocument();
-    // Back shows Source (Hi)
+    expect(await screen.findByText('Meaning')).toBeInTheDocument();
+    // Shows Source (Hi)
     expect(screen.getByText('Hi')).toBeInTheDocument();
   });
 

@@ -12,6 +12,15 @@ const db = admin.firestore();
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
 
+interface Match {
+    id: string;
+    text: string;
+    score: number;
+    embedding?: number[];
+    is_slang?: boolean;
+    [key: string]: unknown;
+}
+
 /**
  * Perform vector search to find similar phrases, optionally filtered by locale.
  */
@@ -53,7 +62,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
     ]);
 
     // Merge and Deduplicate
-    const allDocs = new Map<string, Record<string, unknown>>();
+    const allDocs = new Map<string, Match>();
 
     [...literalSnapshot.docs, ...intentSnapshot.docs].forEach(doc => {
         if (!allDocs.has(doc.id)) {
@@ -70,25 +79,22 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
                 score = Math.max(s1, s2);
             }
 
-            allDocs.set(doc.id, { id: doc.id, ...data, score });
+            allDocs.set(doc.id, { id: doc.id, text: data.text, score, ...data } as Match);
         }
     });
 
     // Convert to array and sort
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let matches = Array.from(allDocs.values()).sort((a: any, b: any) => b.score - a.score);
+    let matches = Array.from(allDocs.values()).sort((a, b) => b.score - a.score);
 
     // Filter by Confidence
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    matches = matches.filter((m: any) => m.score > 0.7);
+    matches = matches.filter(m => m.score > 0.7);
     // Limit again after merge
     matches = matches.slice(0, limit);
 
 
     // If userLocale is provided, fetch translations via vector search (reverse lookup)
     if (userLocale && matches.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const resultsWithTranslation = await Promise.all(matches.map(async (m: any) => {
+        const resultsWithTranslation = await Promise.all(matches.map(async (m) => {
             let searchVec = m.embedding;
             if (!searchVec && searchEmbedding) {
                 // Fallback to the original search embedding if match embedding is missing (approximate)
@@ -126,8 +132,7 @@ export const getSimilarPhrases = functions.https.onCall(async (request) => {
         return resultsWithTranslation;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return matches.map((m: any) => ({
+    return matches.map(m => ({
         id: m.id,
         ...m,
         is_slang: m.is_slang || false,
