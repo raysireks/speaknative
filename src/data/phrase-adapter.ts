@@ -19,7 +19,7 @@ export interface Phrase {
   variants?: {
     text: string;
     is_slang: boolean;
-    is_question: boolean;
+    is_question?: boolean;
     score?: number;
   }[];
 }
