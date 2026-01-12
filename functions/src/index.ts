@@ -143,8 +143,8 @@ export const translateAndStore = functions.https.onCall(async (request) => {
     const { text, userLocale, targetLocale, testThreshold } = request.data;
     try {
         return await translateCore(db, text, userLocale, targetLocale, testThreshold);
-    } catch (err: any) {
-        throw new functions.https.HttpsError('internal', err.message);
+    } catch (err: unknown) {
+        throw new functions.https.HttpsError('internal', (err as Error).message);
     }
 });
 
@@ -219,7 +219,7 @@ export const getUnifiedPhraseCache = functions.https.onCall(async (request) => {
         }
 
         // 3. Post-Process & Validate
-        const resultsByLocale: Record<string, any[]> = {};
+        const resultsByLocale: Record<string, unknown[]> = {};
         const missingLocales: string[] = [];
         const validationErrors: string[] = [];
 
@@ -268,6 +268,7 @@ export const getUnifiedPhraseCache = functions.https.onCall(async (request) => {
     }
 
     // Initial Search
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let searchResult: any = await performSearch();
 
     // Check Error/Missing

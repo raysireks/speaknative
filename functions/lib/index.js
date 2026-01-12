@@ -1,35 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rebuildGlobalCache = exports.forceRebuildCache = exports.translateAndStore = exports.getSimilarPhrases = void 0;
+exports.getUnifiedPhraseCache = exports.rebuildGlobalCache = exports.forceRebuildCache = exports.translateAndStore = exports.getSimilarPhrases = void 0;
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const generative_ai_1 = require("@google/generative-ai");
-// import { v4 as uuidv4 } from 'uuid';
 const scheduler_1 = require("firebase-functions/v2/scheduler");
+const translate_core_1 = require("./translate_core");
+const rebuild_cache_1 = require("./rebuild_cache");
+const utils_1 = require("./utils");
 admin.initializeApp();
 const db = admin.firestore();
 // Initialize Gemini
 const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
-// Helper: Extract numeric array from Firestore VectorValue or array
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getVectorData(field) {
-    if (!field)
-        return null;
-    if (Array.isArray(field))
-        return field;
-    if (typeof field.toArray === 'function')
-        return field.toArray();
-    if (field.values && Array.isArray(field.values))
-        return field.values;
-    return null;
-}
-// Helper: Calculate Cosine Similarity
-function cosineSimilarity(a, b) {
-    const dot = a.reduce((sum, val, i) => sum + val * (b[i] || 0), 0);
-    const magA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));
-    const magB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));
-    return (magA && magB) ? dot / (magA * magB) : 0;
-}
 /**
  * Perform vector search to find similar phrases, optionally filtered by locale.
  */
@@ -68,13 +50,13 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
         if (!allDocs.has(doc.id)) {
             const data = doc.data();
             // Calculate Score: Max of Literal or Intent similarity
-            const docVec = getVectorData(data.embedding);
-            const intentVec = getVectorData(data.intent_embedding);
+            const docVec = (0, utils_1.getVectorData)(data.embedding);
+            const intentVec = (0, utils_1.getVectorData)(data.intent_embedding);
             // We compare SEARCH (Literal) vs TARGET Use Cases
             let score = 0;
             if (Array.isArray(searchEmbedding)) {
-                const s1 = docVec ? cosineSimilarity(searchEmbedding, docVec) : 0;
-                const s2 = intentVec ? cosineSimilarity(searchEmbedding, intentVec) : 0;
+                const s1 = docVec ? (0, utils_1.cosineSimilarity)(searchEmbedding, docVec) : 0;
+                const s2 = intentVec ? (0, utils_1.cosineSimilarity)(searchEmbedding, intentVec) : 0;
                 score = Math.max(s1, s2);
             }
             allDocs.set(doc.id, Object.assign(Object.assign({ id: doc.id }, data), { score }));
@@ -90,23 +72,13 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
     matches = matches.slice(0, limit);
     // If userLocale is provided, fetch translations via vector search (reverse lookup)
     if (userLocale && matches.length > 0) {
-        // We have matches in Target Locale. We want to find their equivalents in User Locale.
-        // Since we removed concept_id, we must use vector similarity.
-        // This effectively means for each match, we search the user locale.
-        // To optimize, we could do this in parallel.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const resultsWithTranslation = await Promise.all(matches.map(async (m) => {
-            // If we have the embedding (we should, from the doc), use it.
-            // But the doc might not have it in `data()` if it was excluded or format differs.
-            // Matches from findNearest might include the vector field.
-            // If m.embedding is available and usable:
             let searchVec = m.embedding;
             if (!searchVec && searchEmbedding) {
                 // Fallback to the original search embedding if match embedding is missing (approximate)
                 searchVec = searchEmbedding;
             }
-            // If we really need the Match's embedding to find its translation, we should rely on it being present.
-            // Firestore findNearest docs: the returned document contains the vector field.
             let userText = 'Translation not found';
             if (searchVec) {
                 const translationQuery = phrasesRef
@@ -130,352 +102,152 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
 });
 /**
  * Direct Translation Function (Server-Side)
- * - Checks/Creates phrase in userLocale
- * - Finds/Creates phrase in targetLocale via vector search
- * - Manages usage_count
  */
 exports.translateAndStore = functions.https.onCall(async (request) => {
-    var _a;
-    // 1. Validate Input
+    // Wrapper to use shared Core Logic
     const { text, userLocale, targetLocale, testThreshold } = request.data;
-    if (!text || !userLocale || !targetLocale) {
-        throw new functions.https.HttpsError('invalid-argument', 'text, userLocale, and targetLocale are required.');
-    }
-    // Locale Map for Prompt Context (Expand as needed)
-    const LOCALE_MAP = {
-        'en-US-CA': { language: 'en', country: 'US', region: 'California' },
-        'es-CO-CTG': { language: 'es', country: 'CO', region: 'Cartagena' },
-        'es-CO-MDE': { language: 'es', country: 'CO', region: 'Medellín' }
-    };
-    const targetInfo = LOCALE_MAP[targetLocale];
-    const userInfo = LOCALE_MAP[userLocale]; // Optional context for user phrase
-    const phrasesRef = db.collection('phrases');
-    const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
-    // 2. Generate Embedding for User Input
-    const embedResult = await embeddingModel.embedContent(text);
-    const userEmbedding = embedResult.embedding.values;
-    const userVector = admin.firestore.FieldValue.vector(userEmbedding);
-    // 3. Check/Store User Phrase (Idempotent-ish)
-    // We try to find an exact text match in userLocale first to avoid duplicates
-    const userQuery = phrasesRef
-        .where('locale', '==', userLocale)
-        .where('text', '==', text)
-        .limit(1);
-    const userDocSnapshot = await userQuery.get();
-    // We do NOT use concept_id anymore. 
-    // If not found, create it without concept_id.
-    let sourceDocRef = null;
-    let sourceTranslated = false;
-    if (userDocSnapshot.empty) {
-        // User phrase missing, create it
-        const newUserDoc = {
-            text: text,
-            is_slang: false,
-            usage_count: 1,
-            locale: userLocale,
-            language: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.language) || userLocale.split('-')[0],
-            country: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.country) || 'Unknown',
-            region: (userInfo === null || userInfo === void 0 ? void 0 : userInfo.region) || 'Unknown',
-            // No concept_id
-            embedding: userVector,
-            createdAt: admin.firestore.FieldValue.serverTimestamp()
-        };
-        const ref = await phrasesRef.add(newUserDoc);
-        sourceDocRef = ref;
-    }
-    else {
-        const doc = userDocSnapshot.docs[0];
-        const data = doc.data();
-        sourceTranslated = data.translated === true;
-        sourceDocRef = doc.ref;
-        await doc.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
-    }
-    // 4. Query Target Locale using Parallel Vector Search
-    const baseQuery = phrasesRef.where('locale', '==', targetLocale);
-    const [litSnap, intSnap] = await Promise.all([
-        baseQuery.findNearest('embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get(),
-        baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get()
-    ]);
-    // Merge
-    const allCandidates = [...litSnap.docs, ...intSnap.docs];
-    // 5. Find Best Match from candidates
-    // We have to manually find the best score since we merged results
-    let bestMatch = null;
-    let maxScore = 0;
-    for (const doc of allCandidates) {
-        const d = doc.data();
-        const docVec = getVectorData(d.embedding);
-        const intVec = getVectorData(d.intent_embedding);
-        const s1 = docVec && Array.isArray(userEmbedding) ? cosineSimilarity(userEmbedding, docVec) : 0;
-        const s2 = intVec && Array.isArray(userEmbedding) ? cosineSimilarity(userEmbedding, intVec) : 0;
-        const score = Math.max(s1, s2);
-        if (score > maxScore) {
-            maxScore = score;
-            bestMatch = doc;
-        }
-    }
-    // Check Threshold
-    // If we have a good match OR the source was previously translated (trust the best vector match)
-    const activeThreshold = typeof testThreshold === 'number' ? testThreshold : 0.7;
-    if (bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
-        const matchData = bestMatch.data();
-        await bestMatch.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
-        return {
-            id: bestMatch.id,
-            text: matchData.text,
-            is_slang: matchData.is_slang,
-            usage_count: (matchData.usage_count || 0) + 1,
-            locale: matchData.locale,
-            source: 'cache',
-            score: parseFloat(maxScore.toFixed(4))
-        };
-    }
-    // Else: Score too low, proceed to generate
-    console.log(`Cache miss: Best vector match "${(_a = bestMatch === null || bestMatch === void 0 ? void 0 : bestMatch.data()) === null || _a === void 0 ? void 0 : _a.text}" score ${maxScore.toFixed(4)} < 0.7. Generating new translation.`);
-    // 6. IF MISSING: Call Gemini -> Store -> Return
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const targetRegionContext = targetInfo
-        ? `dialect for ${targetInfo.region}, ${targetInfo.country}`
-        : `standard dialect for ${targetLocale}`;
-    const sourceRegionContext = userInfo
-        ? `dialect for ${userInfo.region}, ${userInfo.country}`
-        : `standard dialect for ${userLocale}`;
-    const translationPrompt = `
-        Translate "${text}" (from ${sourceRegionContext}) into the ${targetRegionContext}.
-        1. Provide one main literal/common translation.
-        2. Provide up to 5 modern slang variations used by millennials/Gen Z if they exist.
-           - Quality over quantity. Only include slang that is genuinely used (high confidence).
-           - Ensure variants are distinct and not just minor grammatical variations.
-           - CRITICAL: Match the sentiment/intent of the original text exactly. Do NOT add sentiment (like "how cool", "how bad", "wow") if the original text is neutral.
-           - If the input is a noun (e.g. "shoes"), slang should be slang synonyms for that noun (e.g. "kicks"), NOT reactions to it.
-           - If there are no good/distinct slang variants, return an empty list.
-        Output JSON: {
-            "text": "main literal translation",
-            "is_slang": false,
-            "is_question": boolean,
-            "slang_variants": ["slang1", "slang2"]
-        }
-    `;
-    console.log("Generative AI Prompt:", translationPrompt);
-    const transResult = await model.generateContent(translationPrompt);
-    const transText = transResult.response.text();
-    // Attempt to find the first JSON object in the text
-    const jsonMatch = transText.match(/\{[\s\S]*\}/);
-    const jsonStr = jsonMatch ? jsonMatch[0] : transText.replace(/```json\n?|\n?```/g, '').trim();
-    let parsed = { text: "Error translating", is_slang: false, is_question: false, slang_variants: [] };
     try {
-        parsed = JSON.parse(jsonStr);
+        return await (0, translate_core_1.translateCore)(db, text, userLocale, targetLocale, testThreshold);
     }
-    catch (e) {
-        console.error("JSON Parse Error", e);
-        parsed.text = transText;
-        parsed.is_question = text.includes('?') || text.includes('¿');
+    catch (err) {
+        throw new functions.https.HttpsError('internal', err.message);
     }
-    // Check for existing translation in target locale to prevent duplicates
-    const existingTargetQuery = await phrasesRef
-        .where('locale', '==', targetLocale)
-        .where('text', '==', parsed.text)
-        .limit(1)
-        .get();
-    let finalDoc = null;
-    if (!existingTargetQuery.empty) {
-        const existingDoc = existingTargetQuery.docs[0];
-        const existingData = existingDoc.data();
-        await existingDoc.ref.update({ usage_count: admin.firestore.FieldValue.increment(1) });
-        finalDoc = {
-            id: existingDoc.id,
-            text: existingData.text,
-            is_slang: existingData.is_slang,
-            is_question: existingData.is_question,
-            usage_count: (existingData.usage_count || 0) + 1,
-            locale: existingData.locale,
-            source: 'existing_text_match'
-        };
-    }
-    else {
-        const targetEmbedResult = await embeddingModel.embedContent(parsed.text);
-        const targetEmbedding = targetEmbedResult.embedding.values;
-        const targetVector = admin.firestore.FieldValue.vector(targetEmbedding);
-        const newTargetDoc = {
-            text: parsed.text,
-            is_slang: parsed.is_slang,
-            is_question: parsed.is_question !== undefined ? parsed.is_question : (parsed.text.includes('?') || parsed.text.includes('¿')),
-            usage_count: 1,
-            locale: targetLocale,
-            language: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.language) || targetLocale.split('-')[0],
-            country: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.country) || 'Unknown',
-            region: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.region) || 'Unknown',
-            embedding: targetVector,
-            intent_embedding: targetVector,
-            createdAt: admin.firestore.FieldValue.serverTimestamp()
-        };
-        const docRef = await phrasesRef.add(newTargetDoc);
-        finalDoc = Object.assign(Object.assign({ id: docRef.id }, newTargetDoc), { embedding: undefined, source: 'generated' });
-    }
-    // Process Slang Variants (Asynchronously/Parallel store)
-    if (parsed.slang_variants && Array.isArray(parsed.slang_variants) && parsed.slang_variants.length > 0) {
-        // We generally fire-and-forget or await this. Awaiting ensures they exist for next query.
-        for (const slangText of parsed.slang_variants) {
-            const slangQuery = await phrasesRef
-                .where('locale', '==', targetLocale)
-                .where('text', '==', slangText)
-                .limit(1)
-                .get();
-            if (slangQuery.empty) {
-                const slangEmbed = await embeddingModel.embedContent(slangText);
-                const slangVector = admin.firestore.FieldValue.vector(slangEmbed.embedding.values);
-                await phrasesRef.add({
-                    text: slangText,
-                    is_slang: true,
-                    is_question: parsed.is_question,
-                    usage_count: 1,
-                    locale: targetLocale,
-                    language: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.language) || targetLocale.split('-')[0],
-                    country: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.country) || 'Unknown',
-                    region: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.region) || 'Unknown',
-                    embedding: slangVector,
-                    intent_embedding: slangVector,
-                    createdAt: admin.firestore.FieldValue.serverTimestamp()
-                });
-            }
-        }
-    }
-    // Update Source Phrase to mark it as translated
-    if (sourceDocRef) {
-        await sourceDocRef.update({ translated: true });
-    }
-    return finalDoc;
 });
-/**
- * Weekly job to rebuild the global cache of top phrases.
- * - Fetches top 100 phrases (by usage) per locale.
- * - Finds translations/variants in other locales.
- * - Stores optimized JSON payload for client consumption.
- */
 /**
  * HTTP Trigger to manually force cache rebuild (for testing/admin).
  */
 exports.forceRebuildCache = functions.https.onRequest(async (req, res) => {
-    // Basic auth or check if local/authorized could be added here
-    await rebuildGlobalCacheLogic();
-    res.send("Cache Rebuild Initiated.");
+    // Parse query
+    const localesOpt = req.query.locales ? req.query.locales.split(',') : undefined;
+    const limitOpt = req.query.limit ? parseInt(req.query.limit) : undefined;
+    await (0, rebuild_cache_1.rebuildGlobalCacheLogic)(db, localesOpt, limitOpt);
+    res.send(`Cache Rebuild Initiated. Locales: ${(localesOpt === null || localesOpt === void 0 ? void 0 : localesOpt.join(',')) || 'ALL'}, Limit: ${limitOpt || 100}`);
 });
-async function rebuildGlobalCacheLogic() {
-    // 1. Define Supported Locales
+exports.rebuildGlobalCache = (0, scheduler_1.onSchedule)({ schedule: 'every sunday 00:00', timeoutSeconds: 540 }, async () => {
+    await (0, rebuild_cache_1.rebuildGlobalCacheLogic)(db);
+});
+exports.getUnifiedPhraseCache = functions.https.onCall(async (request) => {
     const SUPPORTED_LOCALES = ['en-US-CA', 'es-CO-CTG', 'es-CO-MDE'];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cacheData = {};
+    // Inputs
+    const { text, userLocale, limit = 100, threshold = 0.7 } = request.data;
+    if (!text || !userLocale) {
+        throw new functions.https.HttpsError('invalid-argument', 'text, userLocale required.');
+    }
     const phrasesRef = db.collection('phrases');
-    console.log(`Starting Global Cache Rebuild for: ${SUPPORTED_LOCALES.join(', ')}`);
-    for (const sourceLocale of SUPPORTED_LOCALES) {
-        // 2. Fetch Top 100 User Phrases by usage_count
-        const topSnapshot = await phrasesRef
-            .where('locale', '==', sourceLocale)
-            .orderBy('usage_count', 'desc')
-            .limit(100)
-            .get();
-        if (topSnapshot.empty) {
-            console.log(`No phrases found for ${sourceLocale}, skipping.`);
-            cacheData[sourceLocale] = [];
-            continue;
+    // Helper to perform the global search
+    async function performSearch() {
+        // 1. Get Source Phrase
+        const sourceSnap = await phrasesRef.where('text', '==', text).where('locale', '==', userLocale).limit(1).get();
+        if (sourceSnap.empty) {
+            return { error: 'Source phrase not found' };
         }
-        const processedPhrases = [];
-        for (const doc of topSnapshot.docs) {
-            const data = doc.data();
-            // const phraseEmbedding = data.embedding; // Removed unused
-            // Prepare base object
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const phraseEntry = {
-                id: doc.id,
-                text: data.text,
-                usage_count: data.usage_count,
-                is_slang: data.is_slang,
-                variants: {}
-            };
-            // 3. Find Translations in Other Locales
-            // We iterate through OTHER locales to find the best match for this phrase.
-            for (const targetLocale of SUPPORTED_LOCALES) {
-                if (targetLocale === sourceLocale)
-                    continue;
-                const isQuestion = data.is_question !== undefined ? data.is_question : (data.text.includes('?') || data.text.includes('¿'));
-                // Priority: Match by Vector
-                // We use vector search to find the closest match in the target locale.
-                // FILTER: Match matching Question/Statement type to separate questions from answers.
-                const intentVec = getVectorData(data.intent_embedding) || getVectorData(data.embedding);
-                if (intentVec) {
-                    const embeddingArray = intentVec;
-                    if (Array.isArray(embeddingArray)) {
-                        try {
-                            const baseQ = phrasesRef
-                                .where('locale', '==', targetLocale)
-                                .where('is_question', '==', isQuestion);
-                            const [litSnap, intSnap] = await Promise.all([
-                                baseQ.findNearest('embedding', embeddingArray, { limit: 5, distanceMeasure: 'COSINE' }).get(),
-                                baseQ.findNearest('intent_embedding', embeddingArray, { limit: 5, distanceMeasure: 'COSINE' }).get()
-                            ]);
-                            const variantsDocs = [...litSnap.docs, ...intSnap.docs];
-                            if (variantsDocs.length > 0) {
-                                const seen = new Set();
-                                const allFound = new Map();
-                                for (const doc of variantsDocs) {
-                                    const d = doc.data();
-                                    // Parse Variant Embedding for Score using Helper
-                                    // re-calc score
-                                    const variantEmbedding = getVectorData(d.embedding);
-                                    const variantIntent = getVectorData(d.intent_embedding);
-                                    const s1 = (variantEmbedding && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantEmbedding) : 0;
-                                    const s2 = (variantIntent && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantIntent) : 0;
-                                    const score = Math.max(s1, s2);
-                                    allFound.set(doc.id, {
-                                        text: d.text,
-                                        is_slang: d.is_slang || false,
-                                        is_question: d.is_question,
-                                        score
-                                    });
-                                }
-                                // Sort by score and filter unique texts
-                                const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
-                                const variants = [];
-                                for (const match of sortedMatches) {
-                                    if (!seen.has(match.text) && match.score > 0.7) {
-                                        seen.add(match.text);
-                                        variants.push({
-                                            text: match.text,
-                                            is_slang: match.is_slang || false,
-                                            is_question: match.is_question,
-                                            score: parseFloat(match.score.toFixed(4))
-                                        });
-                                    }
-                                }
-                                phraseEntry.variants[targetLocale] = variants;
-                            }
-                        }
-                        catch (err) {
-                            console.error(`Vector search failed for ${data.text} -> ${targetLocale}`, err);
-                        }
-                    }
+        const sourceDoc = sourceSnap.docs[0];
+        const sourceData = sourceDoc.data();
+        const isSourceSlang = sourceData.is_slang || false;
+        const isQuestion = sourceData.is_question || false;
+        // Parse Translated Map
+        let translatedMap = {};
+        if (typeof sourceData.translated === 'boolean' && sourceData.translated) {
+            translatedMap = SUPPORTED_LOCALES.reduce((acc, loc) => (Object.assign(Object.assign({}, acc), { [loc]: true })), {});
+        }
+        else if (typeof sourceData.translated === 'object') {
+            translatedMap = sourceData.translated;
+        }
+        // 2. Vector Search (Global)
+        const vecToUse = (0, utils_1.getVectorData)(sourceData.embedding);
+        const intentVecToUse = isSourceSlang ? (0, utils_1.getVectorData)(sourceData.intent_embedding) : null;
+        if (!vecToUse) {
+            throw new functions.https.HttpsError('internal', 'Embedding missing on source.');
+        }
+        let candidates = [];
+        const baseQ = phrasesRef.where('is_question', '==', isQuestion);
+        const contentResults = await baseQ.findNearest('embedding', vecToUse, { limit: limit, distanceMeasure: 'COSINE' }).get();
+        candidates = [...contentResults.docs];
+        if (intentVecToUse && isSourceSlang) {
+            const intentResults = await baseQ.findNearest('intent_embedding', intentVecToUse, { limit: limit, distanceMeasure: 'COSINE' }).get();
+            const currentIds = new Set(candidates.map(d => d.id));
+            for (const d of intentResults.docs) {
+                if (!currentIds.has(d.id)) {
+                    candidates.push(d);
                 }
             }
-            processedPhrases.push(phraseEntry);
         }
-        cacheData[sourceLocale] = processedPhrases;
+        // 3. Post-Process & Validate
+        const resultsByLocale = {};
+        const missingLocales = [];
+        const validationErrors = [];
+        for (const targetLoc of SUPPORTED_LOCALES) {
+            // We filter candidates locally
+            const matches = candidates.filter(d => d.data().locale === targetLoc).map(d => {
+                const dA = d.data();
+                const v = (0, utils_1.getVectorData)(dA.embedding);
+                const iv = (0, utils_1.getVectorData)(dA.intent_embedding);
+                const s1 = v ? (0, utils_1.cosineSimilarity)(vecToUse, v) : 0;
+                let s2 = 0;
+                if (intentVecToUse && iv)
+                    s2 = (0, utils_1.cosineSimilarity)(intentVecToUse, iv);
+                return {
+                    text: dA.text,
+                    is_slang: dA.is_slang,
+                    score: parseFloat(Math.max(s1, s2).toFixed(4))
+                };
+            }).sort((a, b) => b.score - a.score);
+            const activeThreshold = Number(threshold);
+            const validMatches = matches.filter(m => m.score > activeThreshold);
+            const isMarkedTranslated = translatedMap[targetLoc] === true;
+            if (validMatches.length > 0) {
+                resultsByLocale[targetLoc] = validMatches;
+            }
+            else {
+                // No valid matches
+                if (isMarkedTranslated) {
+                    // Fallback
+                    if (matches.length > 0) {
+                        resultsByLocale[targetLoc] = [matches[0]];
+                    }
+                    else {
+                        validationErrors.push(`Missing entries for ${targetLoc} despite translated:true`);
+                    }
+                }
+                else {
+                    missingLocales.push(targetLoc);
+                }
+            }
+        }
+        return {
+            resultsByLocale,
+            missingLocales,
+            validationErrors,
+            sourceText: sourceData.text
+        };
     }
-    // 4. Store optimized cache documents
-    const batch = db.batch();
-    const cacheRef = db.collection('cache_top_phrases');
-    for (const [locale, phrases] of Object.entries(cacheData)) {
-        // We overwrite the single doc for this locale
-        const docRef = cacheRef.doc(locale);
-        batch.set(docRef, {
-            phrases,
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-            count: phrases.length
-        });
+    // Initial Search
+    let searchResult = await performSearch();
+    // Check Error/Missing
+    if (searchResult.error)
+        return searchResult;
+    // Handle Missing Locales (Auto-Generation)
+    if (searchResult.missingLocales && searchResult.missingLocales.length > 0) {
+        console.log(`Auto-generating for missing locales: ${searchResult.missingLocales.join(', ')}`);
+        // Run specific translations
+        const generatePromises = searchResult.missingLocales.map((loc) => (0, translate_core_1.translateCore)(db, text, userLocale, loc, Number(threshold))
+            .catch((e) => {
+            console.error(`Failed to auto-generate for ${loc}:`, e);
+            return null;
+        }));
+        await Promise.all(generatePromises);
+        // Re-Run Search
+        console.log("Re-running global search...");
+        searchResult = await performSearch();
     }
-    await batch.commit();
-    console.log("Global Cache Rebuild Complete.");
-}
-exports.rebuildGlobalCache = (0, scheduler_1.onSchedule)({ schedule: 'every sunday 00:00', timeoutSeconds: 540 }, async () => {
-    await rebuildGlobalCacheLogic();
+    // Validate Errors (after retry)
+    if (searchResult.validationErrors && searchResult.validationErrors.length > 0) {
+        throw new functions.https.HttpsError('failed-precondition', `Cache Inconsistency: ${searchResult.validationErrors.join(', ')}`);
+    }
+    return {
+        status: 'complete',
+        text: searchResult.sourceText,
+        variants: searchResult.resultsByLocale
+    };
 });
 //# sourceMappingURL=index.js.map

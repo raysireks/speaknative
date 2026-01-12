@@ -47,6 +47,7 @@ async function runTest() {
     try {
         console.log("1. First Request (Should generate)...");
         const res1 = await invokeTranslate(TEST_PHRASE);
+        console.log("Res1 text:", (res1 as { result?: { text: string } }).result?.text);
 
         console.log("Waiting 3 seconds for async slang storage...");
         await new Promise(r => setTimeout(r, 3000));
@@ -70,6 +71,7 @@ async function runTest() {
 
         console.log("\n2. Second Request (Should retrieve cache/existing)...");
         const res2 = await invokeTranslate(TEST_PHRASE);
+        console.log("Res2 text:", (res2 as { result?: { text: string } }).result?.text);
 
         console.log("\nDone.");
     } catch (e) {

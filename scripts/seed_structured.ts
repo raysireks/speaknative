@@ -134,7 +134,7 @@ async function processPhrase(originalPhrase: string, targetLocale: typeof LOCALE
 
         // 3. Add Variants (Parallel Embeddings)
         if (Array.isArray(parsed.variants)) {
-            const variantPromises = parsed.variants.map(async (v: any) => {
+            const variantPromises = parsed.variants.map(async (v: unknown) => {
                 if (v.text.toLowerCase() === parsed.standard.toLowerCase()) return null;
                 const variantResult = await embeddingModel.embedContent(v.text);
                 return {

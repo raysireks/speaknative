@@ -132,6 +132,7 @@ export function ReviewSession({
         {/* Card */}
         <div className="flex min-h-[500px] flex-col rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl sm:p-12">
           <ReviewCard
+            key={currentPhrase.id}
             phrase={currentPhrase}
             mode={mode as 'audio-only' | 'speaker'}
             onPlayAudio={handlePlayAudio}

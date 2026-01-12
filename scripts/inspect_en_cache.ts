@@ -23,7 +23,7 @@ async function inspect() {
     console.log(`Total phrases: ${data?.phrases?.length}`);
 
     if (data?.phrases?.length > 0) {
-        data.phrases.forEach((sample: any, i: number) => {
+        data.phrases.forEach((sample: unknown, i: number) => {
             console.log(`[${i}] "${sample.text}"`);
             const variantLocales = Object.keys(sample.variants || {});
             if (variantLocales.length > 0) {

@@ -1,5 +1,6 @@
 
 import * as admin from 'firebase-admin';
+console.log("Admin initialized:", !!admin);
 import * as dotenv from 'dotenv';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { initializeApp } from 'firebase/app';

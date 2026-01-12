@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { FlashcardItem } from '../Flashcards';
 
 interface ReviewCardProps {
@@ -15,10 +15,6 @@ export function ReviewCard({
   regionName,
 }: ReviewCardProps) {
   const [variantIndex, setVariantIndex] = useState(0);
-
-  useEffect(() => {
-    setVariantIndex(0);
-  }, [phrase]);
 
   const handleNextVariant = () => {
     if (phrase.variants && variantIndex < phrase.variants.length - 1) {

@@ -24,7 +24,14 @@ export interface FlashcardItem {
 function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
   const { t } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
   const [variantIndex, setVariantIndex] = useState(0);
+
+  // Reset variant index when moving to next/previous main phrase
+  if (currentIndex !== prevIndex) {
+    setPrevIndex(currentIndex);
+    setVariantIndex(0);
+  }
   const [phrases, setPhrases] = useState<FlashcardItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -68,10 +75,7 @@ function Flashcards({ targetLocale, userLocale, onBack }: FlashcardsProps) {
     fetchPhrases();
   }, [targetLocale, userLangLocale, userLocale]);
 
-  // Reset variant index when moving to next/previous main phrase
-  useEffect(() => {
-    setVariantIndex(0);
-  }, [currentIndex]);
+
 
   const handleNextVariant = () => {
     const currentPhrase = phrases[currentIndex];

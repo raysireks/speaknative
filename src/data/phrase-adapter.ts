@@ -122,9 +122,9 @@ export async function getDynamicPhrases(targetLocale: string, userLocale: string
   const cached = await fetchCachedPhrases(userLocale);
 
   if (cached && cached.length > 0) {
-    const backendTargetLocale = LOCALE_MAP[targetLocale] || targetLocale;
-    return cached.map((p: any) => {
-      const targetVariantsRaw = p.variants?.[backendTargetLocale] || [];
+    return cached.map((p: Phrase) => {
+      const backendTargetLocale = LOCALE_MAP[targetLocale] || targetLocale;
+      const targetVariantsRaw = (p.variants as any)?.[backendTargetLocale] || [];
 
       let primary = '';
       let variants: { text: string; is_slang: boolean; score?: number }[] = [];

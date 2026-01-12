@@ -23,7 +23,7 @@ async function inspect() {
     console.log(`Total phrases: ${data?.phrases?.length}`);
 
     // Find "Delicioso"
-    const target = data?.phrases.find((p: any) => p.text === 'Delicioso');
+    const target = data?.phrases.find((p: unknown) => p.text === 'Delicioso');
 
     if (target) {
         console.log(`\nFound target: "${target.text}"`);
