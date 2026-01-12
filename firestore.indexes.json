@@ -70,6 +70,41 @@
             "queryScope": "COLLECTION",
             "fields": [
                 {
+                    "fieldPath": "is_question",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "embedding",
+                    "vectorConfig": {
+                        "dimension": 768,
+                        "flat": {}
+                    }
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "is_slang",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "locale",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "usage_count",
+                    "order": "DESCENDING"
+                }
+            ]
+        },
+        {
+            "collectionGroup": "phrases",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
                     "fieldPath": "intent_embedding",
                     "vectorConfig": {
                         "dimension": 768,

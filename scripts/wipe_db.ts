@@ -19,7 +19,7 @@ async function deleteCollection(collectionPath: string, batchSize: number) {
     });
 }
 
-async function deleteQueryBatch(db: any, query: any, resolve: any) {
+async function deleteQueryBatch(db: unknown, query: unknown, resolve: unknown) {
     const snapshot = await query.get();
 
     const batchSize = snapshot.size;
@@ -30,7 +30,7 @@ async function deleteQueryBatch(db: any, query: any, resolve: any) {
     }
 
     const batch = db.batch();
-    snapshot.docs.forEach((doc: any) => {
+    snapshot.docs.forEach((doc: unknown) => {
         batch.delete(doc.ref);
     });
     await batch.commit();

@@ -21,7 +21,7 @@ async function listModels() {
         const data = await response.json();
         console.log("Available Models:");
         if (data.models) {
-            data.models.forEach((m: any) => {
+            data.models.forEach((m: unknown) => {
                 console.log(`- ${m.name} (${m.displayName}): ${m.supportedGenerationMethods.join(', ')}`);
             });
         } else {

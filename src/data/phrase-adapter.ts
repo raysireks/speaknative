@@ -19,7 +19,7 @@ export interface Phrase {
   variants?: {
     text: string;
     is_slang: boolean;
-    is_question: boolean;
+    is_question?: boolean;
     score?: number;
   }[];
 }
@@ -122,8 +122,9 @@ export async function getDynamicPhrases(targetLocale: string, userLocale: string
   const cached = await fetchCachedPhrases(userLocale);
 
   if (cached && cached.length > 0) {
-    return cached.map((p: any) => {
-      const targetVariantsRaw = p.variants?.[targetLocale] || [];
+    return cached.map((p: Phrase) => {
+      const backendTargetLocale = LOCALE_MAP[targetLocale] || targetLocale;
+      const targetVariantsRaw = (p.variants as any)?.[backendTargetLocale] || [];
 
       let primary = '';
       let variants: { text: string; is_slang: boolean; score?: number }[] = [];
