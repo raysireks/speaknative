@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import * as admin from 'firebase-admin';
 import { FieldValue, Firestore } from 'firebase-admin/firestore';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -123,7 +124,7 @@ export async function translateCore(
             userEmbedding, // queryIntent
             docVec,
             intVec,
-            (doc as any).distance ?? 0.5,
+            (doc as admin.firestore.QueryDocumentSnapshot & { distance?: number }).distance ?? 0.5,
             d.is_slang || false
         );
 

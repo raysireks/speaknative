@@ -92,12 +92,8 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                     intentVec, // queryIntent
                                     variantEmbedding, variantIntent, (_a = vDoc.distance) !== null && _a !== void 0 ? _a : 0.5, // fsDistance
                                     d.is_slang || false);
-                                    if (score > 0.7) {
-                                        console.log(`  Match: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
-                                    }
-                                    // SLANG PENALTY: Reduce score for slang to prefer proper translations
-                                    if (d.is_slang) {
-                                        score *= 0.95;
+                                    if (score > 0.5) {
+                                        console.log(`  Candidate: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
                                     }
                                     allFound.set(vDoc.id, {
                                         text: d.text,
@@ -108,8 +104,8 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                 }
                                 // Sort by score and filter unique texts
                                 const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
-                                // Tighter threshold for cache inclusion
-                                const highConfidence = sortedMatches.filter(m => m.score > 0.8);
+                                // 1. Primary Filter: High confidence only (> 0.7)
+                                const highConfidence = sortedMatches.filter(m => m.score > 0.7);
                                 const variants = [];
                                 if (highConfidence.length > 0) {
                                     for (const match of highConfidence) {
@@ -122,6 +118,20 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                                 score: parseFloat(match.score.toFixed(4))
                                             });
                                         }
+                                    }
+                                }
+                                else if (sortedMatches.length > 0) {
+                                    // 2. Fallback: If absolutely no match hits 0.7, take the single best match 
+                                    // provided it's at least 0.6 (Best Effort).
+                                    const best = sortedMatches[0];
+                                    if (best.score > 0.6) {
+                                        console.log(`    [FALLBACK] Using best match: "${best.text}" (${best.score})`);
+                                        variants.push({
+                                            text: best.text,
+                                            is_slang: best.is_slang || false,
+                                            is_question: best.is_question || false,
+                                            score: parseFloat(best.score.toFixed(4))
+                                        });
                                     }
                                 }
                                 phraseEntry.variants[targetLocale] = variants;

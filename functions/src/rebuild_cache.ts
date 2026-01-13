@@ -1,3 +1,4 @@
+import * as admin from 'firebase-admin';
 import { Firestore } from 'firebase-admin/firestore';
 import { getVectorData, calculateUnifiedScore } from './utils';
 import { translateCore } from './translate_core.js';
@@ -106,22 +107,17 @@ export async function rebuildGlobalCacheLogic(
                                     const variantIntent = getVectorData(d.intent_embedding);
 
                                     // Use centralized logic (Intent heavily weighted for slang, Literal for normal)
-                                    let score = calculateUnifiedScore(
+                                    const score = calculateUnifiedScore(
                                         embeddingArray, // queryLiteral
                                         intentVec as number[], // queryIntent
                                         variantEmbedding,
                                         variantIntent,
-                                        (vDoc as any).distance ?? 0.5, // fsDistance
+                                        (vDoc as admin.firestore.QueryDocumentSnapshot & { distance?: number }).distance ?? 0.5, // fsDistance
                                         d.is_slang || false
                                     );
 
-                                    if (score > 0.7) {
-                                        console.log(`  Match: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
-                                    }
-
-                                    // SLANG PENALTY: Reduce score for slang to prefer proper translations
-                                    if (d.is_slang) {
-                                        score *= 0.95;
+                                    if (score > 0.5) {
+                                        console.log(`  Candidate: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
                                     }
 
                                     allFound.set(vDoc.id, {
@@ -134,8 +130,9 @@ export async function rebuildGlobalCacheLogic(
 
                                 // Sort by score and filter unique texts
                                 const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
-                                // Tighter threshold for cache inclusion
-                                const highConfidence = sortedMatches.filter(m => m.score > 0.8);
+
+                                // 1. Primary Filter: High confidence only (> 0.7)
+                                const highConfidence = sortedMatches.filter(m => m.score > 0.7);
                                 const variants: { text: string, is_slang: boolean, is_question: boolean, score: number }[] = [];
 
                                 if (highConfidence.length > 0) {
@@ -149,6 +146,19 @@ export async function rebuildGlobalCacheLogic(
                                                 score: parseFloat(match.score.toFixed(4))
                                             });
                                         }
+                                    }
+                                } else if (sortedMatches.length > 0) {
+                                    // 2. Fallback: If absolutely no match hits 0.7, take the single best match 
+                                    // provided it's at least 0.6 (Best Effort).
+                                    const best = sortedMatches[0];
+                                    if (best.score > 0.6) {
+                                        console.log(`    [FALLBACK] Using best match: "${best.text}" (${best.score})`);
+                                        variants.push({
+                                            text: best.text,
+                                            is_slang: best.is_slang || false,
+                                            is_question: best.is_question || false,
+                                            score: parseFloat(best.score.toFixed(4))
+                                        });
                                     }
                                 }
                                 phraseEntry.variants[targetLocale] = variants;

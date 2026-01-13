@@ -24,7 +24,7 @@ async function deleteCollection(collectionPath: string, batchSize: number = 100)
     });
 }
 
-async function deleteQueryBatch(query: admin.firestore.Query, resolve: any) {
+async function deleteQueryBatch(query: admin.firestore.Query, resolve: (value: unknown) => void) {
     const snapshot = await query.get();
 
     const batchSize = snapshot.size;
