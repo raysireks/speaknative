@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FieldValue, Firestore } from 'firebase-admin/firestore';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getVectorData, cosineSimilarity } from './utils';
+import { getVectorData, calculateUnifiedScore } from './utils';
 
 
 export async function translateCore(
@@ -117,15 +117,31 @@ export async function translateCore(
         const d = doc.data();
         const docVec = getVectorData(d.embedding);
         const intVec = getVectorData(d.intent_embedding);
-        const s1 = docVec ? cosineSimilarity(userEmbedding, docVec) : 0;
-        const s2 = intVec ? cosineSimilarity(userEmbedding, intVec) : 0;
-        const score = Math.max(s1, s2);
+
+        const score = calculateUnifiedScore(
+            userEmbedding, // queryLiteral
+            userEmbedding, // queryIntent
+            docVec,
+            intVec,
+            (doc as any).distance ?? 0.5,
+            d.is_slang || false
+        );
+
         if (score > maxScore) { maxScore = score; bestMatch = doc; }
     }
 
     const activeThreshold = typeof testThreshold === 'number' ? testThreshold : 0.7;
     if (!forceRefresh && bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
         const matchData = bestMatch.data();
+
+        // Defensive: Even if we return cache, mark the source as translated for this locale
+        // to prevent iterative rebuilds from re-triggering this pair.
+        if (!sourceTranslated) {
+            await sourceDocRef.update({
+                [`translated.${targetLocale}`]: true
+            });
+        }
+
         return {
             id: bestMatch.id,
             text: matchData.text,

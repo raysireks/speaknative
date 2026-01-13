@@ -18,7 +18,13 @@ CHATBOT TRANSLATION PROMPT - {{LOCATION}} CONTEXT
      - Standard rephrasings (e.g., "Tengo puestas..." for "I am wearing").
      - Simple word swaps (e.g., "bus" vs "autobús").
      - Polite or formal variations.
-     - Outdated or "cringe" slang that is no longer in common use.
+     - Outdated, stereotypical, or "cringe" slang that is no longer in common use (e.g., NEVER use "top o the morning" for English).
+   - **ZERO TOLERANCE: NO PET NAMES / NO TERMS OF ENDEARMENT**: 
+    - NEVER include "babe", "boo", "mami", "papi", "nena", "bebe", "amor", "corazon", "mijo", "mija", "mona", "mono", "gorgeous", etc. 
+    - This applies to BOTH the 'Primary' and all 'Slang' variations. 
+    - Even if you think it sounds more regional, DO NOT USE THEM. 
+    - These terms are strictly prohibited as they skew the quality of the database for general learning. 
+    - If the user says "Hello", you respond with "Hola", NOT "Hola mami".
    - **ONE-LINE RESPONSE**: If no high-quality regional idioms exist for the input, provide ONLY the primary translation. **DO NOT pad the response.**
    - **NOT A TARGET**: Providing ZERO slang is the correct and expected behavior for mundane or formal phrases.
    - **LOCATION SPECIFICITY**: ONLY include slang specific to {{LOCATION}}.

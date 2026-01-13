@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const utils_1 = require("./utils");
 async function translateCore(db, text, userLocale, targetLocale, testThreshold, forceRefresh = false) {
-    var _a;
+    var _a, _b;
     if (!text || !userLocale || !targetLocale) {
         throw new Error('text, userLocale, and targetLocale are required.');
     }
@@ -85,7 +85,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
             baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get()
         ]);
     }
-    catch (_b) {
+    catch (_c) {
         console.warn("Vector search failed (maybe index missing or empty collection), proceeding to generate.");
         litSnap = { docs: [] };
         intSnap = { docs: [] };
@@ -97,9 +97,9 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         const d = doc.data();
         const docVec = (0, utils_1.getVectorData)(d.embedding);
         const intVec = (0, utils_1.getVectorData)(d.intent_embedding);
-        const s1 = docVec ? (0, utils_1.cosineSimilarity)(userEmbedding, docVec) : 0;
-        const s2 = intVec ? (0, utils_1.cosineSimilarity)(userEmbedding, intVec) : 0;
-        const score = Math.max(s1, s2);
+        const score = (0, utils_1.calculateUnifiedScore)(userEmbedding, // queryLiteral
+        userEmbedding, // queryIntent
+        docVec, intVec, (_a = doc.distance) !== null && _a !== void 0 ? _a : 0.5, d.is_slang || false);
         if (score > maxScore) {
             maxScore = score;
             bestMatch = doc;
@@ -108,6 +108,13 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
     const activeThreshold = typeof testThreshold === 'number' ? testThreshold : 0.7;
     if (!forceRefresh && bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
         const matchData = bestMatch.data();
+        // Defensive: Even if we return cache, mark the source as translated for this locale
+        // to prevent iterative rebuilds from re-triggering this pair.
+        if (!sourceTranslated) {
+            await sourceDocRef.update({
+                [`translated.${targetLocale}`]: true
+            });
+        }
         return {
             id: bestMatch.id,
             text: matchData.text,
@@ -189,7 +196,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         newDocRef = await phrasesRef.add(newTargetDoc);
     }
     // Slang Variants
-    if (((_a = parsed.slang_variants) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+    if (((_b = parsed.slang_variants) === null || _b === void 0 ? void 0 : _b.length) > 0) {
         const batch = db.batch(); // Limit 500
         for (const variant of parsed.slang_variants) {
             try {
@@ -210,7 +217,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
                     });
                 }
             }
-            catch (_c) {
+            catch (_d) {
                 console.error("Embedding/Checking variant failed", variant);
             }
         }

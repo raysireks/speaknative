@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cosineSimilarity = exports.getVectorData = void 0;
+exports.calculateUnifiedScore = exports.cosineSimilarity = exports.getVectorData = void 0;
 // Helper: Extract numeric array
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getVectorData(field) {
@@ -23,4 +23,24 @@ function cosineSimilarity(a, b) {
     return (magA && magB) ? dot / (magA * magB) : 0;
 }
 exports.cosineSimilarity = cosineSimilarity;
+/**
+ * Unified Scoring Logic
+ * Normal phrases: Literal match is more important.
+ * Slang phrases: Intent/Semantic (Distance) matters more.
+ */
+function calculateUnifiedScore(queryLiteral, queryIntent, docLiteral, docIntent, fsDistance, isSlang) {
+    const sLiteral = docLiteral ? cosineSimilarity(queryLiteral, docLiteral) : 0;
+    const sIntent = docIntent ? cosineSimilarity(queryIntent, docIntent) : 0;
+    // 1. Manual Math: Combine Literal and Intent based on slang context
+    // If slang, Intent is 80%. If normal, Literal is 80%.
+    const manualTruth = isSlang
+        ? (sIntent * 0.8) + (sLiteral * 0.2)
+        : (sLiteral * 0.8) + (sIntent * 0.2);
+    // 2. Index Math: Trust the index distance (1 - similarity)
+    const fsScore = 1 - fsDistance;
+    // 3. Final Blend: Trust our manual calc (70%) over the index's snapshot (30%)
+    const score = (manualTruth * 0.7) + (fsScore * 0.3);
+    return parseFloat(score.toFixed(4));
+}
+exports.calculateUnifiedScore = calculateUnifiedScore;
 //# sourceMappingURL=utils.js.map

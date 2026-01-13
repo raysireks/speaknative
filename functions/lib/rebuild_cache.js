@@ -4,6 +4,7 @@ exports.rebuildGlobalCacheLogic = void 0;
 const utils_1 = require("./utils");
 const translate_core_js_1 = require("./translate_core.js");
 async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
+    var _a;
     const ALL_LOCALES = ['en-US-CA', 'es-CO-CTG', 'es-CO-MDE'];
     const SUPPORTED_LOCALES = targetLocales || ALL_LOCALES;
     const phrasesRef = db.collection('phrases');
@@ -86,9 +87,14 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                     const d = vDoc.data();
                                     const variantEmbedding = (0, utils_1.getVectorData)(d.embedding);
                                     const variantIntent = (0, utils_1.getVectorData)(d.intent_embedding);
-                                    const s1 = (variantEmbedding && Array.isArray(embeddingArray)) ? (0, utils_1.cosineSimilarity)(embeddingArray, variantEmbedding) : 0;
-                                    const s2 = (variantIntent && Array.isArray(embeddingArray)) ? (0, utils_1.cosineSimilarity)(embeddingArray, variantIntent) : 0;
-                                    let score = Math.max(s1, s2);
+                                    // Use centralized logic (Intent heavily weighted for slang, Literal for normal)
+                                    let score = (0, utils_1.calculateUnifiedScore)(embeddingArray, // queryLiteral
+                                    intentVec, // queryIntent
+                                    variantEmbedding, variantIntent, (_a = vDoc.distance) !== null && _a !== void 0 ? _a : 0.5, // fsDistance
+                                    d.is_slang || false);
+                                    if (score > 0.7) {
+                                        console.log(`  Match: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
+                                    }
                                     // SLANG PENALTY: Reduce score for slang to prefer proper translations
                                     if (d.is_slang) {
                                         score *= 0.95;
@@ -97,12 +103,13 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                         text: d.text,
                                         is_slang: d.is_slang || false,
                                         is_question: d.is_question,
-                                        score
+                                        score: parseFloat(score.toFixed(4))
                                     });
                                 }
                                 // Sort by score and filter unique texts
                                 const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
-                                const highConfidence = sortedMatches.filter(m => m.score > 0.7);
+                                // Tighter threshold for cache inclusion
+                                const highConfidence = sortedMatches.filter(m => m.score > 0.8);
                                 const variants = [];
                                 if (highConfidence.length > 0) {
                                     for (const match of highConfidence) {
@@ -116,15 +123,6 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                             });
                                         }
                                     }
-                                }
-                                else if (sortedMatches.length > 0) {
-                                    const match = sortedMatches[0];
-                                    variants.push({
-                                        text: match.text,
-                                        is_slang: match.is_slang || false,
-                                        is_question: match.is_question || false,
-                                        score: parseFloat(match.score.toFixed(4))
-                                    });
                                 }
                                 phraseEntry.variants[targetLocale] = variants;
                             }

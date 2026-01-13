@@ -1,5 +1,5 @@
 import { Firestore } from 'firebase-admin/firestore';
-import { getVectorData, cosineSimilarity } from './utils';
+import { getVectorData, calculateUnifiedScore } from './utils';
 import { translateCore } from './translate_core.js';
 
 export async function rebuildGlobalCacheLogic(
@@ -104,10 +104,21 @@ export async function rebuildGlobalCacheLogic(
                                     const d = vDoc.data();
                                     const variantEmbedding = getVectorData(d.embedding);
                                     const variantIntent = getVectorData(d.intent_embedding);
-                                    const s1 = (variantEmbedding && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantEmbedding) : 0;
-                                    const s2 = (variantIntent && Array.isArray(embeddingArray)) ? cosineSimilarity(embeddingArray, variantIntent) : 0;
 
-                                    let score = Math.max(s1, s2);
+                                    // Use centralized logic (Intent heavily weighted for slang, Literal for normal)
+                                    let score = calculateUnifiedScore(
+                                        embeddingArray, // queryLiteral
+                                        intentVec as number[], // queryIntent
+                                        variantEmbedding,
+                                        variantIntent,
+                                        (vDoc as any).distance ?? 0.5, // fsDistance
+                                        d.is_slang || false
+                                    );
+
+                                    if (score > 0.7) {
+                                        console.log(`  Match: "${d.text}" | Score: ${score.toFixed(4)} | Slang: ${d.is_slang}`);
+                                    }
+
                                     // SLANG PENALTY: Reduce score for slang to prefer proper translations
                                     if (d.is_slang) {
                                         score *= 0.95;
@@ -117,13 +128,14 @@ export async function rebuildGlobalCacheLogic(
                                         text: d.text,
                                         is_slang: d.is_slang || false,
                                         is_question: d.is_question,
-                                        score
+                                        score: parseFloat(score.toFixed(4))
                                     });
                                 }
 
                                 // Sort by score and filter unique texts
                                 const sortedMatches = Array.from(allFound.values()).sort((a, b) => b.score - a.score);
-                                const highConfidence = sortedMatches.filter(m => m.score > 0.7);
+                                // Tighter threshold for cache inclusion
+                                const highConfidence = sortedMatches.filter(m => m.score > 0.8);
                                 const variants: { text: string, is_slang: boolean, is_question: boolean, score: number }[] = [];
 
                                 if (highConfidence.length > 0) {
@@ -138,14 +150,6 @@ export async function rebuildGlobalCacheLogic(
                                             });
                                         }
                                     }
-                                } else if (sortedMatches.length > 0) {
-                                    const match = sortedMatches[0];
-                                    variants.push({
-                                        text: match.text,
-                                        is_slang: match.is_slang || false,
-                                        is_question: match.is_question || false,
-                                        score: parseFloat(match.score.toFixed(4))
-                                    });
                                 }
                                 phraseEntry.variants[targetLocale] = variants;
                             }
