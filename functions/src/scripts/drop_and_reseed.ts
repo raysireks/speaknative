@@ -29,7 +29,7 @@ async function deleteQueryBatch(query: admin.firestore.Query, resolve: (value: u
 
     const batchSize = snapshot.size;
     if (batchSize === 0) {
-        resolve();
+        resolve(null);
         return;
     }
 

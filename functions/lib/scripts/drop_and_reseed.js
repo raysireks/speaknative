@@ -24,7 +24,7 @@ async function deleteQueryBatch(query, resolve) {
     const snapshot = await query.get();
     const batchSize = snapshot.size;
     if (batchSize === 0) {
-        resolve();
+        resolve(null);
         return;
     }
     const batch = db.batch();

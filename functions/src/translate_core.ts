@@ -274,6 +274,7 @@ export async function translateCore(
         id: newDocRef.id,
         text: finalData?.text || parsed.text,
         is_slang: finalData?.is_slang || parsed.is_slang,
+        is_question: finalData?.is_question || parsed.is_question,
         usage_count: finalData?.usage_count || 1,
         locale: targetLocale,
         source: existingTargetQuery.empty ? 'generated' : 'existing_text_match'

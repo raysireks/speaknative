@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "speaknative-8ce5c"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

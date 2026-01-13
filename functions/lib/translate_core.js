@@ -233,6 +233,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         id: newDocRef.id,
         text: (finalData === null || finalData === void 0 ? void 0 : finalData.text) || parsed.text,
         is_slang: (finalData === null || finalData === void 0 ? void 0 : finalData.is_slang) || parsed.is_slang,
+        is_question: (finalData === null || finalData === void 0 ? void 0 : finalData.is_question) || parsed.is_question,
         usage_count: (finalData === null || finalData === void 0 ? void 0 : finalData.usage_count) || 1,
         locale: targetLocale,
         source: existingTargetQuery.empty ? 'generated' : 'existing_text_match'

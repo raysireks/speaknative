@@ -35,7 +35,26 @@ export async function rebuildGlobalCacheLogic(
                 // 1. Ensure the base phrase is fully translated
                 for (const loc of ALL_LOCALES) {
                     if (loc === sourceLocale) continue;
+
                     if (!data.translated || data.translated[loc] !== true) {
+                        // Check if a good vector match already exists before triggering LLM
+                        const emb = getVectorData(data.intent_embedding || data.embedding);
+                        if (emb) {
+                            const matchSnap = await phrasesRef
+                                .where('locale', '==', loc)
+                                .findNearest('embedding', emb, { limit: 1, distanceMeasure: 'COSINE' })
+                                .get();
+
+                            const bestMatch = matchSnap.docs[0];
+                            const dist = (bestMatch as admin.firestore.QueryDocumentSnapshot & { distance?: number })?.distance ?? 1.0;
+                            const score = 1.0 - dist;
+
+                            if (score >= 0.7) {
+                                console.log(`  [Skip LLM] High-confidence match already exists for "${data.text}" in ${loc} (${score.toFixed(4)})`);
+                                continue;
+                            }
+                        }
+
                         console.log(`Triggering missing translation for base phrase: "${data.text}" (${sourceLocale} -> ${loc})`);
                         await translateCore(db, data.text, sourceLocale, loc);
                         stable = false;
@@ -147,17 +166,29 @@ export async function rebuildGlobalCacheLogic(
                                             });
                                         }
                                     }
-                                } else if (sortedMatches.length > 0) {
+                                } else if (sortedMatches.length > 0 && data.translated?.[targetLocale]) {
                                     // 2. Fallback: If absolutely no match hits 0.7, take the single best match 
                                     // provided it's at least 0.6 (Best Effort).
                                     const best = sortedMatches[0];
                                     if (best.score > 0.6) {
-                                        console.log(`    [FALLBACK] Using best match: "${best.text}" (${best.score})`);
+                                        console.log(`    [FALLBACK] Using best match for confirmed concept: "${best.text}" (${best.score})`);
                                         variants.push({
                                             text: best.text,
                                             is_slang: best.is_slang || false,
                                             is_question: best.is_question || false,
                                             score: parseFloat(best.score.toFixed(4))
+                                        });
+                                    }
+                                } else {
+                                    // 3. BELOW Threshold AND NOT Translated -> Trigger LLM late
+                                    console.log(`    [LATE LLM] No match (>0.7) and no flag. Translating: "${data.text}" -> ${targetLocale}`);
+                                    const res = await translateCore(db, data.text, sourceLocale, targetLocale);
+                                    if (res) {
+                                        variants.push({
+                                            text: res.text,
+                                            is_slang: res.is_slang || false,
+                                            is_question: res.is_question || false,
+                                            score: 1.0 // Direct AI translation
                                         });
                                     }
                                 }
