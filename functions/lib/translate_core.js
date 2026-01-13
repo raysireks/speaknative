@@ -153,19 +153,38 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         .replace(/{{TEXT}}/g, trimmedText);
     const transResult = await model.generateContent(fullPrompt);
     const transResponse = transResult.response.text().trim();
-    // Parse newline-separated output
-    const lines = transResponse.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-    const mainTranslation = lines[0] || "Error translating";
-    const slangVariants = lines.slice(1);
+    // Parse JSON output
+    let parsedJson;
+    try {
+        // Extract JSON if wrapped in markdown code blocks
+        const jsonMatch = transResponse.match(/```json\n([\s\S]*?)\n```/) || transResponse.match(/{[\s\S]*}/);
+        const jsonText = jsonMatch ? jsonMatch[1] || jsonMatch[0] : transResponse;
+        parsedJson = JSON.parse(jsonText);
+    }
+    catch (err) {
+        console.error("Failed to parse JSON response, falling back to basic structure.", err);
+        parsedJson = {
+            primary: "Error translating",
+            semantic_anchor: "Error",
+            logical_polarity: "NEUTRAL",
+            slang: []
+        };
+    }
     const parsed = {
-        text: mainTranslation,
+        text: parsedJson.primary,
+        semantic_anchor: parsedJson.semantic_anchor || parsedJson.primary,
+        logical_polarity: parsedJson.logical_polarity || "NEUTRAL",
         is_slang: false,
-        is_question: mainTranslation.includes('?'),
-        slang_variants: slangVariants
+        is_question: parsedJson.primary.includes('?'),
+        slang_variants: parsedJson.slang || []
     };
-    // Embed result
-    const resEmbed = await embeddingModel.embedContent(parsed.text);
+    // Embed result & Semantic Anchor
+    const [resEmbed, anchorEmbed] = await Promise.all([
+        embeddingModel.embedContent(parsed.text),
+        embeddingModel.embedContent(parsed.semantic_anchor)
+    ]);
     const resVector = firestore_1.FieldValue.vector(resEmbed.embedding.values);
+    const intentVector = firestore_1.FieldValue.vector(anchorEmbed.embedding.values);
     // Check for existing translation in target locale to prevent duplicates
     const existingTargetQuery = await phrasesRef
         .where('locale', '==', targetLocale)
@@ -182,6 +201,8 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         // Insert New Target Doc
         const newTargetDoc = {
             text: parsed.text,
+            semantic_anchor: parsed.semantic_anchor,
+            logical_polarity: parsed.logical_polarity,
             is_slang: parsed.is_slang,
             is_question: parsed.is_question !== undefined ? parsed.is_question : (parsed.text.includes('?') || parsed.text.includes('¿')),
             usage_count: 1,
@@ -190,7 +211,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
             country: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.country) || 'Unknown',
             region: (targetInfo === null || targetInfo === void 0 ? void 0 : targetInfo.region) || 'Unknown',
             embedding: resVector,
-            intent_embedding: userVector,
+            intent_embedding: intentVector,
             createdAt: firestore_1.FieldValue.serverTimestamp()
         };
         newDocRef = await phrasesRef.add(newTargetDoc);
@@ -199,12 +220,6 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
     if (((_b = parsed.slang_variants) === null || _b === void 0 ? void 0 : _b.length) > 0) {
         const batch = db.batch(); // Limit 500
         for (const variant of parsed.slang_variants) {
-            // Quality Rule: Don't save slang that is only 1 word
-            const wordCount = variant.trim().split(/\s+/).filter(w => w.length > 0).length;
-            if (wordCount < 2) {
-                console.log(`  [Skip Slang] Phrase too short (${wordCount} word): "${variant}"`);
-                continue;
-            }
             try {
                 // Check exist check for variant
                 const exVarSnap = await phrasesRef
@@ -217,8 +232,15 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
                     const svVec = firestore_1.FieldValue.vector(svEmbed.embedding.values);
                     const slDoc = phrasesRef.doc();
                     batch.set(slDoc, {
-                        text: variant, is_slang: true, is_question: parsed.is_question, usage_count: 0,
-                        locale: targetLocale, embedding: svVec, intent_embedding: userVector,
+                        text: variant,
+                        semantic_anchor: parsed.semantic_anchor,
+                        logical_polarity: parsed.logical_polarity,
+                        is_slang: true,
+                        is_question: parsed.is_question !== undefined ? parsed.is_question : (variant.includes('?') || variant.includes('¿')),
+                        usage_count: 0,
+                        locale: targetLocale,
+                        embedding: svVec,
+                        intent_embedding: intentVector,
                         createdAt: firestore_1.FieldValue.serverTimestamp()
                     });
                 }

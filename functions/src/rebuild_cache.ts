@@ -105,9 +105,13 @@ export async function rebuildGlobalCacheLogic(
 
                     if (Array.isArray(embeddingArray)) {
                         try {
-                            const baseQ = phrasesRef
+                            let baseQ = phrasesRef
                                 .where('locale', '==', targetLocale)
                                 .where('is_question', '==', isQuestion);
+
+                            if (data.logical_polarity) {
+                                baseQ = baseQ.where('logical_polarity', '==', data.logical_polarity);
+                            }
 
                             const [litSnap, intSnap] = await Promise.all([
                                 baseQ.findNearest('embedding', embeddingArray, { limit: 20, distanceMeasure: 'COSINE' }).get(),

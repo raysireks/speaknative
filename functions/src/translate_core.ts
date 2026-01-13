@@ -188,21 +188,39 @@ export async function translateCore(
     const transResult = await model.generateContent(fullPrompt);
     const transResponse = transResult.response.text().trim();
 
-    // Parse newline-separated output
-    const lines = transResponse.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-    const mainTranslation = lines[0] || "Error translating";
-    const slangVariants = lines.slice(1);
+    // Parse JSON output
+    let parsedJson;
+    try {
+        // Extract JSON if wrapped in markdown code blocks
+        const jsonMatch = transResponse.match(/```json\n([\s\S]*?)\n```/) || transResponse.match(/{[\s\S]*}/);
+        const jsonText = jsonMatch ? jsonMatch[1] || jsonMatch[0] : transResponse;
+        parsedJson = JSON.parse(jsonText);
+    } catch (err) {
+        console.error("Failed to parse JSON response, falling back to basic structure.", err);
+        parsedJson = {
+            primary: "Error translating",
+            semantic_anchor: "Error",
+            logical_polarity: "NEUTRAL",
+            slang: []
+        };
+    }
 
     const parsed = {
-        text: mainTranslation,
+        text: parsedJson.primary,
+        semantic_anchor: parsedJson.semantic_anchor || parsedJson.primary,
+        logical_polarity: (parsedJson.logical_polarity || "NEUTRAL").toUpperCase(),
         is_slang: false,
-        is_question: mainTranslation.includes('?'),
-        slang_variants: slangVariants
+        is_question: parsedJson.primary.includes('?'),
+        slang_variants: parsedJson.slang || []
     };
 
-    // Embed result
-    const resEmbed = await embeddingModel.embedContent(parsed.text);
+    // Embed result & Semantic Anchor
+    const [resEmbed, anchorEmbed] = await Promise.all([
+        embeddingModel.embedContent(parsed.text),
+        embeddingModel.embedContent(parsed.semantic_anchor)
+    ]);
     const resVector = FieldValue.vector(resEmbed.embedding.values);
+    const intentVector = FieldValue.vector(anchorEmbed.embedding.values);
 
     // Check for existing translation in target locale to prevent duplicates
     const existingTargetQuery = await phrasesRef
@@ -221,6 +239,8 @@ export async function translateCore(
         // Insert New Target Doc
         const newTargetDoc = {
             text: parsed.text,
+            semantic_anchor: parsed.semantic_anchor,
+            logical_polarity: parsed.logical_polarity,
             is_slang: parsed.is_slang,
             is_question: parsed.is_question !== undefined ? parsed.is_question : (parsed.text.includes('?') || parsed.text.includes('¿')),
             usage_count: 1,
@@ -229,7 +249,7 @@ export async function translateCore(
             country: targetInfo?.country || 'Unknown',
             region: targetInfo?.region || 'Unknown',
             embedding: resVector,
-            intent_embedding: userVector,
+            intent_embedding: intentVector,
             createdAt: FieldValue.serverTimestamp()
         };
         newDocRef = await phrasesRef.add(newTargetDoc);
@@ -252,8 +272,15 @@ export async function translateCore(
                     const svVec = FieldValue.vector(svEmbed.embedding.values);
                     const slDoc = phrasesRef.doc();
                     batch.set(slDoc, {
-                        text: variant, is_slang: true, is_question: parsed.is_question, usage_count: 0,
-                        locale: targetLocale, embedding: svVec, intent_embedding: userVector,
+                        text: variant,
+                        semantic_anchor: parsed.semantic_anchor,
+                        logical_polarity: parsed.logical_polarity,
+                        is_slang: true,
+                        is_question: parsed.is_question !== undefined ? parsed.is_question : (variant.includes('?') || variant.includes('¿')),
+                        usage_count: 0,
+                        locale: targetLocale,
+                        embedding: svVec,
+                        intent_embedding: intentVector,
                         createdAt: FieldValue.serverTimestamp()
                     });
                 }

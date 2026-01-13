@@ -71,14 +71,26 @@ async function runTest() {
 
     for (const test of testCases) {
         console.log(`--- Test Case: "${test.text}" ---`);
-        const fullPrompt = generatePrompt(template, test.params);
+        const fullPrompt = generatePrompt(template, { ...test.params, TEXT: test.text } as any);
 
         try {
-            const result = await model.generateContent([fullPrompt, test.text]);
-            const response = result.response.text();
+            const result = await model.generateContent(fullPrompt);
+            const response = result.response.text().trim();
 
-            console.log("Response:");
-            console.log(response);
+            // Extract JSON if it's wrapped in markdown code blocks
+            const jsonMatch = response.match(/```json\n([\s\S]*?)\n```/) || response.match(/{[\s\S]*}/);
+            const jsonText = jsonMatch ? jsonMatch[1] || jsonMatch[0] : response;
+
+            try {
+                const parsed = JSON.parse(jsonText);
+                console.log("Primary  :", parsed.primary);
+                console.log("Anchor   :", parsed.semantic_anchor);
+                console.log("Polarity :", parsed.logical_polarity);
+                console.log("Slang    :", JSON.stringify(parsed.slang));
+            } catch (e) {
+                console.log("Raw Response (Failed to parse JSON):");
+                console.log(response);
+            }
             console.log("\n");
         } catch (error) {
             console.error(`Error during test for "${test.text}":`, error);
