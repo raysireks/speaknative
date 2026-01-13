@@ -39,7 +39,7 @@ async function runTest() {
 
     const testCases = [
         {
-            text: "It is sunny today.",
+            text: "That's nice.",
             params: {
                 LOCATION: "Cartagena",
                 USER_GENDER: "male",
@@ -48,7 +48,16 @@ async function runTest() {
             }
         },
         {
-            text: "I love you.",
+            text: "Excuse me.",
+            params: {
+                LOCATION: "Medellín",
+                USER_GENDER: "male",
+                RECIPIENT_GENDER: "female",
+                SLANG_COUNT: 5
+            }
+        },
+        {
+            text: "Hello, my friend.",
             params: {
                 LOCATION: "Cartagena",
                 USER_GENDER: "male",

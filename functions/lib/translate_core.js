@@ -199,6 +199,12 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
     if (((_b = parsed.slang_variants) === null || _b === void 0 ? void 0 : _b.length) > 0) {
         const batch = db.batch(); // Limit 500
         for (const variant of parsed.slang_variants) {
+            // Quality Rule: Don't save slang that is only 1 word
+            const wordCount = variant.trim().split(/\s+/).filter(w => w.length > 0).length;
+            if (wordCount < 2) {
+                console.log(`  [Skip Slang] Phrase too short (${wordCount} word): "${variant}"`);
+                continue;
+            }
             try {
                 // Check exist check for variant
                 const exVarSnap = await phrasesRef
