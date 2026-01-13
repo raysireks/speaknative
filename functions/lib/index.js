@@ -58,21 +58,22 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
                 const s1 = docVec ? (0, utils_1.cosineSimilarity)(searchEmbedding, docVec) : 0;
                 const s2 = intentVec ? (0, utils_1.cosineSimilarity)(searchEmbedding, intentVec) : 0;
                 score = Math.max(s1, s2);
+                // Slang Penalty: Weight slang slightly lower to prefer proper translations
+                if (data.is_slang) {
+                    score *= 0.95;
+                }
             }
-            allDocs.set(doc.id, Object.assign(Object.assign({ id: doc.id }, data), { score }));
+            allDocs.set(doc.id, Object.assign({ id: doc.id, text: data.text, score }, data));
         }
     });
     // Convert to array and sort
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let matches = Array.from(allDocs.values()).sort((a, b) => b.score - a.score);
     // Filter by Confidence
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    matches = matches.filter((m) => m.score > 0.7);
+    matches = matches.filter(m => m.score > 0.7);
     // Limit again after merge
     matches = matches.slice(0, limit);
     // If userLocale is provided, fetch translations via vector search (reverse lookup)
     if (userLocale && matches.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const resultsWithTranslation = await Promise.all(matches.map(async (m) => {
             let searchVec = m.embedding;
             if (!searchVec && searchEmbedding) {
@@ -92,13 +93,12 @@ exports.getSimilarPhrases = functions.https.onCall(async (request) => {
                     userText = transSnap.docs[0].data().text;
                 }
             }
-            return Object.assign(Object.assign({ id: m.id, text: m.text, translation: userText, is_slang: m.is_slang || false, slangText: m.is_slang ? m.text : undefined, slangTranslation: undefined }, m), { embedding: undefined // Remove large vector
+            return Object.assign(Object.assign({ translation: userText, is_slang: m.is_slang || false, slangText: m.is_slang ? m.text : undefined, slangTranslation: undefined }, m), { embedding: undefined // Remove large vector
              });
         }));
         return resultsWithTranslation;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return matches.map((m) => (Object.assign(Object.assign({ id: m.id }, m), { is_slang: m.is_slang || false, embedding: undefined })));
+    return matches.map(m => (Object.assign(Object.assign({}, m), { is_slang: m.is_slang || false, embedding: undefined })));
 });
 /**
  * Direct Translation Function (Server-Side)
@@ -186,10 +186,15 @@ exports.getUnifiedPhraseCache = functions.https.onCall(async (request) => {
                 let s2 = 0;
                 if (intentVecToUse && iv)
                     s2 = (0, utils_1.cosineSimilarity)(intentVecToUse, iv);
+                let score = Math.max(s1, s2);
+                // Slang Penalty
+                if (dA.is_slang) {
+                    score *= 0.95;
+                }
                 return {
                     text: dA.text,
                     is_slang: dA.is_slang,
-                    score: parseFloat(Math.max(s1, s2).toFixed(4))
+                    score: parseFloat(score.toFixed(4))
                 };
             }).sort((a, b) => b.score - a.score);
             const activeThreshold = Number(threshold);
@@ -222,6 +227,7 @@ exports.getUnifiedPhraseCache = functions.https.onCall(async (request) => {
         };
     }
     // Initial Search
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let searchResult = await performSearch();
     // Check Error/Missing
     if (searchResult.error)

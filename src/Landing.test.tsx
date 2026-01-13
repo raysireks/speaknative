@@ -30,7 +30,7 @@ describe('Landing', () => {
     renderWithLocale(
       <Landing selectedTargetLocale="" onSelectTargetLocale={mockOnSelectTargetLocale} />
     );
-    expect(screen.getByRole('button', { name: /Toggle language/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Change native language/i })).toBeInTheDocument();
   });
 
   it('filters regions based on language', () => {
@@ -42,7 +42,7 @@ describe('Landing', () => {
     expect(screen.getByText('Cartagena')).toBeInTheDocument();
 
     // Switch to Spanish user -> English regions
-    const toggleButton = screen.getByRole('button', { name: /Toggle language/i });
+    const toggleButton = screen.getByRole('button', { name: /Change native language/i });
     fireEvent.click(toggleButton);
 
     expect(screen.getByText('California')).toBeInTheDocument();
@@ -105,23 +105,26 @@ describe('Landing', () => {
 
   it('passes correct userLocale when Spanish is selected', () => {
     renderWithLocale(
-      <Landing
-        selectedTargetLocale=""
-        onSelectTargetLocale={mockOnSelectTargetLocale}
-        onStartFlashcards={mockOnStartFlashcards}
-      />
+      <LocaleProvider>
+        <Landing
+          selectedTargetLocale=""
+          onSelectTargetLocale={mockOnSelectTargetLocale}
+          onStartFlashcards={mockOnStartFlashcards}
+        />
+      </LocaleProvider>
     );
 
-    // Toggle to Spanish
-    fireEvent.click(screen.getByRole('button', { name: /Toggle language/i }));
+    // Toggle to Spanish (select Medellín as native region)
+    fireEvent.click(screen.getByRole('button', { name: /Change native language/i }));
+    fireEvent.click(screen.getAllByText('Medellín')[0]); // Use getAllByText because Medellín might appear twice (as target if we were already Spanish, but here it's in overlay)
 
-    // Select California
+    // Now as a Spanish speaker, select California as learning region
     fireEvent.click(screen.getByText('California'));
     expect(mockOnSelectTargetLocale).toHaveBeenCalledWith('us-ca');
 
     // Re-render with selected region to show the next screen
     render(
-      <LocaleProvider defaultLocale="es">
+      <LocaleProvider defaultLocale="es-CO-MDE">
         <Landing
           selectedTargetLocale="us-ca"
           onSelectTargetLocale={mockOnSelectTargetLocale}
@@ -132,7 +135,7 @@ describe('Landing', () => {
 
     fireEvent.click(screen.getByText('Flashcards'));
 
-    expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-ca', 'es');
+    expect(mockOnStartFlashcards).toHaveBeenCalledWith('us-ca', 'es-CO-MDE');
   });
 
   it('shows Audio Challenge button after region selection', () => {

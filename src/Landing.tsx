@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocale } from './context/useLocale';
 import type { SupportedLocale } from './data/locales';
 
@@ -36,6 +37,32 @@ const LEARNING_REGIONS: Record<string, LocaleOption[]> = {
   ],
 };
 
+// Native region options for the user
+const NATIVE_REGIONS: Record<string, LocaleOption[]> = {
+  en: [
+    {
+      value: 'en-US-CA',
+      label: 'California',
+      flag: '🌴',
+      description: 'Native English variant',
+    },
+  ],
+  es: [
+    {
+      value: 'es-CO-MDE',
+      label: 'Medellín',
+      flag: '🏔️',
+      description: 'Paisa dialect',
+    },
+    {
+      value: 'es-CO-CTG',
+      label: 'Cartagena',
+      flag: '🐚',
+      description: 'Caribbean dialect',
+    },
+  ],
+};
+
 const LANGUAGE_INFO: Record<string, { name: string; flag: string; nativeName: string }> = {
   en: { name: 'English', flag: '🇺🇸', nativeName: 'English' },
   es: { name: 'Spanish', flag: '🇪🇸', nativeName: 'Español' },
@@ -61,22 +88,22 @@ function Landing({
   onStartReview,
 }: LandingProps) {
   const { locale: userLocale, setLocale: setUserLocale, t } = useLocale();
+  const [showNativeSelect, setShowNativeSelect] = useState(false);
 
   // Get the language to LEARN (opposite of user's language)
-  const targetLanguage = userLocale === 'en' ? 'es' : 'en';
+  const userBaseLang = userLocale.split('-')[0];
+  const targetLanguage = userBaseLang === 'en' ? 'es' : 'en';
   const availableRegions = LEARNING_REGIONS[targetLanguage];
+
   const targetLangInfo = LANGUAGE_INFO[targetLanguage];
-  const userLangInfo = LANGUAGE_INFO[userLocale];
+  const userLangInfo = LANGUAGE_INFO[userBaseLang];
 
   const handleRegionSelect = (locale: string) => {
     onSelectTargetLocale(locale);
   };
 
   const handleReset = () => {
-    onSelectTargetLocale(''); // Empty string acts as null in App state logic if string, or null if Typed.
-    // App.tsx uses string state, but Landing types it as Locale (string|null).
-    // Let's enforce string path.
-    // App.tsx: `const [selectedTargetLocale, setSelectedTargetLocale] = useState<string>('');`
+    onSelectTargetLocale('');
   };
 
   const handleStartLearning = () => {
@@ -95,23 +122,62 @@ function Landing({
     return availableRegions.find((l) => l.value === selectedTargetLocale);
   };
 
-  const toggleUserLocale = () => {
-    setUserLocale(userLocale === 'en' ? 'es' : 'en');
-    onSelectTargetLocale(''); // Reset selection when changing language
+  const selectNativeRegion = (loc: string) => {
+    setUserLocale(loc as SupportedLocale);
+    setShowNativeSelect(false);
+    onSelectTargetLocale(''); // Reset selection when changing native region
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4 sm:p-6 lg:p-8">
+      {/* Native Language/Region Selection Overlay */}
+      {showNativeSelect && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+          <div className="w-full max-w-2xl text-center">
+            <h2 className="mb-12 text-3xl font-bold text-slate-50">{t('Which is your native dialect?')}</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {['en', 'es'].map(lang => (
+                <div key={lang} className="flex flex-col gap-3">
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{LANGUAGE_INFO[lang].name}</p>
+                  {NATIVE_REGIONS[lang].map(region => (
+                    <button
+                      key={region.value}
+                      onClick={() => selectNativeRegion(region.value)}
+                      className={`group relative overflow-hidden rounded-xl border p-6 text-left transition-all duration-300 ${userLocale === region.value ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-800 bg-slate-900 hover:border-slate-700'
+                        }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className="text-3xl">{region.flag}</span>
+                        <div>
+                          <div className="font-bold text-slate-50">{region.label}</div>
+                          <div className="text-xs text-slate-400">{region.description}</div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowNativeSelect(false)}
+              className="mt-12 text-sm font-medium text-slate-500 hover:text-slate-300 transition-colors"
+            >
+              {t('Cancel')}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="w-full max-w-7xl">
         {/* User Language Toggle - Minimal pill */}
         <div className="absolute top-6 right-6">
           <button
-            onClick={toggleUserLocale}
+            onClick={() => setShowNativeSelect(true)}
             className="flex items-center gap-3 rounded-full border border-slate-800 bg-slate-900/50 px-4 py-2 text-sm font-medium text-slate-300 backdrop-blur transition-colors hover:border-slate-700 hover:bg-slate-800"
-            aria-label="Toggle language"
+            aria-label="Change native language"
           >
             <span className="text-lg">{userLangInfo.flag}</span>
-            <span>{userLangInfo.nativeName}</span>
+            <span>{NATIVE_REGIONS[userBaseLang].find(r => r.value === userLocale)?.label || userLangInfo.nativeName}</span>
           </button>
         </div>
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { functions, httpsCallable } from '../lib/firebase';
 
-export type SupportedLocale = 'en' | 'es' | 'fr' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh';
+export type SupportedLocale = 'en' | 'es' | 'en-US-CA' | 'es-CO-CTG' | 'es-CO-MDE' | 'fr' | 'de' | 'it' | 'pt' | 'ja' | 'ko' | 'zh';
 
 export interface LocaleStrings {
   [locale: string]: string;
@@ -30,8 +30,13 @@ export const UI_TEXT: Record<string, LocaleStrings> = {
  * Get translated text for UI elements (synchronous)
  */
 export function getText(key: string, locale: string): string {
-  if (locale === 'en') return key;
-  return UI_TEXT[key]?.[locale] ?? key;
+  if (locale === 'en' || locale === 'en-US-CA') return key;
+
+  // For regional locales like 'es-CO-MDE', fallback to 'es' for UI text lookup
+  const baseLang = locale.split('-')[0];
+  const translated = UI_TEXT[key]?.[baseLang] || UI_TEXT[key]?.[locale] || key;
+
+  return translated;
 }
 
 /**

@@ -30,8 +30,12 @@ export interface Phrase {
 const LOCALE_MAP: Record<string, string> = {
   'co-cartagena': 'es-CO-CTG',
   'co-medellin': 'es-CO-MDE',
+  'us-ca': 'en-US-CA',
   'us-eastcoast': 'en-US-CA',
   'us-midwest': 'en-US-CA',
+  'en-US-CA': 'en-US-CA',
+  'es-CO-CTG': 'es-CO-CTG',
+  'es-CO-MDE': 'es-CO-MDE',
   'en': 'en-US-CA',
   'es': 'es-CO-MDE'
 };

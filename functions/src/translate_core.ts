@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FieldValue, Firestore } from 'firebase-admin/firestore';
+import * as fs from 'fs';
+import * as path from 'path';
 import { getVectorData, cosineSimilarity } from './utils';
 
 
@@ -8,7 +10,8 @@ export async function translateCore(
     text: string,
     userLocale: string,
     targetLocale: string,
-    testThreshold?: number
+    testThreshold?: number,
+    forceRefresh: boolean = false
 ) {
     if (!text || !userLocale || !targetLocale) {
         throw new Error('text, userLocale, and targetLocale are required.');
@@ -121,7 +124,7 @@ export async function translateCore(
     }
 
     const activeThreshold = typeof testThreshold === 'number' ? testThreshold : 0.7;
-    if (bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
+    if (!forceRefresh && bestMatch && (maxScore > activeThreshold || sourceTranslated)) {
         const matchData = bestMatch.data();
         return {
             id: bestMatch.id,
@@ -138,37 +141,47 @@ export async function translateCore(
 
     // 6. Generate
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const targetRegionContext = targetInfo ? `dialect for ${targetInfo.region}, ${targetInfo.country}` : `standard dialect`;
-    const sourceRegionContext = userInfo ? `dialect for ${userInfo.region}, ${userInfo.country}` : `standard dialect`;
 
-    const translationPrompt = `
-        Translate "${trimmedText}" (from ${sourceRegionContext}) into the ${targetRegionContext}.
-        1. Provide one main literal/common translation.
-        2. Provide up to 5 modern slang variations used by millennials/Gen Z if they exist.
-        3. Determine if the sentence is a question.
-           - Quality over quantity. Only include slang that is genuinely used (high confidence).
-           - Ensure variants are distinct and not just minor grammatical variations.
-           - CRITICAL: Match the sentiment/intent of the original text exactly. Do NOT add sentiment (like "how cool", "how bad", "wow") if the original text is neutral.
-           - If the input is a noun (e.g. "shoes"), slang should be slang synonyms for that noun (e.g. "kicks"), NOT reactions to it.
-           - If there are no good/distinct slang variants, return an empty list.
-        Output JSON: {
-            "text": "main literal translation",
-            "is_slang": false,
-            "is_question": boolean,
-            "slang_variants": ["slang1", "slang2"]
-        }
-    `;
-
-    const transResult = await model.generateContent(translationPrompt);
-    const transText = transResult.response.text();
-    const jsonMatch = transText.match(/\{[\s\S]*\}/);
-    const jsonStr = jsonMatch ? jsonMatch[0] : transText.replace(/```json\n?|\n?```/g, '').trim();
-
-    let parsed = { text: "Error translating", is_slang: false, is_question: false, slang_variants: [] as string[] };
-    try { parsed = JSON.parse(jsonStr); } catch {
-        console.error("JSON Parse Error");
-        parsed.text = transText; // Fallback
+    // Load and parameterize strict prompt
+    const promptPath = path.join(__dirname, '..', 'prompts', 'translation_strict.md');
+    let template = '';
+    try {
+        template = fs.readFileSync(promptPath, 'utf-8');
+    } catch (err) {
+        console.warn("Failed to load strict prompt template, falling back to basic prompt.", err);
+        template = `Translate "{{TEXT}}" into {{LOCATION}} dialect. Use {{SLANG_COUNT}} slang variations.`;
     }
+
+    const location = targetInfo?.region || "Cartagena";
+    const slangCount = 5;
+    const userGender = "male";
+    const recipientGender = "female";
+
+    // Determine language name for the prompt
+    const targetLangName = targetLocale.startsWith('en') ? 'English' : 'Spanish';
+
+    const fullPrompt = template
+        .replace(/{{LOCATION}}/g, location)
+        .replace(/{{TARGET_LANGUAGE}}/g, targetLangName)
+        .replace(/{{SLANG_COUNT}}/g, slangCount.toString())
+        .replace(/{{USER_GENDER}}/g, userGender)
+        .replace(/{{RECIPIENT_GENDER}}/g, recipientGender)
+        .replace(/{{TEXT}}/g, trimmedText);
+
+    const transResult = await model.generateContent(fullPrompt);
+    const transResponse = transResult.response.text().trim();
+
+    // Parse newline-separated output
+    const lines = transResponse.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    const mainTranslation = lines[0] || "Error translating";
+    const slangVariants = lines.slice(1);
+
+    const parsed = {
+        text: mainTranslation,
+        is_slang: false,
+        is_question: mainTranslation.includes('?'),
+        slang_variants: slangVariants
+    };
 
     // Embed result
     const resEmbed = await embeddingModel.embedContent(parsed.text);
@@ -199,7 +212,7 @@ export async function translateCore(
             country: targetInfo?.country || 'Unknown',
             region: targetInfo?.region || 'Unknown',
             embedding: resVector,
-            intent_embedding: resVector,
+            intent_embedding: userVector,
             createdAt: FieldValue.serverTimestamp()
         };
         newDocRef = await phrasesRef.add(newTargetDoc);
@@ -223,7 +236,7 @@ export async function translateCore(
                     const slDoc = phrasesRef.doc();
                     batch.set(slDoc, {
                         text: variant, is_slang: true, is_question: parsed.is_question, usage_count: 0,
-                        locale: targetLocale, embedding: svVec, intent_embedding: resVector,
+                        locale: targetLocale, embedding: svVec, intent_embedding: userVector,
                         createdAt: FieldValue.serverTimestamp()
                     });
                 }
