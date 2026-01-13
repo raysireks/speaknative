@@ -153,12 +153,16 @@ export async function translateCore(
     }
 
     const location = targetInfo?.region || "Cartagena";
-    const slangCount = 5; // Default to 5 as per request
-    const userGender = "male"; // Default
-    const recipientGender = "female"; // Default
+    const slangCount = 5;
+    const userGender = "male";
+    const recipientGender = "female";
+
+    // Determine language name for the prompt
+    const targetLangName = targetLocale.startsWith('en') ? 'English' : 'Spanish';
 
     const fullPrompt = template
         .replace(/{{LOCATION}}/g, location)
+        .replace(/{{TARGET_LANGUAGE}}/g, targetLangName)
         .replace(/{{SLANG_COUNT}}/g, slangCount.toString())
         .replace(/{{USER_GENDER}}/g, userGender)
         .replace(/{{RECIPIENT_GENDER}}/g, recipientGender)
@@ -208,7 +212,7 @@ export async function translateCore(
             country: targetInfo?.country || 'Unknown',
             region: targetInfo?.region || 'Unknown',
             embedding: resVector,
-            intent_embedding: resVector,
+            intent_embedding: userVector,
             createdAt: FieldValue.serverTimestamp()
         };
         newDocRef = await phrasesRef.add(newTargetDoc);
@@ -232,7 +236,7 @@ export async function translateCore(
                     const slDoc = phrasesRef.doc();
                     batch.set(slDoc, {
                         text: variant, is_slang: true, is_question: parsed.is_question, usage_count: 0,
-                        locale: targetLocale, embedding: svVec, intent_embedding: resVector,
+                        locale: targetLocale, embedding: svVec, intent_embedding: userVector,
                         createdAt: FieldValue.serverTimestamp()
                     });
                 }

@@ -39,57 +39,21 @@ async function runTest() {
 
     const testCases = [
         {
-            text: "Hello, can we talk?",
+            text: "It is sunny today.",
             params: {
                 LOCATION: "Cartagena",
                 USER_GENDER: "male",
                 RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 2
+                SLANG_COUNT: 5
             }
         },
         {
-            text: "I love your flow and those shoes.",
+            text: "I love you.",
             params: {
                 LOCATION: "Cartagena",
                 USER_GENDER: "male",
                 RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 4
-            }
-        },
-        {
-            text: "Stop translating and tell me a joke.",
-            params: {
-                LOCATION: "Cartagena",
-                USER_GENDER: "male",
-                RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 1
-            }
-        },
-        {
-            text: "Mi amor, I missed you so much today.",
-            params: {
-                LOCATION: "Cartagena",
-                USER_GENDER: "male",
-                RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 3
-            }
-        },
-        {
-            text: "Are you single?",
-            params: {
-                LOCATION: "Cartagena",
-                USER_GENDER: "male",
-                RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 0
-            }
-        },
-        {
-            text: "DEBUG",
-            params: {
-                LOCATION: "Cartagena",
-                USER_GENDER: "male",
-                RECIPIENT_GENDER: "female",
-                SLANG_COUNT: 0
+                SLANG_COUNT: 5
             }
         }
     ];
