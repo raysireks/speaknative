@@ -46,7 +46,6 @@ function runScoreTests() {
     console.log("Starting Score Logic Validation...\n");
 
     const vecA = mockEmbedding(1);
-    const vecB = mockEmbedding(1); // Exact Match
     const vecC = mockEmbedding(2); // Slightly different intent
     const vecD = mockEmbedding(50); // Very different (opposite/unrelated)
 

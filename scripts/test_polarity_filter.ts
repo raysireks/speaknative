@@ -51,7 +51,7 @@ function runTests() {
     console.log("Running Polarity Filter Tests...\n");
     let passed = 0;
     for (const test of tests) {
-        const result = filterByPolarity(test.source.logical_polarity as any, test.candidate.logical_polarity as any);
+        const result = filterByPolarity(test.source.logical_polarity as string | undefined, test.candidate.logical_polarity as string | undefined);
         const status = result === test.expected ? "✅ PASSED" : "❌ FAILED";
         if (result === test.expected) passed++;
         console.log(`${status} - ${test.name}`);

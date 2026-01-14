@@ -309,7 +309,7 @@ export async function translateCore(
     }
 
     // Update Source Metadata & Translated Map
-    const sourceUpdates: Record<string, any> = {
+    const sourceUpdates: Record<string, unknown> = {
         [`translated.${targetLocale}`]: true,
         semantic_anchor: parsed.semantic_anchor,
         logical_polarity: parsed.logical_polarity,

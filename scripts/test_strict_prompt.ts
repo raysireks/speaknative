@@ -71,7 +71,7 @@ async function runTest() {
 
     for (const test of testCases) {
         console.log(`--- Test Case: "${test.text}" ---`);
-        const fullPrompt = generatePrompt(template, { ...test.params, TEXT: test.text } as any);
+        const fullPrompt = generatePrompt(template, { ...test.params, TEXT: test.text } as PromptParams & { TEXT: string });
 
         try {
             const result = await model.generateContent(fullPrompt);
@@ -87,9 +87,10 @@ async function runTest() {
                 console.log("Anchor   :", parsed.semantic_anchor);
                 console.log("Polarity :", parsed.logical_polarity);
                 console.log("Slang    :", JSON.stringify(parsed.slang));
-            } catch (e) {
+            } catch (jsonErr) {
                 console.log("Raw Response (Failed to parse JSON):");
                 console.log(response);
+                console.error(jsonErr);
             }
             console.log("\n");
         } catch (error) {
