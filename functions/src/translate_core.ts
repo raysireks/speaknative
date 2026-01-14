@@ -107,7 +107,6 @@ export async function translateCore(
     // For search, we need a Semantic Anchor if we want a conceptual bridge.
     // OPTIMIZATION: Try a literal text search first. If zero result or low score, then anchor.
     // For now, let's just generate the anchor if we're doing a strict/rebuild pass.
-    let anchorEmbed = userEmbedding;
     // If it's a new phrase, we don't have an anchor yet. 
     // But translateCore is often called with source intent in mind.
 
