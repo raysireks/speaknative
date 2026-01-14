@@ -89,7 +89,13 @@ export async function translateCore(
             t.update(docRef, { usage_count: FieldValue.increment(1) });
         }
 
-        return { ref: docRef, translated: isTranslated, translatedMap: transMap };
+        return {
+            ref: docRef,
+            translated: isTranslated,
+            translatedMap: transMap,
+            logical_polarity: data?.logical_polarity,
+            semantic_anchor: data?.semantic_anchor
+        };
     });
 
     const sourceDocRef = sourceResult.ref;
@@ -98,14 +104,21 @@ export async function translateCore(
     // 4. Query Target (Parallel Vector Search)
     const baseQuery = phrasesRef.where('locale', '==', targetLocale);
 
+    // For search, we need a Semantic Anchor if we want a conceptual bridge.
+    // OPTIMIZATION: Try a literal text search first. If zero result or low score, then anchor.
+    // For now, let's just generate the anchor if we're doing a strict/rebuild pass.
+    let anchorEmbed = userEmbedding;
+    // If it's a new phrase, we don't have an anchor yet. 
+    // But translateCore is often called with source intent in mind.
+
     let litSnap, intSnap;
     try {
         [litSnap, intSnap] = await Promise.all([
-            baseQuery.findNearest('embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get(),
-            baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get()
+            baseQuery.findNearest('embedding', userEmbedding, { limit: 5, distanceMeasure: 'COSINE' }).get(),
+            baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 5, distanceMeasure: 'COSINE' }).get()
         ]);
     } catch {
-        console.warn("Vector search failed (maybe index missing or empty collection), proceeding to generate.");
+        console.warn("Vector search failed, proceeding.");
         litSnap = { docs: [] };
         intSnap = { docs: [] };
     }
@@ -116,6 +129,12 @@ export async function translateCore(
 
     for (const doc of allCandidates) {
         const d = doc.data();
+
+        // Polarity Filter
+        if (sourceResult.logical_polarity && d.logical_polarity && d.logical_polarity !== sourceResult.logical_polarity) {
+            continue;
+        }
+
         const docVec = getVectorData(d.embedding);
         const intVec = getVectorData(d.intent_embedding);
 
@@ -215,12 +234,12 @@ export async function translateCore(
     };
 
     // Embed result & Semantic Anchor
-    const [resEmbed, anchorEmbed] = await Promise.all([
+    const [resEmbed, anchorEmbedObj] = await Promise.all([
         embeddingModel.embedContent(parsed.text),
         embeddingModel.embedContent(parsed.semantic_anchor)
     ]);
     const resVector = FieldValue.vector(resEmbed.embedding.values);
-    const intentVector = FieldValue.vector(anchorEmbed.embedding.values);
+    const intentVector = FieldValue.vector(anchorEmbedObj.embedding.values);
 
     // Check for existing translation in target locale to prevent duplicates
     const existingTargetQuery = await phrasesRef
@@ -289,10 +308,14 @@ export async function translateCore(
         await batch.commit();
     }
 
-    // Update Source Translated Map
-    await sourceDocRef.update({
-        [`translated.${targetLocale}`]: true
-    });
+    // Update Source Metadata & Translated Map
+    const sourceUpdates: Record<string, any> = {
+        [`translated.${targetLocale}`]: true,
+        semantic_anchor: parsed.semantic_anchor,
+        logical_polarity: parsed.logical_polarity,
+        intent_embedding: intentVector
+    };
+    await sourceDocRef.update(sourceUpdates);
 
     const finalDocSnap = await newDocRef.get();
     const finalData = finalDocSnap.data();
@@ -304,6 +327,8 @@ export async function translateCore(
         is_question: finalData?.is_question || parsed.is_question,
         usage_count: finalData?.usage_count || 1,
         locale: targetLocale,
-        source: existingTargetQuery.empty ? 'generated' : 'existing_text_match'
+        source: existingTargetQuery.empty ? 'generated' : 'existing_text_match',
+        embedding: finalData?.embedding || resVector,
+        intent_embedding: finalData?.intent_embedding || intentVector
     };
 }

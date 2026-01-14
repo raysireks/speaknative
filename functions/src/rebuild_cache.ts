@@ -98,24 +98,21 @@ export async function rebuildGlobalCacheLogic(
                 if (targetLocale === sourceLocale) continue;
 
                 const isQuestion = data.is_question !== undefined ? data.is_question : (data.text.includes('?') || data.text.includes('¿'));
-                const intentVec = getVectorData(data.intent_embedding) || getVectorData(data.embedding);
+                const litVec = getVectorData(data.embedding);
+                const intentVec = getVectorData(data.intent_embedding) || litVec;
 
-                if (intentVec) {
-                    const embeddingArray = intentVec;
+                if (litVec && intentVec) {
+                    const searchVector = intentVec; // We still search near intent for better cross-language discovery
 
-                    if (Array.isArray(embeddingArray)) {
+                    if (Array.isArray(searchVector)) {
                         try {
-                            let baseQ = phrasesRef
+                            const baseQ = phrasesRef
                                 .where('locale', '==', targetLocale)
                                 .where('is_question', '==', isQuestion);
 
-                            if (data.logical_polarity) {
-                                baseQ = baseQ.where('logical_polarity', '==', data.logical_polarity);
-                            }
-
                             const [litSnap, intSnap] = await Promise.all([
-                                baseQ.findNearest('embedding', embeddingArray, { limit: 20, distanceMeasure: 'COSINE' }).get(),
-                                baseQ.findNearest('intent_embedding', embeddingArray, { limit: 20, distanceMeasure: 'COSINE' }).get()
+                                baseQ.findNearest('embedding', searchVector, { limit: 20, distanceMeasure: 'COSINE' }).get(),
+                                baseQ.findNearest('intent_embedding', searchVector, { limit: 20, distanceMeasure: 'COSINE' }).get()
                             ]);
 
                             const variantsDocs = [...litSnap.docs, ...intSnap.docs];
@@ -126,12 +123,18 @@ export async function rebuildGlobalCacheLogic(
 
                                 for (const vDoc of variantsDocs) {
                                     const d = vDoc.data();
+
+                                    // In-memory polarity filter to avoid requiring a composite index
+                                    if (data.logical_polarity && d.logical_polarity && d.logical_polarity !== data.logical_polarity) {
+                                        console.log(`    [Filter] Polarity mismatch: "${data.text}" (${data.logical_polarity}) vs "${d.text}" (${d.logical_polarity})`);
+                                        continue;
+                                    }
                                     const variantEmbedding = getVectorData(d.embedding);
                                     const variantIntent = getVectorData(d.intent_embedding);
 
                                     // Use centralized logic (Intent heavily weighted for slang, Literal for normal)
                                     const score = calculateUnifiedScore(
-                                        embeddingArray, // queryLiteral
+                                        litVec as number[], // queryLiteral
                                         intentVec as number[], // queryIntent
                                         variantEmbedding,
                                         variantIntent,

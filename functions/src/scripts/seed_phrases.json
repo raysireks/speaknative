@@ -1,0 +1,82 @@
+[
+    {
+        "text": "Hello",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "How are you?",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Thank you",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Please",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Goodbye",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Where is the bathroom?",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "I am lost",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Help me",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "I like you",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Are you sure?",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Wait for me",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Listen to me",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Maybe not",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "I don't know",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Exactly",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "Of course",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "It is very hot",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "It is very cold",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "I am hungry",
+        "locale": "en-US-CA"
+    },
+    {
+        "text": "I am thirsty",
+        "locale": "en-US-CA"
+    }
+]
