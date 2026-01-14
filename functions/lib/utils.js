@@ -32,10 +32,11 @@ function calculateUnifiedScore(queryLiteral, queryIntent, docLiteral, docIntent,
     const sLiteral = docLiteral ? cosineSimilarity(queryLiteral, docLiteral) : 0;
     const sIntent = docIntent ? cosineSimilarity(queryIntent, docIntent) : 0;
     // 1. Manual Math: Combine Literal and Intent based on slang context
-    // If slang, Intent is 80%. If normal, Literal is 80%.
+    // Translation Bridge: Intent is the source language embedding, so it is the most reliable cross-language link.
+    // Literal is only useful for intra-language (same locale) or very similar languages.
     const manualTruth = isSlang
         ? (sIntent * 0.8) + (sLiteral * 0.2)
-        : (sLiteral * 0.8) + (sIntent * 0.2);
+        : (sIntent * 0.7) + (sLiteral * 0.3);
     // 2. Index Math: Trust the index distance (1 - similarity)
     const fsScore = 1 - fsDistance;
     // 3. Final Blend: Trust our manual calc (70%) over the index's snapshot (30%)

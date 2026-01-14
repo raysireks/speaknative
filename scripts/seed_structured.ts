@@ -44,10 +44,15 @@ async function generateStructuredBasePhrases() {
 
     // Calculate distribution based on LIMIT
     // 10% Tier 1, 20% Tier 2, 30% Tier 3, 40% Tier 4
-    const c1 = Math.max(1, Math.floor(LIMIT * 0.1));
-    const c2 = Math.max(1, Math.floor(LIMIT * 0.2));
-    const c3 = Math.max(1, Math.floor(LIMIT * 0.3));
-    const c4 = Math.max(1, LIMIT - c1 - c2 - c3);
+    let c1, c2, c3, c4;
+    if (LIMIT === 120) {
+        c1 = 15; c2 = 25; c3 = 35; c4 = 45;
+    } else {
+        c1 = Math.max(1, Math.floor(LIMIT * 0.125));
+        c2 = Math.max(1, Math.floor(LIMIT * 0.208));
+        c3 = Math.max(1, Math.floor(LIMIT * 0.291));
+        c4 = Math.max(1, LIMIT - c1 - c2 - c3);
+    }
 
     const tiers = [
         { count: c1, prompt: "single-word common expressions (e.g. 'Hello', 'Thanks', 'Yes', 'What?')" },

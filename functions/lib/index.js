@@ -116,12 +116,13 @@ exports.translateAndStore = functions.https.onCall(async (request) => {
 /**
  * HTTP Trigger to manually force cache rebuild (for testing/admin).
  */
-exports.forceRebuildCache = functions.https.onRequest(async (req, res) => {
+const https_1 = require("firebase-functions/v2/https");
+exports.forceRebuildCache = (0, https_1.onRequest)({ timeoutSeconds: 540, memory: '512MiB' }, async (req, res) => {
     // Parse query
     const localesOpt = req.query.locales ? req.query.locales.split(',') : undefined;
     const limitOpt = req.query.limit ? parseInt(req.query.limit) : undefined;
     await (0, rebuild_cache_1.rebuildGlobalCacheLogic)(db, localesOpt, limitOpt);
-    res.send(`Cache Rebuild Initiated. Locales: ${(localesOpt === null || localesOpt === void 0 ? void 0 : localesOpt.join(',')) || 'ALL'}, Limit: ${limitOpt || 100}`);
+    res.send(`Cache Rebuild Complete. Locales: ${(localesOpt === null || localesOpt === void 0 ? void 0 : localesOpt.join(',')) || 'ALL'}, Limit: ${limitOpt || 100}`);
 });
 exports.rebuildGlobalCache = (0, scheduler_1.onSchedule)({ schedule: 'every sunday 00:00', timeoutSeconds: 540 }, async () => {
     await (0, rebuild_cache_1.rebuildGlobalCacheLogic)(db);

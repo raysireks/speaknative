@@ -158,20 +158,21 @@ export const translateAndStore = functions.https.onCall(async (request) => {
 /**
  * HTTP Trigger to manually force cache rebuild (for testing/admin).
  */
-export const forceRebuildCache = functions.https.onRequest(async (req, res) => {
+import { onRequest } from "firebase-functions/v2/https";
+export const forceRebuildCache = onRequest({ timeoutSeconds: 540, memory: '512MiB' }, async (req, res) => {
     // Parse query
     const localesOpt = req.query.locales ? (req.query.locales as string).split(',') : undefined;
     const limitOpt = req.query.limit ? parseInt(req.query.limit as string) : undefined;
 
     await rebuildGlobalCacheLogic(db, localesOpt, limitOpt);
-    res.send(`Cache Rebuild Initiated. Locales: ${localesOpt?.join(',') || 'ALL'}, Limit: ${limitOpt || 100}`);
+    res.send(`Cache Rebuild Complete. Locales: ${localesOpt?.join(',') || 'ALL'}, Limit: ${limitOpt || 100}`);
 });
 
 export const rebuildGlobalCache = onSchedule({ schedule: 'every sunday 00:00', timeoutSeconds: 540 }, async () => {
     await rebuildGlobalCacheLogic(db);
 });
 
-export const getUnifiedPhraseCache = functions.https.onCall(async (request) => {
+export const getUnifiedPhraseCache = functions.https.onCall(async (request: functions.https.CallableRequest) => {
     const SUPPORTED_LOCALES = ['en-US-CA', 'es-CO-CTG', 'es-CO-MDE'];
     // Inputs
     const { text, userLocale, limit = 100, threshold = 0.7 } = request.data;

@@ -37,7 +37,9 @@ const LOCALE_MAP: Record<string, string> = {
   'es-CO-CTG': 'es-CO-CTG',
   'es-CO-MDE': 'es-CO-MDE',
   'en': 'en-US-CA',
-  'es': 'es-CO-MDE'
+  'es': 'es-CO-MDE',
+  'en-US': 'en-US-CA',
+  'es-CO': 'es-CO-MDE'
 };
 
 export function getPhrasesForLocale(): Phrase[] {

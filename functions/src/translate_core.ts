@@ -57,6 +57,7 @@ export async function translateCore(
         let docRef;
         let isTranslated = false;
         let transMap: Record<string, boolean> = {};
+        let existingData: admin.firestore.DocumentData | null = null;
 
         if (userDocSnapshot.empty) {
             // Create New
@@ -78,11 +79,11 @@ export async function translateCore(
             // Update Existing
             const doc = userDocSnapshot.docs[0];
             docRef = doc.ref;
-            const data = doc.data();
+            existingData = doc.data();
 
-            if (typeof data.translated === 'boolean') isTranslated = data.translated;
-            else if (data.translated && typeof data.translated === 'object') {
-                transMap = data.translated;
+            if (typeof existingData.translated === 'boolean') isTranslated = existingData.translated;
+            else if (existingData.translated && typeof existingData.translated === 'object') {
+                transMap = existingData.translated;
                 isTranslated = transMap[targetLocale] === true;
             }
 
@@ -93,8 +94,8 @@ export async function translateCore(
             ref: docRef,
             translated: isTranslated,
             translatedMap: transMap,
-            logical_polarity: data?.logical_polarity,
-            semantic_anchor: data?.semantic_anchor
+            logical_polarity: existingData?.logical_polarity,
+            semantic_anchor: existingData?.semantic_anchor
         };
     });
 

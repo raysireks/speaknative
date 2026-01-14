@@ -2,7 +2,7 @@
 import { initializeApp, getApps } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import * as dotenv from 'dotenv';
-import { rebuildGlobalCacheLogic } from '../functions/src/rebuild_cache.ts';
+import { rebuildGlobalCacheLogic } from '../functions/src/rebuild_cache';
 
 dotenv.config();
 

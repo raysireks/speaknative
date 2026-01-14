@@ -82,20 +82,18 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                 if (targetLocale === sourceLocale)
                     continue;
                 const isQuestion = data.is_question !== undefined ? data.is_question : (data.text.includes('?') || data.text.includes('¿'));
-                const intentVec = (0, utils_1.getVectorData)(data.intent_embedding) || (0, utils_1.getVectorData)(data.embedding);
-                if (intentVec) {
-                    const embeddingArray = intentVec;
-                    if (Array.isArray(embeddingArray)) {
+                const litVec = (0, utils_1.getVectorData)(data.embedding);
+                const intentVec = (0, utils_1.getVectorData)(data.intent_embedding) || litVec;
+                if (litVec && intentVec) {
+                    const searchVector = intentVec; // We still search near intent for better cross-language discovery
+                    if (Array.isArray(searchVector)) {
                         try {
-                            let baseQ = phrasesRef
+                            const baseQ = phrasesRef
                                 .where('locale', '==', targetLocale)
                                 .where('is_question', '==', isQuestion);
-                            if (data.logical_polarity) {
-                                baseQ = baseQ.where('logical_polarity', '==', data.logical_polarity);
-                            }
                             const [litSnap, intSnap] = await Promise.all([
-                                baseQ.findNearest('embedding', embeddingArray, { limit: 20, distanceMeasure: 'COSINE' }).get(),
-                                baseQ.findNearest('intent_embedding', embeddingArray, { limit: 20, distanceMeasure: 'COSINE' }).get()
+                                baseQ.findNearest('embedding', searchVector, { limit: 20, distanceMeasure: 'COSINE' }).get(),
+                                baseQ.findNearest('intent_embedding', searchVector, { limit: 20, distanceMeasure: 'COSINE' }).get()
                             ]);
                             const variantsDocs = [...litSnap.docs, ...intSnap.docs];
                             if (variantsDocs.length > 0) {
@@ -103,10 +101,15 @@ async function rebuildGlobalCacheLogic(db, targetLocales, limit = 100) {
                                 const allFound = new Map();
                                 for (const vDoc of variantsDocs) {
                                     const d = vDoc.data();
+                                    // In-memory polarity filter to avoid requiring a composite index
+                                    if (data.logical_polarity && d.logical_polarity && d.logical_polarity !== data.logical_polarity) {
+                                        console.log(`    [Filter] Polarity mismatch: "${data.text}" (${data.logical_polarity}) vs "${d.text}" (${d.logical_polarity})`);
+                                        continue;
+                                    }
                                     const variantEmbedding = (0, utils_1.getVectorData)(d.embedding);
                                     const variantIntent = (0, utils_1.getVectorData)(d.intent_embedding);
                                     // Use centralized logic (Intent heavily weighted for slang, Literal for normal)
-                                    const score = (0, utils_1.calculateUnifiedScore)(embeddingArray, // queryLiteral
+                                    const score = (0, utils_1.calculateUnifiedScore)(litVec, // queryLiteral
                                     intentVec, // queryIntent
                                     variantEmbedding, variantIntent, (_b = vDoc.distance) !== null && _b !== void 0 ? _b : 0.5, // fsDistance
                                     d.is_slang || false);

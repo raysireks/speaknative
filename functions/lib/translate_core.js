@@ -42,6 +42,7 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         let docRef;
         let isTranslated = false;
         let transMap = {};
+        let existingData = null;
         if (userDocSnapshot.empty) {
             // Create New
             const newDocRef = phrasesRef.doc();
@@ -63,30 +64,41 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
             // Update Existing
             const doc = userDocSnapshot.docs[0];
             docRef = doc.ref;
-            const data = doc.data();
-            if (typeof data.translated === 'boolean')
-                isTranslated = data.translated;
-            else if (data.translated && typeof data.translated === 'object') {
-                transMap = data.translated;
+            existingData = doc.data();
+            if (typeof existingData.translated === 'boolean')
+                isTranslated = existingData.translated;
+            else if (existingData.translated && typeof existingData.translated === 'object') {
+                transMap = existingData.translated;
                 isTranslated = transMap[targetLocale] === true;
             }
             t.update(docRef, { usage_count: firestore_1.FieldValue.increment(1) });
         }
-        return { ref: docRef, translated: isTranslated, translatedMap: transMap };
+        return {
+            ref: docRef,
+            translated: isTranslated,
+            translatedMap: transMap,
+            logical_polarity: existingData === null || existingData === void 0 ? void 0 : existingData.logical_polarity,
+            semantic_anchor: existingData === null || existingData === void 0 ? void 0 : existingData.semantic_anchor
+        };
     });
     const sourceDocRef = sourceResult.ref;
     const sourceTranslated = sourceResult.translated;
     // 4. Query Target (Parallel Vector Search)
     const baseQuery = phrasesRef.where('locale', '==', targetLocale);
+    // For search, we need a Semantic Anchor if we want a conceptual bridge.
+    // OPTIMIZATION: Try a literal text search first. If zero result or low score, then anchor.
+    // For now, let's just generate the anchor if we're doing a strict/rebuild pass.
+    // If it's a new phrase, we don't have an anchor yet. 
+    // But translateCore is often called with source intent in mind.
     let litSnap, intSnap;
     try {
         [litSnap, intSnap] = await Promise.all([
-            baseQuery.findNearest('embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get(),
-            baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 1, distanceMeasure: 'COSINE' }).get()
+            baseQuery.findNearest('embedding', userEmbedding, { limit: 5, distanceMeasure: 'COSINE' }).get(),
+            baseQuery.findNearest('intent_embedding', userEmbedding, { limit: 5, distanceMeasure: 'COSINE' }).get()
         ]);
     }
     catch (_c) {
-        console.warn("Vector search failed (maybe index missing or empty collection), proceeding to generate.");
+        console.warn("Vector search failed, proceeding.");
         litSnap = { docs: [] };
         intSnap = { docs: [] };
     }
@@ -95,6 +107,10 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
     let maxScore = 0;
     for (const doc of allCandidates) {
         const d = doc.data();
+        // Polarity Filter
+        if (sourceResult.logical_polarity && d.logical_polarity && d.logical_polarity !== sourceResult.logical_polarity) {
+            continue;
+        }
         const docVec = (0, utils_1.getVectorData)(d.embedding);
         const intVec = (0, utils_1.getVectorData)(d.intent_embedding);
         const score = (0, utils_1.calculateUnifiedScore)(userEmbedding, // queryLiteral
@@ -173,18 +189,18 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
     const parsed = {
         text: parsedJson.primary,
         semantic_anchor: parsedJson.semantic_anchor || parsedJson.primary,
-        logical_polarity: parsedJson.logical_polarity || "NEUTRAL",
+        logical_polarity: (parsedJson.logical_polarity || "NEUTRAL").toUpperCase(),
         is_slang: false,
         is_question: parsedJson.primary.includes('?'),
         slang_variants: parsedJson.slang || []
     };
     // Embed result & Semantic Anchor
-    const [resEmbed, anchorEmbed] = await Promise.all([
+    const [resEmbed, anchorEmbedObj] = await Promise.all([
         embeddingModel.embedContent(parsed.text),
         embeddingModel.embedContent(parsed.semantic_anchor)
     ]);
     const resVector = firestore_1.FieldValue.vector(resEmbed.embedding.values);
-    const intentVector = firestore_1.FieldValue.vector(anchorEmbed.embedding.values);
+    const intentVector = firestore_1.FieldValue.vector(anchorEmbedObj.embedding.values);
     // Check for existing translation in target locale to prevent duplicates
     const existingTargetQuery = await phrasesRef
         .where('locale', '==', targetLocale)
@@ -251,10 +267,14 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         }
         await batch.commit();
     }
-    // Update Source Translated Map
-    await sourceDocRef.update({
-        [`translated.${targetLocale}`]: true
-    });
+    // Update Source Metadata & Translated Map
+    const sourceUpdates = {
+        [`translated.${targetLocale}`]: true,
+        semantic_anchor: parsed.semantic_anchor,
+        logical_polarity: parsed.logical_polarity,
+        intent_embedding: intentVector
+    };
+    await sourceDocRef.update(sourceUpdates);
     const finalDocSnap = await newDocRef.get();
     const finalData = finalDocSnap.data();
     return {
@@ -264,7 +284,9 @@ async function translateCore(db, text, userLocale, targetLocale, testThreshold, 
         is_question: (finalData === null || finalData === void 0 ? void 0 : finalData.is_question) || parsed.is_question,
         usage_count: (finalData === null || finalData === void 0 ? void 0 : finalData.usage_count) || 1,
         locale: targetLocale,
-        source: existingTargetQuery.empty ? 'generated' : 'existing_text_match'
+        source: existingTargetQuery.empty ? 'generated' : 'existing_text_match',
+        embedding: (finalData === null || finalData === void 0 ? void 0 : finalData.embedding) || resVector,
+        intent_embedding: (finalData === null || finalData === void 0 ? void 0 : finalData.intent_embedding) || intentVector
     };
 }
 exports.translateCore = translateCore;
